@@ -221,23 +221,26 @@ model.listenConversation = () => {
     let db = model.initFirebaseStore().collection('conversations').onSnapshot(function (snapshot) {
         snapshot.docChanges().forEach(async function (change) {
             if (change.type === "added") {
+                let friendImg = await model.getInfoUser(change.doc.data().users.find(
+                (user) => user !== firebase.auth().currentUser.email))
+                console.log(friendImg);
                 console.log("added");
                 console.log(change.doc.data().users);
                 if(change.doc.data().users.find((item)=>item == firebase.auth().currentUser.email)){
-                    view.addNotification(change.doc.data(), change.doc.id)
+                    view.addNotification(change.doc.data(), change.doc.id,friendImg.photoURL,friendImg.email)
                 }
                 model.updateModelConversation()
             }
             if (change.type === "modified") {
                 console.log("Modified city: ", change.doc.data());
+                let box = document.querySelector('.message-box')
+                let friendImg = await model.getInfoUser(change.doc.data().users.find(
+                    (user) => user !== firebase.auth().currentUser.email))
                 model.updateModelConversation()
                 let messageData = change.doc.data().messages
                 let modelConversation = model.allConversation.find((item)=>item.id == change.doc.id)
                 if (model.currentConversation !== null) {
                     if (change.doc.id == model.currentConversation.id && messageData.length !== modelConversation.messages.length) {
-                        let box = document.querySelector('.message-box')
-                        let friendImg = await model.getInfoUser(change.doc.data().users.find(
-                            (user) => user !== firebase.auth().currentUser.email))
                         let messages = change.doc.data().messages
                         let html = ''
                         let messageBox = document.querySelector('.message-box')
@@ -251,28 +254,7 @@ model.listenConversation = () => {
                 }
                 let font = document.getElementById(`${change.doc.id}`)
                 font.remove()
-                view.addNotification(change.doc.data(), change.doc.id)
-                // let notification = document.querySelector('.new-notification')
-                // let friendImg = await model.getInfoUser(change.doc.data().users.find(
-                //     (user)=>user!==firebase.auth().currentUser.email))
-                //     let htmlx = `
-                //     <div class="sub-notification" id="${change.doc.id}">
-                //         <div class="owner-notification">
-                //             <img src="${friendImg.photoURL}">
-                //         </div>
-                //         <div class="notification-box">
-                //             <div>${friendImg.email}</div>
-                //             <div class="content-notification">
-                //                 ${change.doc.data().messages[change.doc.data().messages.length-1].content}
-                //             </div>
-                //         </div>
-                //     </div>
-                // `
-                // notification.insertAdjacentHTML('afterbegin',htmlx)
-                // let notificationBox = document.querySelector(`#${change.doc.id} .content-notification`)
-                // notificationBox.innerHTML = `${change.doc.data().messages[change.doc.data().messages.length-1].content}`
-
-
+                view.addNotification(change.doc.data(), change.doc.id,friendImg.photoURL,friendImg.email)
             }
         })
     })
@@ -284,17 +266,21 @@ model.updateCheckConversation = (collection, document, data) => {
         check: data
     })
 }
-model.updateModelConversation = async()=>{
+model.updateModelConversation = async(imgLink)=>{
     let allconversation = await model.getDataFireStore('conversations', 'users', 'array-contains')
     model.allConversation = []
     let conversations = []
     if (allconversation.length !== 0) {
         for (let x of allconversation) {
+            let friendImg = await model.getInfoUser(x.data().users.find(
+                (user) => user !== firebase.auth().currentUser.email))
             conversations.push({
                 createdAt: controller.convertToTimeStamp(x.data().messages[x.data().messages.length - 1]['createdAt']),
                 messages: x.data().messages,
                 id: x.id,
-                users: x.data().users
+                users: x.data().users,
+                friendImg:friendImg.photoURL,
+                friendEmail: x.data().users.find((item)=>item !== firebase.auth().currentUser.email)
             })
         }
         model.allConversation = controller.sortByTimeStamp(conversations)

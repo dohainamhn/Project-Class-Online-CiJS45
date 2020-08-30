@@ -111,8 +111,14 @@ components.selectRoomScreen = `
             <i class="far fa-envelope"></i>
             <div class="icon-notification"></div>
         </div>
-        <div class="new-notification display-none">
-               
+        <div class="new-notification-box ">
+            <div class="search-notification">
+                <i class="fas fa-search"></i>
+                <input id="search-conversations" type="text" placeholder="Search Conversations">
+            </div>
+            <div class="new-notification">
+                
+            </div>
         </div>
         <div class="log-out-bnt">
             <i class="fas fa-sign-out-alt"></i>

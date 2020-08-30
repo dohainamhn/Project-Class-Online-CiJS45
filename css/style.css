@@ -116,6 +116,7 @@
 .text-email{
     overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .flex{
     display: flex;

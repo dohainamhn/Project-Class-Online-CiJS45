@@ -163,9 +163,9 @@ view.setActiveScreen = async(screen, id) => {
                        
                 }
                 let rightContainer = document.querySelector('.right-container')
-                let notificationBox = document.querySelector('.new-notification')
+                let notificationBox = document.querySelector('.new-notification-box')
                 rightContainer.addEventListener('click',()=>{
-                    notificationBox.classList = 'new-notification display-none'
+                    notificationBox.classList = 'new-notification-box display-none'
                 })
                 view.chat()
                 break;
@@ -293,9 +293,9 @@ view.setActiveScreen = async(screen, id) => {
                     }
                 });
                 let maincontainer1 = document.querySelector('.main-container1')
-                let notificationBox = document.querySelector('.new-notification')
+                let notificationBox = document.querySelector('.new-notification-box')
                 maincontainer1.addEventListener('click',()=>{
-                    notificationBox.classList = 'new-notification display-none'
+                    notificationBox.classList = 'new-notification-box display-none'
                 })
                 
                 view.onclickNotification()
@@ -436,6 +436,26 @@ view.chat = async() => {
             messageInput.value = ""
         }
     })
+    const searchBar = document.getElementById('search-conversations')
+    searchBar.addEventListener('keyup', (e) => {
+        const searchString = e.target.value.toLowerCase();
+        document.querySelector('.new-notification').innerText = ''
+        const filteredConversations = model.allConversation.filter((conversation) => {
+            return (
+                conversation.users.find((item)=>item !== firebase.auth().currentUser.email)
+                .toLowerCase().includes(searchString)
+            );
+        });
+        console.log(filteredConversations);
+        for (let index = 0; index < model.allConversation.length; index++) {
+            console.log(model.allConversation[index].friendImg)
+            if(filteredConversations[index] !== undefined){
+                view.addNotification(filteredConversations[index]
+                    ,filteredConversations[index].id
+                    ,filteredConversations[index].friendImg,filteredConversations[index].friendEmail)
+            }
+        }
+    });
 }
 view.errorMessage = (id, message) => {
     document.getElementById(id).innerText = message;
@@ -505,6 +525,35 @@ view.getUsers = (data) => {
 }
 
 view.getRooms = (data) => {
+    let listRooms = document.querySelector('.room-list')
+    if (data !== undefined) {
+        let html = `
+        <div class="room-bar" id="${data.id}">
+            <div class="room-id">ID: ${data.id}</div>
+            <div class="room-host">Host: ${data.host}</div>
+            <div class="room-title">Name: ${data.name}</div>
+            <div class="room-createAt">Created At: ${data.createdAt}</div>
+        </div>
+            `
+        listRooms.insertAdjacentHTML('beforeend', html)
+        let joinRoom = document.getElementById(data.id)
+        joinRoom.addEventListener('click', async() => {
+            var person = prompt("Please enter your name", "Harry Potter");
+            if (person === data.password) {
+                model.currentRoomID = data.id
+                view.setActiveScreen('classRoomScreen', data.id)
+            } else {
+                alert('Join failed')
+            }
+        })
+        joinRoom.addEventListener('mouseover', async() => {
+            let r = model.rooms.find((item) => item.fireBaseID == data.id)
+                // let r = await model.getRoomInfo(data.id)
+            view.getInFoRoom(data.id, r)
+        })
+    }
+}
+view.getConversation=(data)=>{
     let listRooms = document.querySelector('.room-list')
     if (data !== undefined) {
         let html = `
@@ -855,29 +904,30 @@ view.addListConversation = (data, isActive = false) => {
 }
 view.onclickNotification = () => {
     let notification = document.querySelector('.notification')
-    let notificationBox = document.querySelector('.new-notification')
+    let notificationBox = document.querySelector('.new-notification-box')
     notification.addEventListener('click', () => {
         notificationBox.classList.toggle('display-none')
     })
 }
 
 
-view.addNotification = async(data, id) => {
-    console.log(data);
+view.addNotification = async(data, id,friendImg,friendEmail) => {
+    // console.log(data);
     lassMessageOwner = data.messages[data.messages.length - 1].owner
     let notificationBox = document.querySelector('.new-notification')
     let icon = document.getElementById('icon-chat-container')
     let html = ''
-    let friendImg = await model.getInfoUser(data.users.find(
-        (user) => user !== firebase.auth().currentUser.email))
+    let sender =null;
+    lassMessageOwner == firebase.auth().currentUser.email?
+    sender = 'You:':sender = ''
     html = `
         <div class="sub-notification" id="${id}">
             <div class="owner-notification">
-                <img src="${friendImg.photoURL}">
+                <img src="${friendImg}">
             </div>
             <div class="notification-box">
-                <div class="text-email">${friendImg.email}</div>
-                <div class="content-notification text-email">
+                <div class="text-email">${friendEmail}</div>
+                <div class="content-notification text-email">${sender}
                     ${data.messages[data.messages.length - 1].content}
                 </div>
             </div>
@@ -921,7 +971,7 @@ view.addNotification = async(data, id) => {
             if (x.owner == firebase.auth().currentUser.email) {
                 html += view.addYourMessage(x.content)
             } else {
-                html += view.addFriendMessage(x.content, friendImg.photoURL)
+                html += view.addFriendMessage(x.content, friendImg)
             }
         }
 
@@ -930,12 +980,12 @@ view.addNotification = async(data, id) => {
 
         iconMessage.style.display = 'none'
         let chatbox = document.querySelector('.chat-one-to-one-container')
-        let notification = document.querySelector('.new-notification')
+        let notification = document.querySelector('.new-notification-box')
         chatbox.classList = 'chat-one-to-one-container'
-        notification.classList = 'new-notification display-none'
+        notification.classList = 'new-notification-box display-none'
         icon.classList = 'chat-button cursor display-none'
         let chatTitle = document.querySelector('.top-message-box')
-        chatTitle.innerHTML = `Chat With ${friendImg.email}`
+        chatTitle.innerHTML = `Chat With ${friendEmail}`
         messageBox.scrollTop = messageBox.scrollHeight
     })
 }
