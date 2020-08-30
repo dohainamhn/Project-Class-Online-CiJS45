@@ -68,7 +68,8 @@
     background: #fff;
     right: 20px;
     top:75px;
-    box-shadow: 0px 3px 10px -5px;
+    box-shadow: 0px 2px 12px -5px;
+    -webkit-user-select: none;
 }
 .search-notification {
     border-radius: 10px;
