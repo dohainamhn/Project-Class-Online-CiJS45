@@ -91,18 +91,28 @@ controller.onOfMic = async (id) => {
 	}
 
 }
-
+controller.checkChannelName = (data)=>{
+	let find = model.rooms.find((item)=>item.channel == data)
+	let error = document.getElementById('channelError')
+	if(find == undefined) return true
+	else {
+		error.innerHTML = 'Channel Name has already exist'
+		return false
+	}
+}
 controller.checkNull = function (data) {
+	let check = true
 	for (let x in data) {
 		console.log(x)
 		let error = document.getElementById(`${x}`)
 		if (data[x].value.trim() == "") {
 			error.innerHTML = `${data[x].name} is required`
+			check=false
 
 		} else if (x == 'confirmPassword') {
 			if (data[x].value !== data['password'].value) {
 				error.innerHTML = `${data[x].name} does not match with password`
-
+				check = false
 			} else {
 				error.innerHTML = ''
 			}
@@ -110,6 +120,7 @@ controller.checkNull = function (data) {
 			error.innerHTML = ''
 		}
 	}
+	return check
 }
 controller.resetPassword = (data) => {
 	if (

@@ -111,7 +111,7 @@ components.selectRoomScreen = `
             <i class="far fa-envelope"></i>
             <div class="icon-notification"></div>
         </div>
-        <div class="new-notification-box ">
+        <div class="new-notification-box display-none">
             <div class="search-notification">
                 <i class="fas fa-search"></i>
                 <input id="search-conversations" type="text" placeholder="Search Conversations">
@@ -219,15 +219,15 @@ components.createRoomScreen = `
         </div>
         <div class="input-wrapper">
             <input type="text" placeholder="Room name" name="roomName">
-            <div class="error" id="room-name-error"></div>
+            <div class="error" id="roomNameError"></div>
         </div>
         <div class="input-wrapper">
             <input type="text" placeholder="Title class" name="roomTtitle">
-            <div class="error" id="room-title-error"></div>
+            <div class="error" id="titleError"></div>
         </div>
         <div class="input-wrapper">
             <input type="text" placeholder="chanel name" name="chanelName">
-            <div class="error" id="room-chanel-error"></div>
+            <div class="error" id="channelError"></div>
         </div>
         <div class="input-wrapper">
         <input type="text" placeholder="password room" name="passwordRoom">
@@ -259,7 +259,7 @@ components.updateProfileScreen = `
             <i class="far fa-envelope"></i>
             <div class="icon-notification"></div>
         </div>
-        <div class="new-notification-box ">
+        <div class="new-notification-box display-none">
             <div class="search-notification">
                 <i class="fas fa-search"></i>
                 <input id="search-conversations" type="text" placeholder="Search Conversations">

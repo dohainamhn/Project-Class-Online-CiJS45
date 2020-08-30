@@ -180,29 +180,47 @@ view.setActiveScreen = async(screen, id) => {
                 const createRoomForm = document.getElementById('create-conversation-form')
                 createRoomForm.addEventListener('submit', (e) => {
                     e.preventDefault();
-                    fetch(url, requestInit).then(function(response) {
-                        return response.json();
-                    }).then(function(json) {
-                        teacher = true
-                        console.log(json)
-                        const data = {
-                                channel: createRoomForm.chanelName.value,
-                                host: model.currentUser.email,
-                                name: createRoomForm.roomName.value,
-                                roomToken: json.msg.roomToken,
-                                roomUUID: json.msg.room.uuid,
-                                title: createRoomForm.roomTtitle.value,
-                                createdAt: new Date().toLocaleString(),
-                                password: createRoomForm.passwordRoom.value,
-                                currentMembers: []
-                            }
-                            // model.loadRooms()
-                        console.log((data));
-                        model.createRoom(data)
-                        view.setActiveScreen('selectRoomScreen')
-                    }).catch(function(err) {
-                        console.error(err);
-                    });
+                    let data2 = {
+                        roomNameError:{
+                            value: createRoomForm.roomName.value,
+                            name: 'Room Name'
+                        },
+                        titleError:{
+                            value:createRoomForm.roomTtitle.value,
+                            name: 'Title'
+                        },
+                        channelError:{
+                            value:createRoomForm.chanelName.value,
+                            name:'Channel Name'
+                        }
+                    }
+                    let checkNull = controller.checkNull(data2)
+                    let checkChannelName = controller.checkChannelName(createRoomForm.chanelName.value)
+                    if(checkNull&&checkChannelName){
+                        fetch(url, requestInit).then(function(response) {
+                            return response.json();
+                        }).then(function(json) {
+                            teacher = true
+                            console.log(json)
+                            const data = {
+                                    channel: createRoomForm.chanelName.value,
+                                    host: model.currentUser.email,
+                                    name: createRoomForm.roomName.value,
+                                    roomToken: json.msg.roomToken,
+                                    roomUUID: json.msg.room.uuid,
+                                    title: createRoomForm.roomTtitle.value,
+                                    createdAt: new Date().toLocaleString(),
+                                    password: createRoomForm.passwordRoom.value,
+                                    currentMembers: []
+                                }
+                                // model.loadRooms()
+                            console.log((data));
+                            model.createRoom(data)
+                            view.setActiveScreen('selectRoomScreen')
+                        }).catch(function(err) {
+                            console.error(err);
+                        });
+                    }
                 })
                 break;
             }
