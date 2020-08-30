@@ -123,3 +123,6 @@
 .info:hover{
     background: #dddddd;
 }
+.room-bar{
+    cursor: pointer;
+}

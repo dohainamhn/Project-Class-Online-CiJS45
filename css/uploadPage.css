@@ -122,8 +122,12 @@
 .profile-box {
     background: #fff;
     flex-grow: 1;
+    height: 55%;
+    overflow:auto;
 }
-
+.profile-box::-webkit-scrollbar{
+    display: none;
+}
 .profile-box .profile-row {
     padding-bottom: 10px;
     display: flex;
