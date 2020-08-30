@@ -1,0 +1,274 @@
+/* --------------------------------------------------------------container---------------- */
+
+.container1 {
+    background: #EEF1F3;
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.container1 .main-container1 {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px);
+}
+
+.main-container1 .upload-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    background-image: url('https://img.thuthuattinhoc.vn/uploads/2019/01/13/anh-dep-vung-nui-viet-nam_105620901.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit: cover;
+    background-position: bottom;
+    position: relative;
+    z-index: 1;
+}
+
+.display-none {
+    display: none;
+}
+
+.main-container1 .upload-img label {
+    position: absolute;
+    display: flex;
+    background: gray;
+    top: 73px;
+    right: -2px;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+}
+
+.upload-img label i {
+    margin: auto;
+}
+
+.upload-img div {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+.upload-img img {
+    background: #fff;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.main-container1 .menu-div {
+    display: flex;
+    flex-direction: column;
+    height: 15%;
+    background: #bdf0ff;
+}
+
+.main-container1 .menu-div h1 {
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    align-self: center;
+    height: 40%;
+    text-align: center;
+}
+
+.main-container1 .menu-div .menu-bnt {
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+}
+
+.menu-bnt div {
+    display: flex;
+    width: 35%;
+    justify-content: space-around;
+}
+
+.menu-bnt div button {
+    padding-bottom: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    margin-bottom: 5px;
+    outline: none;
+    border: none;
+    background: #bdf0ff;
+    background-image: linear-gradient(dodgerblue, dodgerblue);
+    background-size: 0 4px, auto;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    transition: all .2s ease-out;
+    cursor: pointer;
+}
+
+.active-bnt {
+    background-size: 100% 4px, auto !important;
+}
+
+.menu-bnt div button:hover {
+    background-size: 100% 4px, auto;
+}
+
+
+/* --------------------------------------profile------------------------------ */
+
+.profile-box {
+    background: #fff;
+    flex-grow: 1;
+}
+
+.profile-box .profile-row {
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.input-bar {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+}
+
+.label {
+    border: none;
+}
+
+.input-bar input,
+.input-bar div {
+    padding: 0 5px;
+    outline: none;
+    height: 35px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.check-is-teacher .inner-check input {
+    border-radius: 4px;
+    font-size: 20px;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 1);
+}
+
+.check-is-teacher {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.work-at {
+    width: 25%;
+}
+
+.profile-column {
+    display: flex;
+    flex-direction: column;
+    width: 23%;
+}
+
+.profile-column div {
+    width: 100%;
+}
+
+.profile-column .mrt-2 {
+    margin-top: 20px
+}
+
+.about-me {
+    width: 25%;
+}
+
+.about-me textarea {
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 1);
+    outline: none;
+    resize: none;
+    height: 140px;
+}
+
+.email-profile,
+.password-profile {
+    line-height: 35px;
+    background: #C4C4C4;
+}
+
+.info-profile div {
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 20px;
+}
+
+.about-me-profile {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.about-me-profile p {
+    padding: 10px;
+    width: 60%;
+    height: 200px;
+    border: 1px solid rgba(0, 0, 0, 0.45);
+}
+
+.update-profile-bnt {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#reset-password-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result-search {
+    padding: 10px;
+    width: 100%;
+    position: absolute;
+    list-style: none;
+    border-radius: 3px;
+}
+
+.result-search li {
+    height: 40px;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    margin-top: 2px;
+    border-radius: 5px;
+    background-color: rgb(160, 160, 160);
+}
+
+.result-search li a i {
+    margin-right: 10px;
+}
+
+.result-search li a {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.result-search li:hover {
+    background-color: #f3f2f2;
+}
+
+.result-search a {
+    text-decoration: none;
+    color: black;
+}

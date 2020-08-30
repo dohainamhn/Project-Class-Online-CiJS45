@@ -1,0 +1,14 @@
+#go-to-logup {
+    color: #1348D1;
+    cursor: pointer;
+}
+
+#login-form>.input-wrap input {
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    height: 50px;
+    outline: none;
+    border: none;
+    background: linear-gradient(#000, #000) center bottom 5px/100% 1px no-repeat;
+}

@@ -1,0 +1,11 @@
+.create-room-container{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    padding: 200px;
+}
+.create-room-container .main{
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}

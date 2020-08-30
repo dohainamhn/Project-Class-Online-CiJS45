@@ -1,0 +1,147 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.class-room{
+    background: #EEF1F3;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.video-bar{
+    background: #ffff;
+    padding: 0 20px 0 20px;
+    display: flex;
+    width: 100%;
+    height: 170px;
+    align-items: center;
+    box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.25);;
+}
+.student-box{
+    margin: 0 20px;
+}
+.teacher-box ,.student-box{
+   position: relative;
+   border-radius: 5px;
+   background: #b5edee;
+   background-size: 150px 120px;
+   width: 150px;
+   height: 120px;
+}
+.mic{ 
+   bottom: 0px;
+   left: 3px;
+   position: absolute;
+}
+.mic i{
+    color: #ff1734;
+}
+.video{
+    width: 100%;
+    height: 100%;
+}
+.video-student-box{
+    display: flex;
+}
+.teacher-box .video .icon{
+   width: 150px;
+   height: 120px;
+   background: url('../img/teacher.png');
+   background-size: 150px 120px;
+}
+.info{
+    text-align: center ;
+}
+.student-box .icon{
+    width: 150px;
+    height: 120px;
+}
+.displayNone{
+    display: none;
+}
+.sign-out{
+    border: 1px solid #36ffb4;
+    color: #0068b7;
+    display: flex;
+    background: #dcf9fd;
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    width: 50px;
+    height: 50px;
+}
+.sign-out i{
+    margin: auto;
+    font-size: 20px;
+}
+
+
+.bottom-app{
+    margin-top:30px;
+    width: 100%;
+    height: 80%;
+    display: flex;
+    position: relative;
+}
+.tool-board{
+    width: 3%;
+    background: #F3F3F3;
+}
+#whiteboard{
+    width:77%;
+}
+.chat-box{
+    padding: 10px;
+    width: 20%;
+    background: #F3FEFF;
+}
+.message-container{
+    width: 100%;
+    height: 94%;
+}
+#input-chat{
+    border-radius: 5px;
+    background: #e6fffc;
+    border: none;
+    width: 100%;
+    outline: none;
+    height: 30px;
+    padding: 10px;
+}
+#whiteboard{
+    background:#ffffff;
+}
+.tool{
+    margin-bottom: 5px;
+    width: 100%;
+    display: flex;
+    height: 30px;
+}
+.tool i{
+    color: #3e3e3e;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+}
+.tool label{
+    margin:auto;
+}
+#uploadTool >input{
+    display: none;
+}
+#colorPicker>input{
+    display: none;
+}
+.load-icon{
+    position: absolute;
+    top: 200px;
+    left: 500px;
+    display: none;
+    z-index: 1000;
+}
+.load-icon i{
+    font-size: 50px;
+    color: #266d7a
+}
