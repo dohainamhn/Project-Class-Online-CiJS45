@@ -11,12 +11,14 @@ let init = () => {
     };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged( async (user) => {
         if (user) {
             if (user.emailVerified) {
+                let currentUser = await model.getInfoUser(user.email)
                 model.currentUser = {
                     displayName: user.displayName,
                     email: user.email,
+                    isTeacher:currentUser.isTeacher
                 };
                 view.setActiveScreen("selectRoomScreen");
                 // model.loadRooms()

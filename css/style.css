@@ -84,8 +84,14 @@
 }
 
 .btn-light {
-    background: none;
-    color: #333;
+    cursor: pointer;
+    border-radius: 20%;
+    height: 40px;
+    width: 40px;
+    font-size: 20px;
+    border: none;
+    outline: none;
+    background: #ffff;
 }
 .active{
     background: #8f8fe9;
@@ -127,3 +133,6 @@
 .room-bar{
     cursor: pointer;
 }
+/* .width-200{
+    width:350px
+} */

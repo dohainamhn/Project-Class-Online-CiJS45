@@ -105,9 +105,12 @@ view.setActiveScreen = async(screen, id) => {
                 view.onclickNotification()
                 model.rooms = []
                 document.querySelector('.new-room-bnt').addEventListener('click', () => {
-                    view.setActiveScreen('createRoomScreen')
-                    listenRoomChange()
-                    listenChat()
+                    if(model.currentUser.isTeacher){
+                        view.setActiveScreen('createRoomScreen')
+                        listenRoomChange()
+                        listenChat()
+                    }
+                    else alert(`Only teacher can create room`)
                 })
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
@@ -279,8 +282,7 @@ view.setActiveScreen = async(screen, id) => {
                     firebase.auth().signOut()
                     listenChat()
                 })
-                document.querySelector('.upload-img img').src = firebase.auth().currentUser.photoURL
-                console.log('hello ae');
+                document.querySelector('.upload-img img').src = firebase.auth().currentUser.photoURL;
                 view.setNavbarInfoUser()
                 view.setUpProfilePage()
                 view.listenOnUpdateImage()
@@ -815,8 +817,12 @@ view.setEventListenEditProfile = () => {
             let userName = document.querySelector('.nav-bar-info-User .user-name')
             userName.innerHTML = `${name}`
         }
+        if(data.isTeacher !== undefined){
+            model.currentUser.isTeacher = data.isTeacher
+        }
         model.updateDataToFireStore('users', data)
         alert('update profile successfully')
+        updateForm.reset();
     })
 }
 view.listenOnUpdateImage = () => {

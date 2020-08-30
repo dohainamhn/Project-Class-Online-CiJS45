@@ -39,10 +39,8 @@ model.login = (data) => {
     firebase.auth().signInWithEmailAndPassword(data.email.value, data.password.value)
         .then((res) => {
             if (!res.user.emailVerified) {
-
                 alert('please verify your email')
             }
-
         })
         .catch(function (error) {
             console.log(error);
@@ -197,7 +195,6 @@ model.getTest = async (user) => {
 }
 
 model.updateDataToFireStore = async (collection, data) => {
-    ;
     let db = firebase.firestore()
     let doc = await db.collection(`${collection}`).where("email", "==", firebase.auth().currentUser.email).get()
     db.collection(`${collection}`).doc(`${doc.docs[0].id}`).update(data)

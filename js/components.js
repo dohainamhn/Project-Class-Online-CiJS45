@@ -212,11 +212,11 @@ components.classRoomScreen = `
 
 components.createRoomScreen = `
 <div class="create-room-container">
-<div class="main" style="padding: 50px 20%;">
+    <div class="creatRoomTitle">
+        Create a new room
+    </div>
+<div class="main">
     <form id="create-conversation-form">
-        <div>
-            Create a new room
-        </div>
         <div class="input-wrapper">
             <input type="text" placeholder="Room name" name="roomName">
             <div class="error" id="roomNameError"></div>
@@ -226,16 +226,16 @@ components.createRoomScreen = `
             <div class="error" id="titleError"></div>
         </div>
         <div class="input-wrapper">
-            <input type="text" placeholder="chanel name" name="chanelName">
+            <input type="text" placeholder="Chanel name" name="chanelName">
             <div class="error" id="channelError"></div>
         </div>
         <div class="input-wrapper">
-        <input type="text" placeholder="password room" name="passwordRoom">
+        <input type="text" placeholder="Password room" name="passwordRoom">
         <div class="error" id="room-password-error"></div>
     </div>
-        <button class='btn' type="submit">Save</button>
-        <button class='btn btn-light' type="button" id="back-to-chat">Cancel</button>
+        <button class='btn-create-room' type="submit">Create</button>
     </form>
+    <button class='btn-light' type="button" id="back-to-chat">X</button>
 </div>
 </div>`
 components.updateProfileScreen = `
