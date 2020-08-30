@@ -18,7 +18,7 @@
 
 .symbol {
     font-family: 'Open Sans', sans-serif;
-    font-family: 'Rancho', cursive;
+    /* font-family: 'Rancho', cursive; */
     margin-left: 30px;
     line-height: 70px;
     color: rgba(58, 164, 235, 0.53);
@@ -116,4 +116,10 @@
 .text-email{
     overflow: hidden;
     text-overflow: ellipsis;
+}
+.flex{
+    display: flex;
+}
+.info:hover{
+    background: #dddddd;
 }

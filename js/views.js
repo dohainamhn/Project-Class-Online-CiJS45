@@ -160,18 +160,13 @@ view.setActiveScreen = async(screen, id) => {
                     }
                     console.log(conversations);
                     model.allConversation = controller.sortByTimeStamp(conversations)
-                        // model.currentConversation = model.allConversation[0] 
+                       
                 }
-                // let messageBox = document.querySelector('.message-box')
-                // let dataMessage = await model.getFirebaseDocument('conversations',model.currentConversation.id)
-                // let MessageHtml = ''
-                // let friendImg = await model.getInfoUser(dataMessage.users.find((user)=>user!==firebase.auth().currentUser.email))
-                // for(let x of dataMessage.messages){
-                //     if(x.owner == firebase.auth().currentUser.email) MessageHtml += view.addYourMessage(x.content)
-                //     else MessageHtml += view.addFriendMessage(x.content,friendImg.photoURL)
-                // }
-                // messageBox.innerHTML = MessageHtml
-                // view.loadNotification()
+                let rightContainer = document.querySelector('.right-container')
+                let notificationBox = document.querySelector('.new-notification')
+                rightContainer.addEventListener('click',()=>{
+                    notificationBox.classList = 'new-notification display-none'
+                })
                 view.chat()
                 break;
             }
@@ -297,9 +292,13 @@ view.setActiveScreen = async(screen, id) => {
                         document.querySelector('.result-search').innerText = ''
                     }
                 });
-
+                let maincontainer1 = document.querySelector('.main-container1')
+                let notificationBox = document.querySelector('.new-notification')
+                maincontainer1.addEventListener('click',()=>{
+                    notificationBox.classList = 'new-notification display-none'
+                })
+                
                 view.onclickNotification()
-                // view.loadNotification()
                 view.chat()
 
                 break;

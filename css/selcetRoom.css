@@ -16,7 +16,6 @@
 
 .nav-bar .symbol {
     font-family: 'Open Sans', sans-serif;
-    font-family: 'Rancho', cursive;
     margin-left: 30px;
     line-height: 70px;
     color: rgba(58, 164, 235, 0.53);
@@ -57,6 +56,7 @@
 }
 .notification{
     position: relative;
+    cursor: pointer;
 }
 .new-notification{
     padding: 15px;
@@ -92,6 +92,7 @@
 }
 .nav-bar .nav-bar-info-User .log-out-bnt {
     margin-left: 50px;
+    cursor: pointer;
 }
 
 .nav-bar-info-User i {
@@ -101,8 +102,16 @@
 
 .nav-bar-info-User .user-name {
     font-family: 'Open Sans', sans-serif;
+    line-height: 50px;
+    margin-left: 10px;
 }
-
+.info-user-box{
+    border-radius: 24px 10px 10px 24px;
+    padding-right:5px;
+}
+.info-user-box:hover{
+    background: #dddddd;
+}
 .search-bar div {
     height: 34px;
     width: 100%;
@@ -174,7 +183,7 @@
     margin-top: 10px;
     width: 100%;
     height: 10%;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 24px;
     font-weight: 600;
 }
@@ -189,7 +198,8 @@
     margin-top: 15px;
     width: 85%;
     display: flex;
-    padding: 0 10px;
+    margin: 0 10px;
+    border-radius: 24px 10px 10px 24px;
 }
 
 .info div {

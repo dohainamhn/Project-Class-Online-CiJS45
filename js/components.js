@@ -103,8 +103,10 @@ components.selectRoomScreen = `
         </div>
     </div>
     <div class="nav-bar-info-User ">
-        <div><img src="" alt=""></div>
-        <div class="user-name cursor"></div>
+        <div class="info-user-box flex">
+            <img src="" alt="">
+            <div class="user-name cursor"></div>
+        </div>
         <div class="notification">
             <i class="far fa-envelope"></i>
             <div class="icon-notification"></div>
@@ -243,8 +245,10 @@ components.updateProfileScreen = `
         </div>
     </div>
     <div class="nav-bar-info-User ">
-        <div><img src="" alt=""></div>
-        <div class="user-name cursor"></div>
+        <div class="info-user-box flex">
+            <img src="" alt="">
+            <div class="user-name cursor"></div>
+        </div>
         <div class="notification">
             <i class="far fa-envelope"></i>
             <div class="icon-notification"></div>

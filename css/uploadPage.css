@@ -74,7 +74,7 @@
 
 .main-container1 .menu-div h1 {
     font-weight: 400;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     align-self: center;
     height: 40%;
     text-align: center;
@@ -94,7 +94,7 @@
 
 .menu-bnt div button {
     padding-bottom: 10px;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 15px;
     margin-bottom: 5px;
     outline: none;
@@ -204,7 +204,7 @@
 }
 
 .info-profile div {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     margin-bottom: 20px;
 }
 
