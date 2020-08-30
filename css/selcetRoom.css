@@ -229,17 +229,20 @@
 /* -------------------------------------------------right container----------------------- */
 
 .left-container label {
-    font-size: 18px;
-    margin-top: 20px;
+    font-size: 20px;
+    margin: 20px 0;
 }
 
 .right-container {
+    overflow: auto;
     align-items: center;
     flex-direction: column;
     display: flex;
     flex-grow: 1;
 }
-
+.right-container::-webkit-scrollbar{
+    display: none;
+}
 .right-container .room-list {
     margin-top: 20px;
     width: 90%;
@@ -273,7 +276,7 @@
     cursor: pointer;
     margin-top: 20px;
     width: 135px;
-    height: 40px;
+    min-height: 40px;
     outline: none;
     background: #8DD4F2;
     border: 1px solid #00E1EF;
