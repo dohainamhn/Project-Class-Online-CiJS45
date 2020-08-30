@@ -12,7 +12,7 @@ components.registerScreen = `
     </div>
     <div class="main-log-container">
         <div class="img-left">
-            <img src="../img/Healthy-Positive-Classroom.jpg" alt="">
+            <img src="../img/classroom.jpg" alt="">
         </div>
         <div class="form-log-up">
             <form id="register-form" action="">
@@ -71,7 +71,7 @@ components.loginScreen = `
     </div>
     <div class="main-log-container">
         <div class="img-left">
-            <img src="../img/Healthy-Positive-Classroom.jpg" alt="">
+            <img src="../img/classroom.jpg" alt="">
         </div>
         <div class="form-log-up">
             <form id="login-form" action="">
