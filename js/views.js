@@ -447,6 +447,7 @@ view.chat = async() => {
             }
             let chatTitle = document.querySelector('.top-message-box')
             chatTitle.innerHTML = `Chat With ${friend.email}`
+            inputChatEmail.value = ''
         }
     })
     let messageInput = document.querySelector('.input-message input')
@@ -957,7 +958,10 @@ view.addNotification = async(data, id,friendImg,friendEmail) => {
             </div>
         </div>
     `
-    notificationBox.insertAdjacentHTML('afterbegin', html)
+    if(data.check == true){
+        notificationBox.insertAdjacentHTML('beforeend', html)
+    }
+    else notificationBox.insertAdjacentHTML('afterbegin', html)
     if (lassMessageOwner !== firebase.auth().currentUser.email) {
         if (model.currentConversation !== null) {
             if (id !== model.currentConversation.id && data.check == false) {
