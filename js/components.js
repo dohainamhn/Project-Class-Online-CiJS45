@@ -202,8 +202,9 @@ components.classRoomScreen = `
     <div class="load-icon" id="load-icon"><i class="fas fa-spinner fa-spin"></i></div>
     <div class="" id="whiteboard">
     </div>
+    <button id="offScreenShare">X</button>
     <div id="screenShare">
-        <button id="offScreenShare">X</button>
+        
     </div>
     <div class="chat-box ">
       <div class="message-container" id="message-container">

@@ -22,9 +22,9 @@ agora.RtmIsLogin = false
 agora.client.init(agora.appID, function () {
     console.log("AgoraRTC client initialized")
 }
-    , function (err) {
-        console.log("[ERROR] : AgoraRTC client init failed", err)
-    })
+, function (err) {
+    console.log("[ERROR] : AgoraRTC client init failed", err)
+})
 
 agora.remoteStreams = [];
 agora.localStreams = {
@@ -91,25 +91,25 @@ agora.createCameraStream = (uid, isTeacher) => {
         },
         (err) => {
             console.log("[ERROR] : getUserMedia failed", err);
-            agora.client.unpublish(agora.localStreams.camera.stream)
-                    agora.client.off("stream-published")
-                    agora.client.off("stream-added")
-                    agora.client.off('stream-subscribed')
-                    agora.client.leave()
-                    agora.RtmLeaveChannel()
-                    agora.remoteStreams = []
-                    room.disconnect().then(function() {
-                        console.log("Leave room success");
-                        // model.loadRooms()
-                    });
-                    model.removeUserInRoom(agora.localStreams.camera.id, model.currentRoomID)
-                    if(agora.localStreams.screen.id !== ""){
-                        agora.localStreams.screen.stream.close()
-                        agora.screenClient.unpublish(agora.localStreams.screen.stream)
-                        console.log('screen close');
-                    }
-                    agora.screenClient.leave()
-                    view.setActiveScreen('selectRoomScreen')
+            // agora.client.unpublish(agora.localStreams.camera.stream)
+            //         agora.client.off("stream-published")
+            //         agora.client.off("stream-added")
+            //         agora.client.off('stream-subscribed')
+            //         agora.client.leave()
+            //         agora.RtmLeaveChannel()
+            //         agora.remoteStreams = []
+            //         room.disconnect().then(function() {
+            //             console.log("Leave room success");
+            //             // model.loadRooms()
+            //         });
+            //         model.removeUserInRoom(agora.localStreams.camera.id, model.currentRoomID)
+            //         if(agora.localStreams.screen.id !== ""){
+            //             agora.localStreams.screen.stream.close()
+            //             agora.screenClient.unpublish(agora.localStreams.screen.stream)
+            //             console.log('screen close');
+            //         }
+            //         agora.screenClient.leave()
+            //         view.setActiveScreen('selectRoomScreen')
         }
     );
 }
@@ -156,7 +156,8 @@ agora.addRemoteStream = async (remoteStream, isTeacher, mic) => {
                 <div class="info">${data.name}</div>
             </div>
             `
-            let videobox = document.getElementById('video-student-box').insertAdjacentHTML('beforeend', video)
+            let videobox = document.getElementById('video-student-box')
+            videobox.insertAdjacentHTML('beforeend', video)
             remoteStream.play(`${streamId}`);
         }
         else {
@@ -173,12 +174,12 @@ agora.onListenAddStream = () => {
         let stream = evt.stream;
         let streamId = stream.getId();
         console.log("new stream added:" + streamId);
-         if (streamId !== agora.localStreams.screen.id) {
+        if (streamId !== agora.localStreams.screen.id) {
             console.log('subscribe to remote stream:' + streamId);
             agora.client.subscribe(stream, (err) => {
                 err ? console.log("[ERROR] : subscribe stream failed", err) : console.log("subscribe stream successfull", err)
             });
-        }else if (agora.localStreams.camera.id !== streamId) {
+        } else if (agora.localStreams.camera.id !== streamId) {
             console.log('subscribe Screen stream:' + streamId);
             // Subscribe to the stream.
             agora.screenClient.subscribe(stream);
@@ -195,24 +196,24 @@ agora.onListenSubcribleRemoteStream = () => {
         })
         console.log("Subscribe remote stream successfully: " + remoteId);
         let roomInfo = await model.getRoomInfo(model.currentRoomID)
-        if(roomInfo.screenShareId == remoteId){
+        if (roomInfo.screenShareId == remoteId) {
             agora.addRemoteScreenShare(remoteStream)
         }
-        else{
+        else {
             roomInfo.host == firebase.auth().currentUser.email ?
-            agora.addRemoteStream(remoteStream, true, false) : agora.addRemoteStream(remoteStream, false, false)
+                agora.addRemoteStream(remoteStream, true, false) : agora.addRemoteStream(remoteStream, false, false)
         }
     });
 }
-agora.onListenLeave =() => {
+agora.onListenLeave = () => {
     agora.client.on("peer-leave", async (evt) => {
         let uid = evt.uid;
         let reason = evt.reason;
         let roomInfo = await model.getRoomInfo(model.currentRoomID)
         console.log(evt);
         console.log("remote user left ", uid, "reason: ", reason);
-        if(roomInfo.screenShareId == uid){
-            let screenShare =  document.getElementById(`screenShare`)
+        if (roomInfo.screenShareId == uid) {
+            let screenShare = document.getElementById(`screenShare`)
             let whiteboard = document.getElementById('whiteboard')
             let toolBoard = document.querySelector('.tool-board')
             let offScreenShare = document.getElementById('offScreenShare')
@@ -225,16 +226,18 @@ agora.onListenLeave =() => {
             toolBoard.style.display = 'block'
             screenShare.style.display = 'none'
             whiteboard.style.display = 'block'
-            model.addRoomScreenShare('rooms',model.currentRoomID,{
+            model.addRoomScreenShare('rooms', model.currentRoomID, {
                 screenId: null,
-                name:null
+                name: null
             })
             console.log('remove screen');
+            return
         }
-        else if(uid == 12345) {
+        else if (uid == 12345) {
             document.getElementById(`player_${uid}`).remove()
             document.getElementById('icon').className = 'icon'
             console.log('removed icon');
+            return
         }
         else document.getElementById(`${uid}1`).remove()
     })
@@ -339,9 +342,9 @@ agora.ScreenJoinChannel = (channelName) => {
     agora.screenClient.join(null, channelName, null, function (uid) {
         console.log("ScreenShare " + uid + " join channel successfully");
         agora.createScreenShareStream(uid)
-        model.addRoomScreenShare('rooms',model.currentRoomID,{
-            screenId:uid,
-            name:model.currentUser.displayName
+        model.addRoomScreenShare('rooms', model.currentRoomID, {
+            screenId: uid,
+            name: model.currentUser.displayName
         })
         agora.localStreams.screen.id = uid;
     })
@@ -361,7 +364,7 @@ agora.createScreenShareStream = (uid) => {
         localScreenShare.extensionId = 'minllpmhdgpndnkomcoccfekfegnlikg';
     }
     let screenStream = AgoraRTC.createStream(localScreenShare);
-    screenStream.init(async() => {
+    screenStream.init(async () => {
         let toolBoard = document.querySelector('.tool-board')
         let onBnt = document.getElementById('onScreenShare')
         let nameUserScreenShare = document.getElementById('nameUserScreenShare')
@@ -369,11 +372,11 @@ agora.createScreenShareStream = (uid) => {
         let roomInfo = await model.getRoomInfo(model.currentRoomID)
         nameUserScreenShare.innerHTML = ` Screen Sharing: ${roomInfo.ScreenShareName}`
         nameUserScreenShare.style.display = 'block'
-        offScreenShare.style.display ='block'
+        offScreenShare.style.display = 'block'
         onBnt.style.display = 'none'
         toolBoard.style.display = 'none'
         whiteboard.style.display = 'none'
-        screenShare.style.display ='block'
+        screenShare.style.display = 'block'
         screenStream.play('screenShare');
         agora.localStreams.screen.stream = screenStream
         agora.screenClient.publish(screenStream);
@@ -381,13 +384,13 @@ agora.createScreenShareStream = (uid) => {
         console.log(err);
         agora.screenClient.unpublish(agora.localStreams.screen.stream)
         agora.screenClient.leave()
-        model.addRoomScreenShare('rooms',model.currentRoomID,{
+        model.addRoomScreenShare('rooms', model.currentRoomID, {
             screenId: null,
-            name:null
+            name: null
         })
     })
 }
-agora.addRemoteScreenShare = async (remoteStream)=>{
+agora.addRemoteScreenShare = async (remoteStream) => {
     let screenShare = document.getElementById('screenShare')
     let streamId = remoteStream.getId();
     let whiteboard = document.getElementById('whiteboard')
@@ -400,7 +403,7 @@ agora.addRemoteScreenShare = async (remoteStream)=>{
     onBnt.style.display = 'none'
     toolBoard.style.display = 'none'
     whiteboard.style.display = 'none'
-    screenShare.style.display ='block'
+    screenShare.style.display = 'block'
     remoteStream.play(`screenShare`)
 }
 function isCompatibleChrome() {

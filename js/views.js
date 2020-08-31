@@ -241,7 +241,7 @@ view.setActiveScreen = async(screen, id) => {
 
                 roomInfo.host == firebase.auth().currentUser.email ?
                 agora.joinChannel(roomInfo.channel, true) : agora.joinChannel(roomInfo.channel, false)
-                agora.RtmLogin(firebase.auth().currentUser.displayName, roomInfo.channel)
+                agora.RtmLogin(firebase.auth().currentUser.email, roomInfo.channel)
                 let buttonScreenShare = document.getElementById('onScreenShare')
                 buttonScreenShare.addEventListener('click',()=>{
                     agora.ScreenJoinChannel(roomInfo.channel)

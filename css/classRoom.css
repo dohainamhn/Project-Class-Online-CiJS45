@@ -119,7 +119,7 @@
     width: 30px;
     top: 0;
     position: absolute;
-    right: 0;
+    left: 0;
     color: #fff;
     z-index: 100;
 }
