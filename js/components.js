@@ -501,7 +501,7 @@ components.registerScreen = ` <div class="container container-flex" >
       </form>
     </div>
     <div class="signup-img">
-      <img src="../img/signup-image.jpg" />
+      <img src="../Project-Class-Online-CiJS45/img/signup-image.jpg" />
 
     </div>
   </div>
@@ -511,7 +511,7 @@ components.loginScreen = `  <div class="container container-flex">
 <div class="signin-content">
   <div class="row">
     <div class="signin-img">
-      <img src="../img/signin-image.jpg" />
+      <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" />
     </div>
 
     <div class="signin-form">
