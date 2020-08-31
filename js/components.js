@@ -397,7 +397,7 @@ components.forgotScreen = ` <div class="container container-flex">
 <div class="forgot-content">
   <div class="row">
     <div class="forgot-img">
-      <img src="../img/signin-image.jpg" alt="" />
+      <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" alt="" />
     </div>
     <div class="forgot-form">
       <div class="title-heading">
