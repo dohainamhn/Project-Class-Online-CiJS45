@@ -10,29 +10,33 @@ model.currentUser = undefined
 model.room = undefined
 model.yourRoom = undefined
 model.register = (data) => {
-    firebase.auth().createUserWithEmailAndPassword(data.email.value, data.password.value)
+    firebase
+        .auth()
+        .createUserWithEmailAndPassword(data.email.value, data.password.value)
         .then((res) => {
-            firebase.auth().currentUser.updateProfile({
-                displayName: data.lastName.value + " " + data.firstName.value,
-                photoURL: "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a"
-            }).then(() => {
-                let check = false
-                data.isTeacher.value == 'true' ? check = true : check = false
-                model.addFireStore("users", {
-                    name: res.user.displayName,
-                    email: res.user.email,
-                    isTeacher: check,
-                    password: data.password.value,
-                    photoURL: "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a"
+            firebase
+                .auth()
+                .currentUser.updateProfile({
+                    displayName: data.lastName.value + " " + data.firstName.value,
+                    photoURL:
+                        "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
+                })
+                .then(() => {
+                    model.addFireStore("users", {
+                        name: res.user.displayName,
+                        email: res.user.email,
+                        isTeacher: data.checkJob.value,
+                        password: data.password.value,
+                        photoURL:
+                            "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
+                    });
                 });
-            })
-            firebase.auth().currentUser.sendEmailVerification()
-            alert("Congratulation! you have successfully registed\n please check your email to verify your account. ")
-            view.setActiveScreen("login", data)
+            firebase.auth().currentUser.sendEmailVerification();
+            alert("The email has been registered,please check your email");
+            view.setActiveScreen("signInScreen", data);
         })
         .catch(function (error) {
-            console.log(error);
-            controller.authenticate(error)
+            view.errorMessage("signup-all-error", error.message);
         });
 }
 model.login = (data) => {
@@ -67,13 +71,6 @@ model.getUserIntoRoom = async (idstream = null, currentRoomID) => {
 model.createRoom = async (room) => {
     await firebase.firestore().collection(model.collectionName).add(room)
 }
-// model.loadRooms = async() => {
-//     const response = await firebase.firestore().collection(model.collectionName).get()
-//     model.rooms = getDataFromDocs(response.docs)
-
-//     view.showRooms(model.rooms, view.addNewRoom)
-// }
-
 model.listenRoomChange = (listenChat) => {
     let db = model.initFirebaseStore().collection('rooms').onSnapshot(function (snapshot) {
         snapshot.docChanges().forEach(function (change) {
@@ -183,8 +180,8 @@ model.findConversation = async (collection, find, email) => {
 model.getInfoUser = async (email) => {
     let db = firebase.firestore()
     let data = await db.collection('users').where("email", "==", email).get()
-    if(data.docs[0] !== undefined)
-    return data.docs[0].data()
+    if (data.docs[0] !== undefined)
+        return data.docs[0].data()
     else return null
 }
 
@@ -219,12 +216,12 @@ model.listenConversation = () => {
         snapshot.docChanges().forEach(async function (change) {
             if (change.type === "added") {
                 let friendImg = await model.getInfoUser(change.doc.data().users.find(
-                (user) => user !== firebase.auth().currentUser.email))
+                    (user) => user !== firebase.auth().currentUser.email))
                 console.log(friendImg);
                 console.log("added");
                 console.log(change.doc.data().users);
-                if(change.doc.data().users.find((item)=>item == firebase.auth().currentUser.email)){
-                    view.addNotification(change.doc.data(), change.doc.id,friendImg.photoURL,friendImg.email)
+                if (change.doc.data().users.find((item) => item == firebase.auth().currentUser.email)) {
+                    view.addNotification(change.doc.data(), change.doc.id, friendImg.photoURL, friendImg.email)
                 }
                 model.updateModelConversation()
             }
@@ -235,7 +232,7 @@ model.listenConversation = () => {
                     (user) => user !== firebase.auth().currentUser.email))
                 model.updateModelConversation()
                 let messageData = change.doc.data().messages
-                let modelConversation = model.allConversation.find((item)=>item.id == change.doc.id)
+                let modelConversation = model.allConversation.find((item) => item.id == change.doc.id)
                 if (model.currentConversation !== null) {
                     if (change.doc.id == model.currentConversation.id && messageData.length !== modelConversation.messages.length) {
                         let messages = change.doc.data().messages
@@ -247,11 +244,11 @@ model.listenConversation = () => {
                         messageBox.innerHTML += html
                         box.scrollTop = box.scrollHeight
                     }
-                  
+
                 }
                 let font = document.getElementById(`${change.doc.id}`)
                 font.remove()
-                view.addNotification(change.doc.data(), change.doc.id,friendImg.photoURL,friendImg.email)
+                view.addNotification(change.doc.data(), change.doc.id, friendImg.photoURL, friendImg.email)
             }
         })
     })
@@ -263,7 +260,7 @@ model.updateCheckConversation = (collection, document, data) => {
         check: data
     })
 }
-model.updateModelConversation = async(imgLink)=>{
+model.updateModelConversation = async (imgLink) => {
     let allconversation = await model.getDataFireStore('conversations', 'users', 'array-contains')
     model.allConversation = []
     let conversations = []
@@ -276,17 +273,31 @@ model.updateModelConversation = async(imgLink)=>{
                 messages: x.data().messages,
                 id: x.id,
                 users: x.data().users,
-                friendImg:friendImg.photoURL,
-                friendEmail: x.data().users.find((item)=>item !== firebase.auth().currentUser.email)
+                friendImg: friendImg.photoURL,
+                friendEmail: x.data().users.find((item) => item !== firebase.auth().currentUser.email)
             })
         }
         model.allConversation = controller.sortByTimeStamp(conversations)
     }
 }
-model.addRoomScreenShare = async (collection,document,data)=>{
+model.addRoomScreenShare = async (collection, document, data) => {
     let db = firebase.firestore()
     let doc = await db.collection(collection).doc(document).update({
-        screenShareId:data.screenId,
-        ScreenShareName:data.name
+        screenShareId: data.screenId,
+        ScreenShareName: data.name
     })
 }
+model.forgotPassword = (data) => {
+    firebase
+        .auth()
+        .sendPasswordResetEmail(data.email.value)
+        .then(() => {
+            alert(
+                "sent link reset password to your email address, please check your email"
+            );
+            view.setActiveScreen("signInScreen");
+        })
+        .catch((error) => {
+            view.errorMessage('email', error.message);
+        });
+};

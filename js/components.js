@@ -1,97 +1,4 @@
 const components = {}
-components.registerScreen = `
-<div class="log-container">
-    <div class="symbol absolute">Online Class</div>
-    <div class="introduce-text">
-        <p>
-            Everyone is welcome.
-        </p>
-        <p>
-            Online class Where helps you save time and  always opens for free
-        </p>
-    </div>
-    <div class="main-log-container">
-        <div class="img-left">
-            <img src="../Project-Class-Online-CiJS45/img/classroom.jpg" alt="">
-        </div>
-        <div class="form-log-up">
-            <form id="register-form" action="">
-                <div class="input-wrap">
-                    <input placeholder="First Name" type="text" name="firstName">
-                    <div class="error" id="firstName"></div>
-                </div>
-                <div class="input-wrap">
-                    <input placeholder="Last Name" type="text" name="lastName">
-                    <div class="error" id="lastName"></div>
-                </div>
-                <div class="input-wrap">
-                    <input placeholder="Email" type="email" name="email">
-                    <div class="error" id="email"></div>
-                </div>
-                <div class="input-wrap">
-                    <input placeholder="Password" type="password" name="password">
-                    <div class="error" id="password"></div>
-                </div>
-                <div class="input-wrap">
-                    <input placeholder="Confirm Password" type="password" name="confirmPassword">
-                    <div class="error" id="confirmPassword"></div>
-                </div>
-                <div class="check-is-teacher-box">
-                    <div class="input-wrap">
-                        <div class="check-box">
-                            <input type="checkbox" id="isTeacher-input" name='isTeacher'>
-                            <label for="isTeacher-input">Teacher</label>
-                        </div>
-                        <div class="check-box">
-                            <input type="checkbox" id="isStudent-input" name='isStudent'>
-                            <label for="isStudent-input">Student</label>
-                        </div>
-                    </div>
-                    <div class="error" id="isTeacher"></div>
-                </div>
-                <div class="row">
-                    <span>Do you already have an account? <div id="go-to-login">Login</div> </span>
-                    <button class="bnt" type="submit">Logup</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-`
-components.loginScreen = `
-<div class="log-container">
-    <div class="symbol absolute">Online Class</div>
-    <div class="introduce-text">
-        <p>
-            Everyone is welcome.
-        </p>
-        <p>
-            Online class Where helps you save time and  always opens for free
-        </p>
-    </div>
-    <div class="main-log-container">
-        <div class="img-left">
-            <img src="../Project-Class-Online-CiJS45/img/classroom.jpg" alt="">
-        </div>
-        <div class="form-log-up">
-            <form id="login-form" action="">
-                <div class="input-wrap">
-                    <input placeholder="Email" type="text" name="email">
-                    <div class="error" id="email"></div>
-                </div>
-                <div class="input-wrap">
-                    <input placeholder="Password" type="password" name="password">
-                    <div class="error" id="password"></div>
-                </div>
-                <div class="row">
-                    <span>You don't have an account? <div id="go-to-logup">Logup</div> </span>
-                    <button class="bnt" type="submit">Logup</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>`
-
 components.selectRoomScreen = `
 <div class="container">
 <div class="nav-bar">
@@ -486,3 +393,194 @@ components.yourChatMessage = `
     <div class="message">aloooooooooooooooooooooooooooooooooooooo</div>
 </div>
 `
+components.forgotScreen = ` <div class="container container-flex">
+<div class="forgot-content">
+  <div class="row">
+    <div class="forgot-img">
+      <img src="../img/signin-image.jpg" alt="" />
+    </div>
+    <div class="forgot-form">
+      <div class="title-heading">
+        <h2 class="forgot-heading">Forget Password</h2>
+        <p>
+          Please enter your email address below and we will send you
+          information to recover your account.
+        </p>
+      </div>
+      <form id="forgot-form">
+        <div class="input-name-wrapper">
+          <div class="input-wrapper">
+            <div class="forgot-email-input">
+                <label for="input-email"> <i class="fas fa-envelope"></i></label>
+                <input
+                type="email"
+                name="email"
+                id="input-email"
+                placeholder="Email"
+                />
+            </div>
+            <div class="error" id="email"></div>
+          </div>
+          <div class="form-action">
+            <button class="btn reset-password" type="submit">Send </button>
+            <button class="btn cancel" >Cancel</button>
+          </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>`;
+components.registerScreen = ` <div class="container container-flex" >
+<div class="signup-content">
+  <div class="row">
+    <div class="signup-form">
+      <h2 class="signup-heading">Sign Up</h2>
+      <form id="register-form">
+        <div class="input-name-wrapper">
+         <div class="input-yourname">
+          <div class="input-wrapper">
+            <label for="input-first-name"><i class="fas fa-user"></i></label>
+            <input type="text" name="firstName" placeholder="First Name" id="input-first-name" />
+            <div class="error" id="firstName"></div>
+          </div>
+
+          <div class="input-wrapper">
+            <label for="input-last-name"><i class="fas fa-user"></i></label>
+            <input type="text" name="lastName" placeholder="last Name" id="input-last-name" />
+            <div class="error" id="lastName"></div>
+          </div>
+         </div>
+
+          <div class="input-wrapper">
+            <label for="input-email"> <i class="fas fa-envelope"></i></label>
+            <input type="email" name="email" id="input-email" placeholder="Email" />
+            <div class="error" id="email"></div>
+            <div id="signup-all-error"></div>
+          </div>
+          <div class="input-wrapper">
+            <label for="input-password">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input type="password" name="password" id="input-password" placeholder="Password" />
+            <div class="error" id="password"></div>
+          </div>
+          <div class="input-wrapper">
+            <label for="input-comfirm-password">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="confirmPassword"
+              id="input-comfirm-password"
+            />
+            <div class="error" id="confirmPassword"></div>
+          </div>
+        </div>
+        <div class="form-action">
+          <div class="form-check-job">
+           <div class="column">
+            <input type="radio" name="job" value="true" id="teacher"  />
+            <label for="teacher" class="cursor-pointer">Teacher</label>
+           </div>
+           <div class="column">
+            <input type="radio" name="job" value="false" id="student"/>
+            <label for="student" class="cursor-pointer">Student</label>
+           </div>
+           <div class="error" id="checkJob"></div>
+         </div>
+         <div class= "bottom">
+         <button class="btn btn-register" type="submit">
+         Register
+       </button>
+       <div class="redirect-to-signin cursor-pointer">
+       I already have an account 
+     </div>
+         </div>
+        </div>
+      </form>
+    </div>
+    <div class="signup-img">
+      <img src="../img/signup-image.jpg" />
+
+    </div>
+  </div>
+</div>`;
+
+components.loginScreen = `  <div class="container container-flex">
+<div class="signin-content">
+  <div class="row">
+    <div class="signin-img">
+      <img src="../img/signin-image.jpg" />
+    </div>
+
+    <div class="signin-form">
+      <div class="signin-heading">
+        <h2>Sign In</h2>
+      </div>
+
+      <form id="login-form">
+        <div class="input-name-wrapper">
+          <div class="input-wrapper">
+            <label for="input-signin-email">
+              <i class="fas fa-user"></i
+            ></label>
+            <input
+              type="email"
+              name="email"
+              id="input-signin-email"
+              placeholder="Email"
+              value=""
+            />
+            <div class="error" id="email"></div>
+          </div>
+          <div class="input-wrapper">
+            <label for="input-signin-password">
+              <i class="fas fa-lock"></i>
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="input-signin-password"
+              placeholder="Password"
+            />
+            <div class="error" id="password"></div>
+            <div id="all-error"></div>
+          </div>
+        </div>
+        <div class="form-action">
+          <div class="form-remember">
+            <div class="checkbox">
+              <input type="checkbox" name="remember" id="remember-me" />
+              <label for="remember-me" class="cursor-pointer"
+                >Remember Me</label
+              >
+            </div>
+            <div id="forgot-password" class="cursor-pointer">
+              Forgot password ?
+            </div>
+          </div>
+          <button class="btn btn-login" type="submit">Log in</button>
+        </div>
+      </form>
+
+      <div class="bottom">
+        <div class="redirect-to-resgister cursor-pointer">
+          Create an account
+        </div>
+        <div class="login-social-media">
+          <span>Or login with</span>
+          <div class="social-media">
+            <i
+              class="fab fa-facebook-square cursor-pointer"
+              id="facebook"
+            ></i>
+            <i class="fab fa-google-plus-square cursor-pointer"></i>
+            <i class="fab fa-twitter-square cursor-pointer"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>`;

@@ -91,10 +91,10 @@ controller.onOfMic = async (id) => {
 	}
 
 }
-controller.checkChannelName = (data)=>{
-	let find = model.rooms.find((item)=>item.channel == data)
+controller.checkChannelName = (data) => {
+	let find = model.rooms.find((item) => item.channel == data)
 	let error = document.getElementById('channelError')
-	if(find == undefined) return true
+	if (find == undefined) return true
 	else {
 		error.innerHTML = 'Channel Name has already exist'
 		return false
@@ -107,7 +107,7 @@ controller.checkNull = function (data) {
 		let error = document.getElementById(`${x}`)
 		if (data[x].value.trim() == "") {
 			error.innerHTML = `${data[x].name} is required`
-			check=false
+			check = false
 
 		} else if (x == 'confirmPassword') {
 			if (data[x].value !== data['password'].value) {
@@ -138,9 +138,15 @@ controller.logup = function (data) {
 		data.password.value !== "" &&
 		data.confirmPassword.value !== "" &&
 		data.confirmPassword.value === data.password.value &&
-		data.isTeacher.value !== ""
+		data.checkJob.value !== ""
 	) {
 		model.register(data)
+	}
+}
+controller.forgotPassword = (data) => {
+	if (data.email.value !== "" && data.email.name === "Your email address") {
+		model.forgotPassword(data);
+		return;
 	}
 }
 controller.authenticate = function (error) {
