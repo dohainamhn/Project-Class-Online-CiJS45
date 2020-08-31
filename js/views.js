@@ -351,7 +351,7 @@ view.setActiveScreen = async (screen, id) => {
                         );
                     });
                     for (let index = 0; index < roomSearch.length; index++) {
-                        view.getUsers(filteredCharacters[index])
+                        if (filteredCharacters[index] !== undefined) view.getUsers(filteredCharacters[index])
                     }
                     if (searchBar.value == '') {
                         document.querySelector('.result-search').innerText = ''
@@ -401,6 +401,12 @@ view.setActiveScreen = async (screen, id) => {
                         document.querySelector('.result-search').innerText = ''
                     }
                 });
+                let listenChat = model.listenConversation()
+                document.querySelector('.log-out-bnt').addEventListener('click', () => {
+                    firebase.auth().signOut()
+                    listenChat()
+                })
+                break;
             }
         case "forgetScreen": {
             document.getElementById("app").innerHTML = components.forgotScreen;
@@ -592,21 +598,23 @@ view.addMessage = (senderId, text) => {
     messageContainer.insertAdjacentHTML('beforeend', html)
 }
 view.getUsers = (data) => {
-    let listRooms = document.querySelector('.result-search')
     if (data !== undefined) {
-        let html = `
+        let listRooms = document.querySelector('.result-search')
+        if (data !== undefined) {
+            let html = `
         <li id="${data.id}">${data.email}</li>
         `
-        listRooms.insertAdjacentHTML('beforeend', html)
-    }
-    let getUser = document.getElementById(data.id)
-    getUser.addEventListener('click', async () => {
-        let userDetail = await model.getInfoUser(data.email)
-        console.log('click');
-        view.setActiveScreen('viewYourFriendProfile')
-        view.getUser(userDetail)
+            listRooms.insertAdjacentHTML('beforeend', html)
+        }
+        let getUser = document.getElementById(data.id)
+        getUser.addEventListener('click', async () => {
+            let userDetail = await model.getInfoUser(data.email)
+            console.log('click');
+            view.setActiveScreen('viewYourFriendProfile')
+            view.getUser(userDetail)
 
-    })
+        })
+    }
 }
 
 view.getRooms = (data) => {
