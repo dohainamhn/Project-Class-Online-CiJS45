@@ -15,7 +15,7 @@
     padding: 0 20px 0 20px;
     display: flex;
     width: 100%;
-    height: 170px;
+    height: 22%;
     align-items: center;
     box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.25);;
 }
@@ -76,12 +76,9 @@
     margin: auto;
     font-size: 20px;
 }
-
-
 .bottom-app{
-    margin-top:30px;
     width: 100%;
-    height: 80%;
+    flex-grow: 1;
     display: flex;
     position: relative;
 }
@@ -91,11 +88,55 @@
 }
 #whiteboard{
     width:77%;
+    background:#ffffff;
+}
+#screenShare{
+    position: relative;
+    width: 77%;
+    display: none;
+    background: #ffffff8c;
+}
+#onScreenShare{
+    height: 30px;
+    width: 30px;
+    margin: 10px auto;
+    outline: none;
+    border: none;
+    color: #3851d9;
+    background: #c2c2c2;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#offScreenShare{
+    display: none;
+    outline: none;
+    border: none;
+    background: #bbb;
+    border-radius: 5px;
+    height: 30px;
+    width: 30px;
+    top: 0;
+    position: absolute;
+    right: 0;
+    color: #fff;
+    z-index: 100;
+}
+#nameUserScreenShare{
+    font-size: 20px;
+    margin-top: 10px;
+    display: none;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    text-align: center;
 }
 .chat-box{
+    flex-grow: 1;
     padding: 10px;
     width: 20%;
-    background: #F3FEFF;
+    background: #dcf6f9;
 }
 .message-container{
     width: 100%;
@@ -103,16 +144,14 @@
 }
 #input-chat{
     border-radius: 5px;
-    background: #e6fffc;
+    background: #ffffff;
     border: none;
     width: 100%;
     outline: none;
     height: 30px;
     padding: 10px;
 }
-#whiteboard{
-    background:#ffffff;
-}
+
 .tool{
     margin-bottom: 5px;
     width: 100%;

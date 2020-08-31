@@ -283,3 +283,10 @@ model.updateModelConversation = async(imgLink)=>{
         model.allConversation = controller.sortByTimeStamp(conversations)
     }
 }
+model.addRoomScreenShare = async (collection,document,data)=>{
+    let db = firebase.firestore()
+    let doc = await db.collection(collection).doc(document).update({
+        screenShareId:data.screenId,
+        ScreenShareName:data.name
+    })
+}

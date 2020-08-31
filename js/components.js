@@ -172,6 +172,8 @@ components.classRoomScreen = `
 
       </div>
   </div>
+  <div id="onScreenShare"><i class="fas fa-desktop"></i></div>
+  <div id="nameUserScreenShare"></div>
   <div class="sign-out" id="sign-out">
           <i class="fas fa-sign-out-alt"></i>
   </div>
@@ -199,6 +201,9 @@ components.classRoomScreen = `
         </div>
     <div class="load-icon" id="load-icon"><i class="fas fa-spinner fa-spin"></i></div>
     <div class="" id="whiteboard">
+    </div>
+    <div id="screenShare">
+        <button id="offScreenShare">X</button>
     </div>
     <div class="chat-box ">
       <div class="message-container" id="message-container">

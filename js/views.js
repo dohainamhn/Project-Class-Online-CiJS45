@@ -242,7 +242,16 @@ view.setActiveScreen = async(screen, id) => {
                 roomInfo.host == firebase.auth().currentUser.email ?
                 agora.joinChannel(roomInfo.channel, true) : agora.joinChannel(roomInfo.channel, false)
                 agora.RtmLogin(firebase.auth().currentUser.displayName, roomInfo.channel)
-
+                let buttonScreenShare = document.getElementById('onScreenShare')
+                buttonScreenShare.addEventListener('click',()=>{
+                    agora.ScreenJoinChannel(roomInfo.channel)
+                })
+                let offBnt = document.getElementById('offScreenShare')
+                offBnt.addEventListener('click',()=>{
+                    agora.localStreams.screen.stream.close()
+                    agora.screenClient.unpublish(agora.localStreams.screen.stream)
+                    agora.screenClient.leave()
+                })
                 if (view.count > 0) {
                     agora.RtmCreateAndJoinChannel(roomInfo.channel)
                 }
@@ -269,6 +278,12 @@ view.setActiveScreen = async(screen, id) => {
                     });
                     model.removeUserInRoom(agora.localStreams.camera.id, model.currentRoomID)
                     agora.localStreams.camera.stream.close()
+                    if(agora.localStreams.screen.id !== ""){
+                        agora.localStreams.screen.stream.close()
+                        agora.screenClient.unpublish(agora.localStreams.screen.stream)
+                        console.log('screen close');
+                    }
+                    agora.screenClient.leave()
                     view.setActiveScreen('selectRoomScreen')
                 })
                 view.count++
