@@ -645,7 +645,7 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
         }
         else{
             document.querySelector(`#delete${roomID} .popup-form .title-popup`)
-            .innerHTML = "only host can delete this room"
+            .innerHTML = "only owner can delete this room"
             document.querySelector(`#delete${roomID} .popup-form .button-popup`)
             .innerHTML = ""
         }
