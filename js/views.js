@@ -361,6 +361,7 @@ view.setActiveScreen = async (screen, id) => {
                 let notificationBox = document.querySelector('.new-notification-box')
                 maincontainer1.addEventListener('click', () => {
                     notificationBox.classList = 'new-notification-box display-none'
+                    
                 })
 
                 view.onclickNotification()
@@ -377,6 +378,7 @@ view.setActiveScreen = async (screen, id) => {
                     view.setActiveScreen('selectRoomScreen')
                     // model.loadRooms()
                 })
+                view.onclickNotification()
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
                     view.setActiveScreen('updatePageScreen')
@@ -406,6 +408,12 @@ view.setActiveScreen = async (screen, id) => {
                     firebase.auth().signOut()
                     listenChat()
                 })
+                let maincontainer1 = document.querySelector('.main-container1')
+                let notificationBox = document.querySelector('.new-notification-box')
+                maincontainer1.addEventListener('click', () => {
+                    notificationBox.classList = 'new-notification-box display-none'
+                })
+                view.chat()
                 break;
             }
         case "forgetScreen": {

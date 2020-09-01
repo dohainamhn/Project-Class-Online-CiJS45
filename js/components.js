@@ -186,49 +186,49 @@ components.updateProfileScreen = `
         </div>
     </div>
 </div>
-<div class="main-container1">
-    <div class="upload-img">
-        <div>
-            <img src="https://static.thenounproject.com/png/558475-200.png" alt="">
-            <label for="upload">
-                <i class="fas fa-camera"></i>
-            </label>
-            <input type="file" accept="image/png ,image/jpeg,image/gif" id="upload" class="display-none">
-        </div>
-    </div>
-    <div class="menu-div">
-        <h1 class="title"> Profile</h1>
-        <div class="menu-bnt">
+    <div class="main-container1">
+        <div class="upload-img">
             <div>
-                <button id="profile-bnt" class="active-bnt">Profile</button>
-                <button id="edit-profile-bnt" >Edit profile</button>
-                <button id="edit-password-bnt">Edit password</button>
-                <button id="view-room-of-current-user">View your room</button>
+                <img src="https://static.thenounproject.com/png/558475-200.png" alt="">
+                <label for="upload">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" accept="image/png ,image/jpeg,image/gif" id="upload" class="display-none">
             </div>
         </div>
-    </div>
-    <div class="profile-box">
-        
-    </div>
-    <div class="chat-button cursor" id="icon-chat-container"></div>
-    <div class="chat-one-to-one-container display-none">
-        <button class="top-message-box">chat with dohainamhn3@gmail.com</button>
-        <div class="top-input">
-            <input type="tex" id="input-chat-email" placeholder="Enter your friend email">
-        </div>
-        <div class="wrap">
-            <div class="box-chat">
-                <div class="message-box">
-                    
-                </div>
-                <div class="input-message">
-                    <input placeholder="Enter your message">
-                    <div class="icon"></div>
+        <div class="menu-div">
+            <h1 class="title"> Profile</h1>
+            <div class="menu-bnt">
+                <div>
+                    <button id="profile-bnt" class="active-bnt">Profile</button>
+                    <button id="edit-profile-bnt" >Edit profile</button>
+                    <button id="edit-password-bnt">Edit password</button>
+                    <button id="view-room-of-current-user">View your room</button>
                 </div>
             </div>
         </div>
+        <div class="profile-box">
+            
+        </div>
+        <div class="chat-button cursor" id="icon-chat-container"></div>
+        <div class="chat-one-to-one-container display-none">
+            <button class="top-message-box">chat with dohainamhn3@gmail.com</button>
+            <div class="top-input">
+                <input type="tex" id="input-chat-email" placeholder="Enter your friend email">
+            </div>
+            <div class="wrap">
+                <div class="box-chat">
+                    <div class="message-box">
+                        
+                    </div>
+                    <div class="input-message">
+                        <input placeholder="Enter your message">
+                        <div class="icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 </div>
 `
 components.profileBox = `
@@ -329,56 +329,84 @@ components.viewYourRoom = `
 `
 components.viewYourFriendProfile = `
 <div class="container1">
-<div class="nav-bar">
-    <div class="symbol">Online Class</div>
-    <div class="search-bar">
-        <div>
-            <input placeholder="Search user" type="text" name="" id="myInput">
-            <i class="fas fa-search"></i>
-            <ul class="result-search">
-            </ul>
+    <div class="nav-bar">
+        <div class="symbol">Online Class</div>
+        <div class="search-bar">
+            <div>
+                <input placeholder="Search user" type="text" name="" id="myInput">
+                <i class="fas fa-search"></i>
+                <ul class="result-search">
+                </ul>
+            </div>
+        </div>
+        <div class="nav-bar-info-User ">
+            <div class="info-user-box flex">
+                <img src="" alt="">
+                <div class="user-name cursor"></div>
+            </div>
+            <div class="notification">
+                <i class="far fa-envelope"></i>
+                <div class="icon-notification"></div>
+            </div>
+            <div class="new-notification-box display-none">
+                <div class="search-notification">
+                    <i class="fas fa-search"></i>
+                    <input id="search-conversations" type="text" placeholder="Search Conversations">
+                </div>
+                <div class="new-notification"></div>
+            </div>
+            <div class="log-out-bnt">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
         </div>
     </div>
-    <div class="nav-bar-info-User">
-        <div><img src="" alt=""></div>
-        <div class="user-name cursor"></div>
-        <div class="notification">
-            <i class="far fa-envelope"></i>
+    <div class="main-container1">
+        <div class="upload-img">
+            <div>
+                <img src="https://static.thenounproject.com/png/558475-200.png" alt="">
+                <label for="upload">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" accept="image/png ,image/jpeg,image/gif" id="upload" class="display-none">
+            </div>
         </div>
-        <div class="log-out-bnt">
-            <i class="fas fa-sign-out-alt"></i>
+        <div class="profile-box">
+            <div class="profile-row pd-t-2">
+                <div class="info-profile">
+                    <div id="profile-name"></div>
+                    <div id="profile-email"></div>
+                </div>
+                <div class="info-profile">
+                    <div id="is-teacher"></div>
+                    <div id="work-at"></div>
+                </div>
+            </div>
+            <div class="about-me-profile">
+                <label>About Me:</label>
+                <p id="about-me">
+
+                </p>
+            </div>
+        </div>
+        <div class="chat-button cursor" id="icon-chat-container"></div>
+        <div class="chat-one-to-one-container display-none">
+            <button class="top-message-box">chat with dohainamhn3@gmail.com</button>
+            <div class="top-input">
+                <input type="tex" id="input-chat-email" placeholder="Enter your friend email">
+            </div>
+            <div class="wrap">
+                <div class="box-chat">
+                    <div class="message-box">
+                        
+                    </div>
+                    <div class="input-message">
+                        <input placeholder="Enter your message">
+                        <div class="icon"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-<div class="main-container1">
-    <div class="upload-img">
-        <div>
-            <img src="https://static.thenounproject.com/png/558475-200.png" alt="">
-            <label for="upload">
-                <i class="fas fa-camera"></i>
-            </label>
-            <input type="file" accept="image/png ,image/jpeg,image/gif" id="upload" class="display-none">
-        </div>
-    </div>
-    <div class="profile-box">
-    <div class="profile-row pd-t-2">
-    <div class="info-profile">
-        <div id="profile-name"></div>
-        <div id="profile-email"></div>
-    </div>
-    <div class="info-profile">
-        <div id="is-teacher"></div>
-        <div id="work-at"></div>
-    </div>
-    </div>
-    <div class="about-me-profile">
-    <label>About Me:</label>
-    <p id="about-me">
-        
-    </p>
-    </div>
-    </div>
-</div>
 </div>
 `
 components.friendChatMessage = `
