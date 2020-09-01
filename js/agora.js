@@ -320,10 +320,12 @@ agora.RtmSendMessageToChannel = (text) => {
 }
 agora.RtmReceiveMessage = () => {
 
-    agora.RtmChannel.on('ChannelMessage', ({ text }, senderId) => {
-        view.addMessage(senderId, text)
+    agora.RtmChannel.on('ChannelMessage',async ({ text }, senderId) => {
         console.log('sender:' + senderId);
         console.log('text:' + text);
+        let user = await model.getInfoUser(senderId)
+        view.addMessage(user.name, text)
+       
     });
     console.log('on listen');
 }

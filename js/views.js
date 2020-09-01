@@ -228,7 +228,9 @@ view.setActiveScreen = async (screen, id) => {
                         }
                     }
                     let checkNull = controller.checkNull(data2)
-                    let checkChannelName = controller.checkChannelName(createRoomForm.chanelName.value)
+                    let checkChannelName = controller.checkChannelName(
+                        controller.removeVietnameseTones(createRoomForm.chanelName.value)
+                    )
                     if (checkNull && checkChannelName) {
                         fetch(url, requestInit).then(function (response) {
                             return response.json();
@@ -236,7 +238,7 @@ view.setActiveScreen = async (screen, id) => {
                             teacher = true
                             console.log(json)
                             const data = {
-                                channel: createRoomForm.chanelName.value,
+                                channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
                                 host: model.currentUser.email,
                                 name: createRoomForm.roomName.value,
                                 roomToken: json.msg.roomToken,
@@ -961,6 +963,7 @@ view.setEventListenEditProfile = () => {
             model.currentUser.isTeacher = data.isTeacher
         }
         model.updateDataToFireStore('users', data)
+        model.updateCurrentUser(data)
         alert('update profile successfully')
         updateForm.reset();
     })

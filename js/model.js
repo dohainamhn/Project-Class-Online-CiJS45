@@ -305,3 +305,8 @@ model.forgotPassword = (data) => {
             view.errorMessage('email', error.message);
         });
 };
+model.updateCurrentUser = (data)=>{
+    firebase.auth().currentUser.updateProfile({
+        displayName:data.name
+    })
+}
