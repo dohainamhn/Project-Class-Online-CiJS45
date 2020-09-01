@@ -566,7 +566,6 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
     console.log(roomData);
 
     let pageBnt = '';
-    let page = document.querySelector('.right-container');
     count = 0;
     console.log(numberOfRooms)
     for (let i = 1; i < Math.floor(numberOfRooms.length / 2) + 2; i++) {
@@ -580,11 +579,11 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
     for (let x = 0; x < 4; x++) {
         if (count < numberOfRooms.length) {
             roomWrapper.innerHTML = `
-            <div class="room-id">ID: ${roomID}</div>
-            <div class="room-host">Host: ${roomData.host}</div>
+            <div class="room-id">ID: ${roomID[count]}</div>
+            <div class="room-host">Host: ${roomData[count].host}</div>
             
-            <div class="room-title">Name: ${roomData.name}</div>
-            <div class="room-createAt">Created At: ${roomData.createdAt}</div>
+            <div class="room-title">Name: ${roomData[count].name}</div>
+            <div class="room-createAt">Created At: ${roomData[count].createdAt}</div>
         `
             count++;
         }
@@ -592,9 +591,8 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
             break;
         }
     }
-
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-    page.innerHTML = pageBnt
+    document.querySelector('.right-container').lastElementChild = pageBnt
     let joinRoom = document.getElementById(roomWrapper.id)
     joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
