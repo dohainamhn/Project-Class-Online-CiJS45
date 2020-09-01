@@ -331,7 +331,12 @@
 }
 .room-bar-wrap .show-popup{
     visibility: visible;
+    animation: fadeIn 1s
 }
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1 ;}
+  }
 .room-bar-wrap .popup-form::after{
     content: "";
     position: absolute;
