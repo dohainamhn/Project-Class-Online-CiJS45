@@ -365,6 +365,7 @@ view.setActiveScreen = async(screen, id) => {
 
                 view.onclickNotification()
                 view.chat()
+
                 break;
             }
         case 'viewYourFriendProfile':
@@ -564,26 +565,38 @@ view.showRooms = (r, f) => {
 
 view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
     console.log(roomData);
-
-    let pageBnt = '';
-    count = 0;
-    console.log(numberOfRooms)
-    for (let i = 1; i < Math.floor(numberOfRooms.length / 2) + 2; i++) {
-        pageBnt += `<button onclick="nextBnt(${i})" class="nextButton">
-      ${i}
-      </button>`;
-    }
     const roomWrapper = document.createElement('div')
-    roomWrapper.className = 'room-bar cursor'
+    roomWrapper.className = 'room-bar-wrap'
     roomWrapper.id = roomID
+    let count = 0
+    let pageBnt = '';
+    let html = ''
+    for (let i = 1; i < Math.floor(numberOfRooms.length / 4) + 2; i++) {
+        pageBnt += `<button onclick = "nextBnt(${i})" class="nextButton">
+        ${i}
+        </button>`;
+
+    }
+
     for (let x = 0; x < 4; x++) {
         if (count < numberOfRooms.length) {
-            roomWrapper.innerHTML = `
-            <div class="room-id">ID: ${roomID[count]}</div>
-            <div class="room-host">Host: ${roomData[count].host}</div>
-            
-            <div class="room-title">Name: ${roomData[count].name}</div>
-            <div class="room-createAt">Created At: ${roomData[count].createdAt}</div>
+            html = `
+            <div class="a" id="delete${numberOfRooms[count].fireBaseID}">
+                    <i class="fas fa-trash-alt"></i>
+                    <div class="popup-form" id="popup-form${numberOfRooms[count].fireBaseID}">
+                        <div class="title-popup"></div>
+                        <div class="button-popup">
+                           
+                        </div>
+                    </div>
+            </div>
+            <div class="room-bar cursor" id="join-room-${numberOfRooms[count].fireBaseID}">
+                <div class="room-id sub-room">ID: ${numberOfRooms[count].fireBaseID}</div>
+                <div class="room-host sub-room">Host: ${numberOfRooms[count].host}</div>
+                
+                <div class="room-title sub-room">Name: ${numberOfRooms[count].name}</div>
+                <div class="room-createAt sub-room">Created At: ${numberOfRooms[count].createdAt}</div>
+            </div>
         `
             count++;
         }
@@ -591,17 +604,33 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
             break;
         }
     }
-    document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-    document.querySelector('.right-container').lastElementChild = pageBnt
-    let joinRoom = document.getElementById(roomWrapper.id)
+    roomWrapper.innerHTML = html
+    document.querySelector(".right-container .room-list").appendChild(roomWrapper);
+    document.querySelector(".paginate").innerHTML = pageBnt
+
+    if (roomData.password !== "") {
+        let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend', iconHTML)
+    } else {
+        let iconHTML = `<div class="lock-icon"></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend', iconHTML)
+    }
+    let deleteRoomBtn = document.getElementById(`delete${roomID}`)
+    let joinRoom = document.getElementById(`join-room-${roomID}`)
     joinRoom.addEventListener('click', async() => {
-        var person = prompt("Please enter password");
-        if (person === roomData.password) {
+        if (roomData.password !== "") {
+            var person = prompt("Please enter password");
+            if (person === roomData.password) {
+                model.currentRoomID = roomID
+                listenChat()
+                view.setActiveScreen('classRoomScreen', roomID)
+            } else {
+                alert('Join failed')
+            }
+        } else {
             model.currentRoomID = roomID
             listenChat()
             view.setActiveScreen('classRoomScreen', roomID)
-        } else {
-            alert('Join failed')
         }
     })
     joinRoom.addEventListener('mouseover', async() => {
@@ -609,7 +638,37 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
             // let r = await model.getRoomInfo(roomID)
         view.getInFoRoom(roomID, r)
     })
+    deleteRoomBtn.addEventListener('click', () => {
+        let popup = document.querySelector(`#delete${roomID} .popup-form`)
+        if (firebase.auth().currentUser.email == roomData.host) {
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+                .innerHTML = "Do you really want to delete this room?"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+                .innerHTML =
+                `
+             <button class="popup-bnt" id="yes${roomID}">Yes</button>
+             <button class="popup-bnt" id="no${roomID}">No</button>
+            `
+            document.getElementById(`yes${roomID}`).addEventListener('click', () => {
+                model.deleteDataFireStore('rooms', roomID)
+                document.getElementById(`${roomID}`).remove()
+                console.log(`xoa room ID ${roomID}`);
+            })
+            document.getElementById(`no${roomID}`).addEventListener('click', () => {
 
+            })
+        } else {
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+                .innerHTML = "only owner can delete this room"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+                .innerHTML = ""
+        }
+        let arr = document.querySelectorAll('.popup-form')
+        arr.forEach((item) => {
+            if (item.id !== `popup-form${roomID}`) item.classList = "popup-form"
+        })
+        popup.classList.toggle('show-popup')
+    })
 }
 
 view.addMessage = (senderId, text) => {
@@ -698,17 +757,18 @@ view.getConversation = (data) => {
     }
 }
 view.getYourRooms = (room) => {
-    console.log(room)
     const roomWrapper = document.createElement('div')
     roomWrapper.className = 'room-bar'
     roomWrapper.id = room.id
     roomWrapper.innerHTML = `
     <div class="room-id">ID: ${room.id}</div>
     <div class="room-host">Host: ${room.host}</div>
+    
     <div class="room-title">Name: ${room.name}</div>
     <div class="room-createAt">Created At: ${room.createdAt}</div>
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
+
     let joinRoom = document.getElementById(roomWrapper.id)
     joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
@@ -719,7 +779,6 @@ view.getYourRooms = (room) => {
             alert('Join failed')
         }
     })
-
 }
 
 view.updateNumberUser = (docId, numberUser) => {
@@ -751,7 +810,6 @@ view.getInFoRoom = async(roomID, room) => {
             </div>
         </div>
     </div>
-
     <div class="title">
         <label for="">Title:</label>
         <p>
@@ -1109,4 +1167,45 @@ view.addNotification = async(data, id, friendImg, friendEmail) => {
         chatTitle.innerHTML = `Chat With ${friendEmail}`
         messageBox.scrollTop = messageBox.scrollHeight
     })
+}
+
+async function nextBnt(x) {
+    let html = '';
+
+    let end = 5 * x;
+    let start = end - 5;
+    const data = await firebase.firestore().collection(model.collectionName).get()
+    const list = document.querySelector('.room-list')
+        // roomW.id = data.fireBaseID
+    for (let x = 0; x < 4; x++) {
+        if (start >= end || start >= getDataFromDocs(data.docs).length) {
+            break;
+        } else {
+            html = `
+          <div class="a" id="delete${getDataFromDocs(data.docs)[start].id}">
+                  <i class="fas fa-trash-alt"></i>
+                  <div class="popup-form" id="popup-form${getDataFromDocs(data.docs)[start].fireBaseID}">
+                      <div class="title-popup"></div>
+                      <div class="button-popup">
+
+                      </div>
+                  </div>
+          </div>
+          <div class="room-bar cursor" id="join-room-${getDataFromDocs(data.docs)[start].id}">
+              <div class="room-id sub-room">ID: ${getDataFromDocs(data.docs)[start].id}</div>
+              <div class="room-host sub-room">Host: ${getDataFromDocs(data.docs)[start].host}</div>
+
+              <div class="room-title sub-room">Name: ${getDataFromDocs(data.docs)[start].name}</div>
+              <div class="room-createAt sub-room">Created At: ${getDataFromDocs(data.docs)[start].createdAt}</div>
+          </div>
+      `
+        }
+        start++;
+
+    }
+
+    if (start >= end || start >= data.length) {
+        return
+    }
+    list.innerHTML = html
 }
