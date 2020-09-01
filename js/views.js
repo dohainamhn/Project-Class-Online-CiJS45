@@ -131,8 +131,8 @@ view.setActiveScreen = async (screen, id) => {
             {
                 // in ra man login
                 document.getElementById('app').innerHTML = components.selectRoomScreen
-                let listenChat = model.listenConversation()
-                let listenRoomChange = model.listenRoomChange(listenChat)
+                view.listenChat = model.listenConversation()
+                let listenRoomChange = model.listenRoomChange(view.listenChat)
                 view.onclickNotification()
                 model.rooms = []
                 document.querySelector('.new-room-bnt').addEventListener('click', () => {
@@ -565,8 +565,7 @@ view.showRooms = (r, f) => {
     }
 }
 
-view.addNewRoom = (roomID, roomData, listenChat) => {
-    console.log(roomData);
+view.addNewRoom = (roomID, roomData) => {
     const roomWrapper = document.createElement('div')
     roomWrapper.className = 'room-bar-wrap'
     roomWrapper.id = roomID
@@ -605,7 +604,7 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
             var person = prompt("Please enter password");
             if (person === roomData.password) {
                 model.currentRoomID = roomID
-                listenChat()
+                view.listenChat()
                 view.setActiveScreen('classRoomScreen', roomID)
             } else {
                 alert('Join failed')
@@ -613,7 +612,7 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
         }
         else{
             model.currentRoomID = roomID
-            listenChat()
+            view.listenChat()
             view.setActiveScreen('classRoomScreen', roomID)
         }
     })
@@ -1156,6 +1155,7 @@ view.addNotification = async (data, id, friendImg, friendEmail) => {
 }
 
 async function nextBnt(x) {
+    console.log(listenChat);
     if(view.viewPage == x){
         return
     }

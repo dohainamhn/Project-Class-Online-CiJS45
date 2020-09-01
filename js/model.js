@@ -86,9 +86,9 @@ model.listenRoomChange = (listenChat) => {
                 console.log(model.rooms)
                 console.log("room Add:", change.doc.data());
                 if (model.rooms.length <= 5) {
-                    view.addNewRoom(change.doc.id, change.doc.data(), listenChat)
+                    view.addNewRoom(change.doc.id, change.doc.data())
                 }
-
+                console.log(listenChat);
                 // console.log("New city: ", change.doc.data());
                 view.adddDevidePageBtn()
             }
