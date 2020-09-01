@@ -1,0 +1,297 @@
+body {
+    line-height: 1.8;
+    color: #222;
+    background: #eef1f3;
+    font-weight: 400;
+    /* width: 100%; */
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .container .signin-content .input-wrapper input {
+    width: 100%;
+    /* display: block; */
+    height: 35px;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 6px 30px;
+    outline: none;
+    /* color: rgb(187, 181, 181); */
+    border-radius: unset;
+  }
+  .container .singin-content .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .container .signin-content .input-wrapper {
+    position: relative;
+    margin-bottom: 25px;
+  }
+  
+  .container .signin-content .input-wrapper label {
+    position: absolute;
+    bottom: 7px;
+  }
+  
+  .container .signin-content {
+    background: #ffffff;
+    max-width: 900px;
+    border-radius: 20px;
+    max-height: 580px;
+  }
+  
+  .container .signin-content .error {
+    position: absolute;
+    bottom: -30px;
+    color: red;
+    font-size: 13px;
+  }
+  
+  .container .signin-content .row {
+    display: flex;
+    padding: 67px 0;
+  }
+  
+  /* .container .signin-content .signin-img {
+      flex-grow: 1;
+    } */
+  
+  .container .signin-content .signin-form {
+    flex-grow: 3;
+  }
+  
+  .signin-form {
+    /* margin: 0 80px 0 90px; */
+    margin: 0 100px 0 80px;
+  }
+  .signin-img {
+    /* margin: 10px 20px 0 110px; */
+    /* display: none; */
+    margin: 10px 20px 0 100px;
+  }
+  
+  .signin-img img {
+    margin-bottom: 50px;
+  }
+  
+  .bottom .redirect-to-resgister {
+    text-align: center;
+    text-decoration: underline #999999;
+    margin: 0;
+    transition: 0.5s;
+    /* font-size: 18px; */
+    position: absolute;
+    left: -330px;
+  }
+  
+  .bottom .redirect-to-resgister:hover {
+    color: #6dabe4;
+    text-decoration: underline #559ada;
+  }
+  
+  .signin-form .bottom {
+    margin-top: 55px;
+    margin-bottom: 18px;
+    display: flex;
+    position: relative;
+  }
+  
+  .signin-form .signin-heading {
+    font-size: 25px;
+    margin-bottom: 33px;
+  }
+  
+  #all-error {
+    position: absolute;
+    bottom: 95px;
+    color: red;
+    font-size: 13px;
+  }
+  /* .input-wrapper {
+      width: 100%;
+      border-bottom: 1px solid #dbdbdb;
+    } */
+  
+  .form-remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 45px;
+  }
+  .form-remember .checkbox {
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-action {
+    position: relative;
+  }
+  .signin-content .form-action .btn {
+    display: inline-block;
+    background: #6dabe4;
+    color: #fff;
+    width: auto;
+    padding: 15px 39px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 0;
+    transition: 0.5s;
+  }
+  .form-action .btn:hover {
+    background: #2a7dca;
+  }
+  
+  .form-action #forgot-password {
+    /* position: absolute;
+      top: 0;
+      right: 0px;
+      transition: 0.5s; */
+    margin-left: 43px;
+  }
+  .form-action #forgot-password:hover {
+    color: #6dabe4;
+  }
+  
+  .form-remember input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    background: #ffffff;
+    border-radius: 2px;
+    border: 1px solid #999999;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin-right: 10px; */
+  }
+  
+  .form-remember input[type="checkbox"]:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    content: "\f00c";
+    font-size: 13px;
+    display: none;
+  }
+  .form-remember input[type="checkbox"]:checked:after {
+    display: block;
+  }
+  
+  .form-action .form-remember label {
+    margin-left: 10px;
+    transition: 0.5s;
+  }
+  .form-action .form-remember label:hover {
+    color: #6dabe4;
+  }
+  .login-social-media {
+    /* margin-top: 68px; */
+    display: flex;
+    align-items: center;
+  }
+  
+  .login-social-media span {
+    margin-right: 15px;
+  }
+  .login-social-media .fab {
+    font-size: 30px;
+    margin: 0px 5px;
+  }
+  
+  .login-social-media .fa-facebook-square {
+    color: #2d76b9;
+  }
+  
+  .login-social-media .fa-google-plus-square {
+    color: #da0707;
+  }
+  
+  .login-social-media .fa-twitter-square {
+    color: #3c93e4;
+  }
+  .login-social-media .fab {
+    transform: scale(1);
+    transition: all 0.5s;
+  }
+  
+  .login-social-media .fab:hover {
+    transform: scale(1.5);
+  }
+  
+  @media only screen and (max-width: 739px) {
+    .signin-img {
+      display: none;
+    }
+    .signin-form {
+      min-width: 300px;
+      margin: 0 25px;
+    }
+    .form-remember {
+      display: flex;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .form-action #forgot-password {
+      margin-left: 64px;
+    }
+    .bottom .redirect-to-resgister {
+      left: 84px;
+      top: 90px;
+    }
+    .input-wrapper {
+      margin-bottom: 30px;
+    }
+    .signin-heading {
+      display: flex;
+      justify-content: center;
+    }
+    .signin-content .form-action .btn {
+      font-size: 18px;
+      border-radius: 50px;
+      padding: 10px 125px;
+    }
+    .login-social-media {
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+    }
+    .login-social-media span {
+      margin: 0;
+      margin-bottom: 20px;
+    }
+    .signin-form .bottom {
+      margin-top: 25px;
+    }
+  }
+  
+  @media only screen and (min-width: 739px) and (max-width: 1023px) {
+    .signin-form {
+      min-width: 300px;
+      margin: 25px;
+      margin-right: 70px;
+    }
+    .signin-content {
+      max-width: 900px;
+      max-height: 580px;
+    }
+    .form-remember {
+      display: flex;
+      margin-bottom: 30px;
+      font-size: 15px;
+    }
+    .form-action #forgot-password {
+      margin-left: 50px;
+    }
+    .signin-img {
+      margin: 10px 20px 0 45px;
+    }
+    .bottom .redirect-to-resgister {
+      left: -258px;
+    }
+  }
+  

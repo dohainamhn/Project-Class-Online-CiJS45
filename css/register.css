@@ -1,0 +1,229 @@
+body {
+    line-height: 1.8;
+    color: #222;
+    background: #eef1f3;
+    font-weight: 400;
+    /* width: 100%; */
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .container .signup-content .input-wrapper input {
+    width: 100%;
+    /* display: block; */
+    height: 35px;
+    border: none;
+    border-bottom: 1px solid #999;
+    padding: 6px 30px;
+    outline: none;
+    border-radius: unset;
+    /* color: rgb(187, 181, 181); */
+  }
+  
+  .container .signup-content .input-wrapper {
+    position: relative;
+    margin-bottom: 25px;
+  }
+  
+  .container .signup-content .input-wrapper label {
+    position: absolute;
+    bottom: 7px;
+  }
+  .container-flex {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container .signup-content {
+    background: #ffffff;
+    max-width: 900px;
+    border-radius: 20px;
+    max-height: 580px;
+  }
+  .container .signup-content .error {
+    position: absolute;
+    bottom: -30px;
+    color: red;
+    font-size: 13px;
+  }
+  .container .signup-content .row {
+    display: flex;
+    padding: 67px 0;
+  }
+  
+  .container .signup-content .signup-form {
+    flex-grow: 3;
+  }
+  
+  .signup-form {
+    margin: 0 80px 0 90px;
+  }
+  .signup-img {
+    margin: 45px 70px 0 55px;
+  }
+  
+  .signup-img img {
+    margin-bottom: 50px;
+  }
+  
+  .signup-form .bottom .redirect-to-signin {
+    text-align: center;
+    text-decoration: underline #999999;
+    margin: 0;
+    position: absolute;
+    right: -350px;
+    margin-top: 10px;
+    /* font-size: 18px; */
+    transition: 0.5s;
+  }
+  .bottom .redirect-to-signin:hover {
+    color: #6dabe4;
+    text-decoration: underline #559ada;
+  }
+  .signup-form .bottom {
+    display: flex;
+    position: relative;
+    margin-top: 25px;
+  }
+  
+  .signup-form .signup-heading {
+    font-size: 40px;
+    margin-bottom: 33px;
+  }
+  
+  #register-form .input-name-wrapper .input-yourname {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .form-action .form-check-job {
+    display: flex;
+    justify-content: space-between;
+  }
+  #signup-all-error {
+    position: absolute;
+    bottom: 95px;
+    color: red;
+    font-size: 13px;
+  }
+  
+  .signup-form .form-action .btn {
+    display: inline-block;
+    background: #6dabe4;
+    color: #fff;
+    width: auto;
+    padding: 15px 39px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 0;
+    transition: 0.5s;
+  }
+  .form-action .btn:hover {
+    background: #2a7dca;
+  }
+  .input-yourname .input-wrapper {
+    width: 48%;
+  }
+  /* #check-job {
+    bottom: 49px;
+    right: 25px;
+  } */
+  
+  .form-action .form-check-job .column {
+    display: flex;
+    width: 50%;
+    align-items: center;
+  }
+  
+  .column input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    height: 16px;
+    width: 16px;
+    background: #ffffff;
+    border-radius: 2px;
+    border: 1px solid #999999;
+    cursor: pointer;
+    outline: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  #check-job {
+    bottom: 50px;
+    right: 0;
+  }
+  .column input[type="radio"]:after {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 600;
+    content: "\f00c";
+    font-size: 13px;
+    display: none;
+  }
+  
+  .column input[type="radio"]:checked:after {
+    display: block;
+  }
+  
+  @media only screen and (max-width: 739px) {
+    .signup-img {
+      display: none;
+    }
+    #check-job {
+      top: 20px;
+    }
+    .signup-form {
+      max-width: 300px;
+      margin: 0 25px;
+    }
+    .signup-form .bottom .redirect-to-signin {
+      right: 0px;
+      position: unset;
+    }
+    .container .signup-content .row {
+      display: flex;
+      padding: 50px 0;
+    }
+    .signup-form .form-action .btn {
+      font-size: 18px;
+      border-radius: 50px;
+      padding: 10px 110px;
+    }
+    .signup-form .bottom {
+      display: flex;
+      flex-direction: column;
+      /* position: relative; */
+      /* margin-top: 25px; */
+    }
+    .signup-form .signup-heading {
+      /* font-size: 40px;
+        margin-bottom: 33px; */
+      display: flex;
+      justify-content: center;
+    }
+  }
+  
+  @media only screen and (min-width: 739px) and (max-width: 1023px) {
+    .signup-form {
+      min-width: 300px;
+      margin: 25px;
+      margin-right: 70px;
+    }
+    .signup-content {
+      max-width: 900px;
+      max-height: 580px;
+    }
+  
+    .signup-img {
+      margin: 10px 20px 0 45px;
+    }
+    .bottom .redirect-to-singin {
+      left: -258px;
+    }
+  }
+  

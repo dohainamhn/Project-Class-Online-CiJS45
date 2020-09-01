@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/classRoom.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/pickRoom.css">
+    <link rel="stylesheet" href="https://sdk.herewhite.com/white-web-sdk/2.7.1.css">
+    <link rel="stylesheet" href="../css/selcetRoom.css">
+    <link rel="stylesheet" href="../css/register.css">
+    <link rel="stylesheet" href="../css/uploadPage.css">
+    <script src="https://sdk.herewhite.com/white-web-sdk/2.7.1.js"></script>
+    <script src="https://kit.fontawesome.com/583698486f.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container1">
+        <div class="nav-bar">
+            <div class="symbol">Online Class</div>
+            <div class="search-bar">
+                <div>
+                    <input placeholder="Search..." type="text" name="" id="">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            <div class="nav-bar-info-User">
+                <div><img src="" alt=""></div>
+                <div class="user-name"></div>
+                <div class="notification">
+                    <i class="far fa-envelope"></i>
+                </div>
+                <div class="log-out-bnt">
+                    <i class="fas fa-sign-out-alt"></i>
+                </div>
+            </div>
+        </div>
+        <div class="main-container1">
+            <div class="upload-img">
+                <div>
+                    <img src="https://static.thenounproject.com/png/558475-200.png" alt="">
+                    <label for="upload">
+                        <i class="fas fa-camera"></i>
+                    </label>
+                    <input type="file" accept="image/png ,image/jpeg,image/gif" id="upload" class="display-none">
+                </div>
+            </div>
+            <div class="menu-div">
+                <h1 class="title"> Profile</h1>
+                <div class="menu-bnt">
+                    <div>
+                        <button id="profile-bnt" class="active-bnt">Profile</button>
+                        <button id="edit-profile-bnt">Edit profile</button>
+                        <button id="edit-password-bnt">Edit password</button>
+                        <button id="view-room-of-current-user">View your room</button>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-box">
+
+                <div class="main-container">
+
+                    <div class="right-container">
+                        <button class="new-room-bnt">Create New Room</button>
+                        <div class="room-list">
+                            <div class="room-bar">
+                                <div class="room-id">ID: ${room.id}</div>
+                                <div class="room-host">Host: ${room.host}</div>
+                                
+                                <div class="room-title">Name: ${room.name}</div>
+                                <div class="room-createAt">Created At: ${room.createdAt}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>
