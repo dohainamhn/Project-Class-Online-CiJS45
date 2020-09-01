@@ -1024,20 +1024,47 @@ view.getUser = (user) => {
 }
 
 view.addFriendMessage = (content, photoURL) => {
-    let html = `
-   <div class="friend-message">
-       <img src="${photoURL}">
-       <div class="message">${content}</div>
-   </div>
-   `
+    let iconUrl = controller.checkIconChat(content)
+    let html = ""
+    if(iconUrl !== null){
+        var n = content.replace(iconUrl.syntax,`<img src="${iconUrl.url}">`)
+        html = ` 
+        <div class="friend-message">
+        <img src="${photoURL}">
+            <div class="message">
+                ${n}
+            </div>
+        </div>
+        `
+    }
+      else html = `
+        <div class="friend-message">
+            <img src="${photoURL}">
+            <div class="message">${content}</div>
+        </div>
+        `
     return html
 }
 view.addYourMessage = (content) => {
-    let html = `
-    <div class="your-message">
-        <div class="message">${content}</div>
-    </div>
-    `
+    let iconUrl = controller.checkIconChat(content)
+    let html =""
+    if(iconUrl !== null){
+        var n = content.replace(iconUrl.syntax,`<img src="${iconUrl.url}">`)
+        html = ` 
+        <div class="your-message">
+            <div class="message">
+                ${n}
+            </div>
+        </div>
+        `
+    }
+    else{
+        html = `
+        <div class="your-message">
+            <div class="message">${content}</div>
+        </div>
+        `
+    }
     return html
 }
 view.addListConversation = (data, isActive = false) => {
