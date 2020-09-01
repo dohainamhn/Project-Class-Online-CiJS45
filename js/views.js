@@ -227,7 +227,9 @@ view.setActiveScreen = async(screen, id) => {
                         }
                     }
                     let checkNull = controller.checkNull(data2)
-                    let checkChannelName = controller.checkChannelName(createRoomForm.chanelName.value)
+                    let checkChannelName = controller.checkChannelName(
+                        controller.removeVietnameseTones(createRoomForm.chanelName.value)
+                    )
                     if (checkNull && checkChannelName) {
                         fetch(url, requestInit).then(function(response) {
                             return response.json();
@@ -235,7 +237,7 @@ view.setActiveScreen = async(screen, id) => {
                             teacher = true
                             console.log(json)
                             const data = {
-                                    channel: createRoomForm.chanelName.value,
+                                    channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
                                     host: model.currentUser.email,
                                     name: createRoomForm.roomName.value,
                                     roomToken: json.msg.roomToken,
@@ -577,7 +579,6 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
         </button>`;
 
     }
-
     for (let x = 0; x < 4; x++) {
         if (count < numberOfRooms.length) {
             html = `
@@ -607,6 +608,7 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
     roomWrapper.innerHTML = html
     document.querySelector(".right-container .room-list").appendChild(roomWrapper);
     document.querySelector(".paginate").innerHTML = pageBnt
+
 
     if (roomData.password !== "") {
         let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
@@ -974,6 +976,7 @@ view.setEventListenEditProfile = () => {
             model.currentUser.isTeacher = data.isTeacher
         }
         model.updateDataToFireStore('users', data)
+        model.updateCurrentUser(data)
         alert('update profile successfully')
         updateForm.reset();
     })
@@ -1171,14 +1174,14 @@ view.addNotification = async(data, id, friendImg, friendEmail) => {
 
 async function nextBnt(x) {
     let html = '';
-
+    const list = document.querySelector('.room-list')
     let end = 5 * x;
     let start = end - 5;
     const data = await firebase.firestore().collection(model.collectionName).get()
-    const list = document.querySelector('.room-list')
+    console.log(getDataFromDocs(data.docs))
         // roomW.id = data.fireBaseID
     for (let x = 0; x < 4; x++) {
-        if (start >= end || start >= getDataFromDocs(data.docs).length) {
+        if (start >= end || start >= data.length) {
             break;
         } else {
             html = `
@@ -1191,8 +1194,8 @@ async function nextBnt(x) {
                       </div>
                   </div>
           </div>
-          <div class="room-bar cursor" id="join-room-${getDataFromDocs(data.docs)[start].id}">
-              <div class="room-id sub-room">ID: ${getDataFromDocs(data.docs)[start].id}</div>
+          <div class="room-bar cursor" id="join-room-${getDataFromDocs(data.docs)[start].fireBaseID}">
+              <div class="room-id sub-room">ID: ${getDataFromDocs(data.docs)[start].fireBaseID}</div>
               <div class="room-host sub-room">Host: ${getDataFromDocs(data.docs)[start].host}</div>
 
               <div class="room-title sub-room">Name: ${getDataFromDocs(data.docs)[start].name}</div>

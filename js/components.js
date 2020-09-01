@@ -41,6 +41,8 @@ components.selectRoomScreen = `
         <div class="room-list">
 
         </div>
+        <div class = "paginate">
+        </div>
     </div>
     <div class="chat-button cursor" id="icon-chat-container"></div>
     <div class="chat-one-to-one-container display-none">
