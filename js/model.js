@@ -83,8 +83,9 @@ model.listenRoomChange = (listenChat) => {
                     createdAt: change.doc.data().createdAt,
                     password: change.doc.data().password
                 })
+                console.log(model.rooms)
                 console.log("room Add:", change.doc.data());
-                view.addNewRoom(change.doc.id, change.doc.data(), listenChat)
+                view.addNewRoom(change.doc.id, change.doc.data(), listenChat, model.rooms)
                     // console.log("New city: ", change.doc.data());
             }
             if (change.type === "modified") {
@@ -301,5 +302,9 @@ model.forgotPassword = (data) => {
         });
 };
 model.deleteRoom = (roomId) => {
-
+    db.collection("cities").doc(roomId).delete().then(function() {
+        console.log("Document successfully deleted!");
+    }).catch(function(error) {
+        console.error("Error removing document: ", error);
+    });
 }

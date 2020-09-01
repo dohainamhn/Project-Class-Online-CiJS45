@@ -562,8 +562,17 @@ view.showRooms = (r, f) => {
     }
 }
 
-view.addNewRoom = (roomID, roomData, listenChat) => {
+view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
     console.log(roomData);
+    let html = '';
+    let pageBnt = '';
+    let page = document.querySelector('.right-container');
+    count = 0;
+    for (let i = 1; i < Math.floor(numberOfRooms.length / 24) + 2; i++) {
+        pageBnt += `<button onclick="nextBnt(${i})" class="nextButton">
+      ${i}
+      </button>`;
+    }
     const roomWrapper = document.createElement('div')
     roomWrapper.className = 'room-bar cursor'
     roomWrapper.id = roomID
@@ -575,7 +584,7 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
     <div class="room-createAt">Created At: ${roomData.createdAt}</div>
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-
+    page.appendChild(pageBnt)
     let joinRoom = document.getElementById(roomWrapper.id)
     joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
@@ -688,13 +697,10 @@ view.getYourRooms = (room) => {
     roomWrapper.innerHTML = `
     <div class="room-id">ID: ${room.id}</div>
     <div class="room-host">Host: ${room.host}</div>
-    
     <div class="room-title">Name: ${room.name}</div>
     <div class="room-createAt">Created At: ${room.createdAt}</div>
-    <i class="fas fa-trash-alt"></i>
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-
     let joinRoom = document.getElementById(roomWrapper.id)
     joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
@@ -705,6 +711,7 @@ view.getYourRooms = (room) => {
             alert('Join failed')
         }
     })
+
 }
 
 view.updateNumberUser = (docId, numberUser) => {
