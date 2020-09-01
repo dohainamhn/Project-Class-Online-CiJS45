@@ -196,6 +196,10 @@ model.updateDataToFireStore = async (collection, data) => {
     let doc = await db.collection(`${collection}`).where("email", "==", firebase.auth().currentUser.email).get()
     db.collection(`${collection}`).doc(`${doc.docs[0].id}`).update(data)
 }
+model.deleteDataFireStore = (collection,document)=>{
+    let db = firebase.firestore()
+    db.collection(collection).doc(document).delete();
+}
 model.getFirebaseDocument = async (collection, document) => {
     let data = await model.initFirebaseStore().collection(collection).doc(`${document}`).get()
     return data.data()

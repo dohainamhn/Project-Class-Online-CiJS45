@@ -45,8 +45,8 @@
 }
 .notification .icon-notification {
     border-radius: 50%;
-    right: -13px;
-    top: 10px;
+    right: -4px;
+    top: 12px;
     position: absolute;
     content: " ";
     background: red;
@@ -281,14 +281,68 @@
 
 .right-container .room-list .room-bar {
     justify-content: space-around;
-    background: #fff;
     height: 40px;
+    display: flex;
+    flex-grow: 1;
+}
+.room-bar-wrap{
     border-radius: 10px;
     display: flex;
+    background: #fff;
     margin-bottom: 30px;
+    align-items: center;
+    padding: 0 10px;
 }
-
-.room-list .room-bar div {
+.room-bar-wrap >div{
+    width: 1.5rem;
+    height: 1.5rem; 
+    border:none;
+    outline: none;
+    background:none;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.room-bar-wrap > .a:hover{
+    color: rgb(163, 112, 112);
+}
+.room-bar-wrap .lock-icon{
+    width:17px;
+    height: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.room-bar-wrap .popup-form{
+    visibility: hidden;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -80px;
+}
+.room-bar-wrap .show-popup{
+    visibility: visible;
+}
+.room-bar-wrap .popup-form::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+.room-list .room-bar .sub-room {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -297,7 +351,7 @@
     width: 20%;
 }
 
-.right-container .room-list .room-bar:hover {
+.right-container .room-list .room-bar-wrap:hover {
     background: #c5c2c2;
 }
 

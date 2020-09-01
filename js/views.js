@@ -361,7 +361,7 @@ view.setActiveScreen = async (screen, id) => {
                 let notificationBox = document.querySelector('.new-notification-box')
                 maincontainer1.addEventListener('click', () => {
                     notificationBox.classList = 'new-notification-box display-none'
-                    
+
                 })
 
                 view.onclickNotification()
@@ -416,25 +416,26 @@ view.setActiveScreen = async (screen, id) => {
                 view.chat()
                 break;
             }
-        case "forgetScreen": {
-            document.getElementById("app").innerHTML = components.forgotScreen;
-            const forgotForm = document.getElementById("forgot-form");
-            forgotForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                const data = {
-                    email: {
-                        value: forgotForm.email.value.trim(),
-                        name: "Your email address",
-                    },
-                };
-                controller.checkNull(data)
-                controller.forgotPassword(data)
-            });
-            document.querySelector(".cancel").addEventListener("click", (e) => {
-                view.setActiveScreen("loginScreen");
-            });
-            break;
-        }
+        case "forgetScreen":
+            {
+                document.getElementById("app").innerHTML = components.forgotScreen;
+                const forgotForm = document.getElementById("forgot-form");
+                forgotForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const data = {
+                        email: {
+                            value: forgotForm.email.value.trim(),
+                            name: "Your email address",
+                        },
+                    };
+                    controller.checkNull(data)
+                    controller.forgotPassword(data)
+                });
+                document.querySelector(".cancel").addEventListener("click", (e) => {
+                    view.setActiveScreen("loginScreen");
+                });
+                break;
+            }
     }
 }
 
@@ -568,26 +569,53 @@ view.showRooms = (r, f) => {
 view.addNewRoom = (roomID, roomData, listenChat) => {
     console.log(roomData);
     const roomWrapper = document.createElement('div')
-    roomWrapper.className = 'room-bar cursor'
+    roomWrapper.className = 'room-bar-wrap'
     roomWrapper.id = roomID
     roomWrapper.innerHTML = `
-    <div class="room-id">ID: ${roomID}</div>
-    <div class="room-host">Host: ${roomData.host}</div>
+    <div class="a" id="delete${roomID}">
+            <i class="fas fa-trash-alt"></i>
+            <div class="popup-form" id="popup-form${roomID}">
+                <div class="title-popup"></div>
+                <div class="button-popup">
+                   
+                </div>
+            </div>
+    </div>
+    <div class="room-bar cursor" id="join-room-${roomID}">
+        <div class="room-id sub-room">ID: ${roomID}</div>
+        <div class="room-host sub-room">Host: ${roomData.host}</div>
+        
+        <div class="room-title sub-room">Name: ${roomData.name}</div>
+        <div class="room-createAt sub-room">Created At: ${roomData.createdAt}</div>
+    </div>
+`   
+    document.querySelector(".right-container .room-list").appendChild(roomWrapper);
     
-    <div class="room-title">Name: ${roomData.name}</div>
-    <div class="room-createAt">Created At: ${roomData.createdAt}</div>
-`
-    document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-
-    let joinRoom = document.getElementById(roomWrapper.id)
+    if(roomData.password !== ""){
+        let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend',iconHTML)
+    }
+    else{
+        let iconHTML = `<div class="lock-icon"></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend',iconHTML)
+    }
+    let deleteRoomBtn = document.getElementById(`delete${roomID}`)
+    let joinRoom = document.getElementById(`join-room-${roomID}`)
     joinRoom.addEventListener('click', async () => {
-        var person = prompt("Please enter password");
-        if (person === roomData.password) {
+        if(roomData.password !== ""){
+            var person = prompt("Please enter password");
+            if (person === roomData.password) {
+                model.currentRoomID = roomID
+                listenChat()
+                view.setActiveScreen('classRoomScreen', roomID)
+            } else {
+                alert('Join failed')
+            }
+        }
+        else{
             model.currentRoomID = roomID
             listenChat()
             view.setActiveScreen('classRoomScreen', roomID)
-        } else {
-            alert('Join failed')
         }
     })
     joinRoom.addEventListener('mouseover', async () => {
@@ -595,7 +623,38 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
         // let r = await model.getRoomInfo(roomID)
         view.getInFoRoom(roomID, r)
     })
-
+    deleteRoomBtn.addEventListener('click',()=>{
+        let popup = document.querySelector(`#delete${roomID} .popup-form`)
+        if(firebase.auth().currentUser.email == roomData.host){
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+            .innerHTML = "Do you really want to delete this room?"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+            .innerHTML =
+            `
+             <button class="popup-bnt" id="yes${roomID}">Yes</button>
+             <button class="popup-bnt" id="no${roomID}">No</button>
+            `
+            document.getElementById(`yes${roomID}`).addEventListener('click',()=>{
+                 model.deleteDataFireStore('rooms',roomID)
+                document.getElementById(`${roomID}`).remove()
+                console.log(`xoa room ID ${roomID}`);
+            })
+            document.getElementById(`no${roomID}`).addEventListener('click',()=>{
+               
+            })
+        }
+        else{
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+            .innerHTML = "only host can delete this room"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+            .innerHTML = ""
+        }
+        let arr = document.querySelectorAll('.popup-form')
+        arr.forEach((item)=>{
+            if(item.id !== `popup-form${roomID}`)item.classList = "popup-form"
+        })
+        popup.classList.toggle('show-popup')
+    })
 }
 
 view.addMessage = (senderId, text) => {
