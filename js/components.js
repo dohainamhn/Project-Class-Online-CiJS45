@@ -320,7 +320,6 @@ components.editPasswordBox = `
 components.viewYourRoom = `
 
 <div class="right-container">
-    <button class="new-room-bnt">Create New Room</button>
     <div class="room-list">
 
     </div>

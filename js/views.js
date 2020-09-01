@@ -15,7 +15,7 @@ var requestInit = {
 };
 let view = {}
 view.count = 0;
-view.setActiveScreen = async (screen, id) => {
+view.setActiveScreen = async(screen, id) => {
     switch (screen) {
         case "registerScreen":
             {
@@ -53,10 +53,10 @@ view.setActiveScreen = async (screen, id) => {
                     controller.logup(data)
                 })
                 document
-                    .querySelector(".redirect-to-signin")
-                    .addEventListener("click", () => {
-                        view.setActiveScreen("loginScreen");
-                    });
+                .querySelector(".redirect-to-signin")
+                .addEventListener("click", () => {
+                    view.setActiveScreen("loginScreen");
+                });
                 break;
             }
         case 'loginScreen':
@@ -81,9 +81,9 @@ view.setActiveScreen = async (screen, id) => {
                             name: "email",
                         },
                     };
-                    loginForm.remember.checked
-                        ? (controller.checkRemember = true)
-                        : (controller.checkRemember = false);
+                    loginForm.remember.checked ?
+                        (controller.checkRemember = true) :
+                        (controller.checkRemember = false);
                     controller.checkNull(data)
                     controller.login(data)
                     const dataRemember = {
@@ -109,15 +109,15 @@ view.setActiveScreen = async (screen, id) => {
                     loginForm.password.value = "";
                 }
                 document
-                    .querySelector(".redirect-to-resgister")
-                    .addEventListener("click", () => {
-                        view.setActiveScreen("registerScreen");
-                    });
+                .querySelector(".redirect-to-resgister")
+                .addEventListener("click", () => {
+                    view.setActiveScreen("registerScreen");
+                });
                 document
-                    .getElementById("forgot-password")
-                    .addEventListener("click", () => {
-                        view.setActiveScreen("forgetScreen");
-                    });
+                .getElementById("forgot-password")
+                .addEventListener("click", () => {
+                    view.setActiveScreen("forgetScreen");
+                });
                 document.getElementById("facebook").addEventListener("click", (e) => {
                     model.signinFacebook();
                 });
@@ -139,8 +139,7 @@ view.setActiveScreen = async (screen, id) => {
                         view.setActiveScreen('createRoomScreen')
                         listenRoomChange()
                         listenChat()
-                    }
-                    else alert(`Only teacher can create room`)
+                    } else alert(`Only teacher can create room`)
                 })
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
@@ -230,27 +229,27 @@ view.setActiveScreen = async (screen, id) => {
                     let checkNull = controller.checkNull(data2)
                     let checkChannelName = controller.checkChannelName(createRoomForm.chanelName.value)
                     if (checkNull && checkChannelName) {
-                        fetch(url, requestInit).then(function (response) {
+                        fetch(url, requestInit).then(function(response) {
                             return response.json();
-                        }).then(function (json) {
+                        }).then(function(json) {
                             teacher = true
                             console.log(json)
                             const data = {
-                                channel: createRoomForm.chanelName.value,
-                                host: model.currentUser.email,
-                                name: createRoomForm.roomName.value,
-                                roomToken: json.msg.roomToken,
-                                roomUUID: json.msg.room.uuid,
-                                title: createRoomForm.roomTtitle.value,
-                                createdAt: new Date().toLocaleString(),
-                                password: createRoomForm.passwordRoom.value,
-                                currentMembers: []
-                            }
-                            // model.loadRooms()
+                                    channel: createRoomForm.chanelName.value,
+                                    host: model.currentUser.email,
+                                    name: createRoomForm.roomName.value,
+                                    roomToken: json.msg.roomToken,
+                                    roomUUID: json.msg.room.uuid,
+                                    title: createRoomForm.roomTtitle.value,
+                                    createdAt: new Date().toLocaleString(),
+                                    password: createRoomForm.passwordRoom.value,
+                                    currentMembers: []
+                                }
+                                // model.loadRooms()
                             console.log((data));
                             model.createRoom(data)
                             view.setActiveScreen('selectRoomScreen')
-                        }).catch(function (err) {
+                        }).catch(function(err) {
                             console.error(err);
                         });
                     }
@@ -270,7 +269,7 @@ view.setActiveScreen = async (screen, id) => {
                 agora.addEventListenerToolBoard(room, roomInfo)
 
                 roomInfo.host == firebase.auth().currentUser.email ?
-                    agora.joinChannel(roomInfo.channel, true) : agora.joinChannel(roomInfo.channel, false)
+                agora.joinChannel(roomInfo.channel, true) : agora.joinChannel(roomInfo.channel, false)
                 agora.RtmLogin(firebase.auth().currentUser.email, roomInfo.channel)
                 let buttonScreenShare = document.getElementById('onScreenShare')
                 buttonScreenShare.addEventListener('click', () => {
@@ -302,7 +301,7 @@ view.setActiveScreen = async (screen, id) => {
                     agora.client.leave()
                     agora.RtmLeaveChannel()
                     agora.remoteStreams = []
-                    room.disconnect().then(function () {
+                    room.disconnect().then(function() {
                         console.log("Leave room success");
                         // model.loadRooms()
                     });
@@ -361,12 +360,11 @@ view.setActiveScreen = async (screen, id) => {
                 let notificationBox = document.querySelector('.new-notification-box')
                 maincontainer1.addEventListener('click', () => {
                     notificationBox.classList = 'new-notification-box display-none'
-                    
+
                 })
 
                 view.onclickNotification()
                 view.chat()
-
                 break;
             }
         case 'viewYourFriendProfile':
@@ -376,7 +374,7 @@ view.setActiveScreen = async (screen, id) => {
                 const homPage = document.querySelector('.symbol')
                 homPage.addEventListener('click', () => {
                     view.setActiveScreen('selectRoomScreen')
-                    // model.loadRooms()
+                        // model.loadRooms()
                 })
                 view.onclickNotification()
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
@@ -416,29 +414,30 @@ view.setActiveScreen = async (screen, id) => {
                 view.chat()
                 break;
             }
-        case "forgetScreen": {
-            document.getElementById("app").innerHTML = components.forgotScreen;
-            const forgotForm = document.getElementById("forgot-form");
-            forgotForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                const data = {
-                    email: {
-                        value: forgotForm.email.value.trim(),
-                        name: "Your email address",
-                    },
-                };
-                controller.checkNull(data)
-                controller.forgotPassword(data)
-            });
-            document.querySelector(".cancel").addEventListener("click", (e) => {
-                view.setActiveScreen("loginScreen");
-            });
-            break;
-        }
+        case "forgetScreen":
+            {
+                document.getElementById("app").innerHTML = components.forgotScreen;
+                const forgotForm = document.getElementById("forgot-form");
+                forgotForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    const data = {
+                        email: {
+                            value: forgotForm.email.value.trim(),
+                            name: "Your email address",
+                        },
+                    };
+                    controller.checkNull(data)
+                    controller.forgotPassword(data)
+                });
+                document.querySelector(".cancel").addEventListener("click", (e) => {
+                    view.setActiveScreen("loginScreen");
+                });
+                break;
+            }
     }
 }
 
-view.chat = async () => {
+view.chat = async() => {
     let topChatButton = document.querySelector('.top-message-box')
     let chatContainer = document.querySelector('.chat-one-to-one-container')
     let iconChat = document.getElementById('icon-chat-container')
@@ -451,7 +450,7 @@ view.chat = async () => {
         iconChat.classList.toggle('display-none')
     })
     let inputChatEmail = document.getElementById('input-chat-email')
-    inputChatEmail.addEventListener('keyup', async (e) => {
+    inputChatEmail.addEventListener('keyup', async(e) => {
         if (e.keyCode == '13') {
             let friend = await model.getInfoUser(inputChatEmail.value)
             if (inputChatEmail.value == firebase.auth().currentUser.email || friend == null) {
@@ -503,7 +502,7 @@ view.chat = async () => {
                     }
                     console.log(conversations);
                     model.allConversation = controller.sortByTimeStamp(conversations)
-                    // model.currentConversation = model.allConversation[0] 
+                        // model.currentConversation = model.allConversation[0] 
                 }
                 // view.loadNotification()
             } else {
@@ -542,16 +541,14 @@ view.chat = async () => {
         const filteredConversations = model.allConversation.filter((conversation) => {
             return (
                 conversation.users.find((item) => item !== firebase.auth().currentUser.email)
-                    .toLowerCase().includes(searchString)
+                .toLowerCase().includes(searchString)
             );
         });
         console.log(filteredConversations);
         for (let index = 0; index < model.allConversation.length; index++) {
             console.log(model.allConversation[index].friendImg)
             if (filteredConversations[index] !== undefined) {
-                view.addNotification(filteredConversations[index]
-                    , filteredConversations[index].id
-                    , filteredConversations[index].friendImg, filteredConversations[index].friendEmail)
+                view.addNotification(filteredConversations[index], filteredConversations[index].id, filteredConversations[index].friendImg, filteredConversations[index].friendEmail)
             }
         }
     });
@@ -580,7 +577,7 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
 
     let joinRoom = document.getElementById(roomWrapper.id)
-    joinRoom.addEventListener('click', async () => {
+    joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
         if (person === roomData.password) {
             model.currentRoomID = roomID
@@ -590,9 +587,9 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
             alert('Join failed')
         }
     })
-    joinRoom.addEventListener('mouseover', async () => {
+    joinRoom.addEventListener('mouseover', async() => {
         let r = model.rooms.find((item) => item.fireBaseID == roomID)
-        // let r = await model.getRoomInfo(roomID)
+            // let r = await model.getRoomInfo(roomID)
         view.getInFoRoom(roomID, r)
     })
 
@@ -615,7 +612,7 @@ view.getUsers = (data) => {
             listRooms.insertAdjacentHTML('beforeend', html)
         }
         let getUser = document.getElementById(data.id)
-        getUser.addEventListener('click', async () => {
+        getUser.addEventListener('click', async() => {
             let userDetail = await model.getInfoUser(data.email)
             console.log('click');
             view.setActiveScreen('viewYourFriendProfile')
@@ -638,7 +635,7 @@ view.getRooms = (data) => {
             `
         listRooms.insertAdjacentHTML('beforeend', html)
         let joinRoom = document.getElementById(data.id)
-        joinRoom.addEventListener('click', async () => {
+        joinRoom.addEventListener('click', async() => {
             var person = prompt("Please enter your name", "Harry Potter");
             if (person === data.password) {
                 model.currentRoomID = data.id
@@ -647,9 +644,9 @@ view.getRooms = (data) => {
                 alert('Join failed')
             }
         })
-        joinRoom.addEventListener('mouseover', async () => {
+        joinRoom.addEventListener('mouseover', async() => {
             let r = model.rooms.find((item) => item.fireBaseID == data.id)
-            // let r = await model.getRoomInfo(data.id)
+                // let r = await model.getRoomInfo(data.id)
             view.getInFoRoom(data.id, r)
         })
     }
@@ -667,7 +664,7 @@ view.getConversation = (data) => {
             `
         listRooms.insertAdjacentHTML('beforeend', html)
         let joinRoom = document.getElementById(data.id)
-        joinRoom.addEventListener('click', async () => {
+        joinRoom.addEventListener('click', async() => {
             var person = prompt("Please enter your name", "Harry Potter");
             if (person === data.password) {
                 model.currentRoomID = data.id
@@ -676,14 +673,15 @@ view.getConversation = (data) => {
                 alert('Join failed')
             }
         })
-        joinRoom.addEventListener('mouseover', async () => {
+        joinRoom.addEventListener('mouseover', async() => {
             let r = model.rooms.find((item) => item.fireBaseID == data.id)
-            // let r = await model.getRoomInfo(data.id)
+                // let r = await model.getRoomInfo(data.id)
             view.getInFoRoom(data.id, r)
         })
     }
 }
 view.getYourRooms = (room) => {
+    console.log(room)
     const roomWrapper = document.createElement('div')
     roomWrapper.className = 'room-bar'
     roomWrapper.id = room.id
@@ -693,11 +691,12 @@ view.getYourRooms = (room) => {
     
     <div class="room-title">Name: ${room.name}</div>
     <div class="room-createAt">Created At: ${room.createdAt}</div>
+    <i class="fas fa-trash-alt"></i>
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
 
     let joinRoom = document.getElementById(roomWrapper.id)
-    joinRoom.addEventListener('click', async () => {
+    joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
         if (person === room.password) {
             model.currentRoomID = room.id
@@ -714,7 +713,7 @@ view.updateNumberUser = (docId, numberUser) => {
     secondChild.innerText = numberUser + ' members'
 }
 
-view.getInFoRoom = async (roomID, room) => {
+view.getInFoRoom = async(roomID, room) => {
     let realTimeUserInfo = await model.getUserIntoRoom(null, roomID)
     let infoHost = await model.getInfoUser(room.host)
     let count = 0;
@@ -760,7 +759,7 @@ view.getInFoRoom = async (roomID, room) => {
         members.insertAdjacentHTML('beforeend', userHtml)
         for (let x of key) {
             let userBar = document.getElementById(`${x}`)
-            userBar.addEventListener('click', async () => {
+            userBar.addEventListener('click', async() => {
                 let userDetail = await model.getInfoUser(realTimeUserInfo[x].email)
                 console.log('click');
                 view.setActiveScreen('viewYourFriendProfile')
@@ -769,7 +768,7 @@ view.getInFoRoom = async (roomID, room) => {
         }
     }
     let getUser = document.querySelector('.email-user')
-    getUser.addEventListener('click', async () => {
+    getUser.addEventListener('click', async() => {
         let userDetail = await model.getInfoUser(room.host)
         console.log('click');
         view.setActiveScreen('viewYourFriendProfile')
@@ -782,7 +781,7 @@ view.setNavbarInfoUser = () => {
     userName.innerHTML = `${firebase.auth().currentUser.displayName}`
     imgUser.src = `${firebase.auth().currentUser.photoURL}`
 }
-view.setProfileDefault = async () => {
+view.setProfileDefault = async() => {
     document.getElementById('profile-name').innerHTML = `Name: ${firebase.auth().currentUser.displayName}`
     document.getElementById('profile-email').innerHTML = `Email: ${firebase.auth().currentUser.email}`
     let isTeacher = document.getElementById('is-teacher');
@@ -805,7 +804,7 @@ view.listenChangeToEditProfile = () => {
     let editProfileBnt = document.getElementById('edit-profile-bnt')
     let editPasswordBnt = document.getElementById('edit-password-bnt')
     let viewRoomOfUser = document.getElementById('view-room-of-current-user')
-    viewRoomOfUser.addEventListener('click', async () => {
+    viewRoomOfUser.addEventListener('click', async() => {
         profileBnt.classList = ''
         editProfileBnt.classList = ''
         editPasswordBnt.classList = ''
@@ -856,7 +855,7 @@ view.listenChangeToEditProfile = () => {
         title.innerHTML = 'Edit Password'
         let resetPasswordForm = document.getElementById('reset-password-form')
         let currentPasswordError = document.getElementById('currentPassword')
-        resetPasswordForm.addEventListener('submit', async (e) => {
+        resetPasswordForm.addEventListener('submit', async(e) => {
             e.preventDefault()
             let data = {
                 currentPassword: {
@@ -908,7 +907,7 @@ view.setEventListenEditProfile = () => {
 }
 view.listenOnUpdateImage = () => {
     let uploadImg = document.getElementById('upload')
-    uploadImg.addEventListener('change', async (e) => {
+    uploadImg.addEventListener('change', async(e) => {
         let img = document.querySelector('.upload-img img')
         let navImg = document.querySelector('.nav-bar-info-User img')
         let storageRef = firebase.storage().ref();
@@ -1016,7 +1015,7 @@ view.onclickNotification = () => {
 }
 
 
-view.addNotification = async (data, id, friendImg, friendEmail) => {
+view.addNotification = async(data, id, friendImg, friendEmail) => {
     // console.log(data);
     lassMessageOwner = data.messages[data.messages.length - 1].owner
     let notificationBox = document.querySelector('.new-notification')
@@ -1040,8 +1039,7 @@ view.addNotification = async (data, id, friendImg, friendEmail) => {
     `
     if (data.check == true) {
         notificationBox.insertAdjacentHTML('beforeend', html)
-    }
-    else notificationBox.insertAdjacentHTML('afterbegin', html)
+    } else notificationBox.insertAdjacentHTML('afterbegin', html)
     if (lassMessageOwner !== firebase.auth().currentUser.email) {
         if (model.currentConversation !== null) {
             if (id !== model.currentConversation.id && data.check == false) {
@@ -1065,7 +1063,7 @@ view.addNotification = async (data, id, friendImg, friendEmail) => {
         }
     }
     let a = document.getElementById(`${id}`)
-    a.addEventListener('click', async () => {
+    a.addEventListener('click', async() => {
         a.style.fontWeight = '300'
         model.currentConversation = {
             id: id,
