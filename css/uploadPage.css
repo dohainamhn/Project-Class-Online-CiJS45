@@ -123,11 +123,13 @@
     background: #fff;
     flex-grow: 1;
     height: 70%;
-    overflow:auto;
+    overflow: auto;
 }
-.profile-box::-webkit-scrollbar{
+
+.profile-box::-webkit-scrollbar {
     display: none;
 }
+
 .profile-box .profile-row {
     padding-bottom: 10px;
     display: flex;
@@ -275,4 +277,11 @@
 .result-search a {
     text-decoration: none;
     color: black;
+}
+
+.nextButton {
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    margin: 0 2px;
 }
