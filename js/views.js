@@ -137,16 +137,16 @@ view.setActiveScreen = async(screen, id) => {
                 model.rooms = []
                 document.querySelector('.new-room-bnt').addEventListener('click', () => {
                     if (model.currentUser.isTeacher) {
-                        view.setActiveScreen('createRoomScreen')
                         listenRoomChange()
                         view.listenChat()
+                        view.setActiveScreen('createRoomScreen')
                     } else alert(`Only teacher can create room`)
                 })
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
-                    view.setActiveScreen('updatePageScreen')
-                    listenRoomChange()
                     view.listenChat()
+                    listenRoomChange()
+                    view.setActiveScreen('updatePageScreen')
                 })
                 view.setNavbarInfoUser()
                 const logOut = document.querySelector('.log-out-bnt')
@@ -154,9 +154,9 @@ view.setActiveScreen = async(screen, id) => {
                     e.preventDefault()
                     firebase.auth().signOut().then(() => {
                         console.log('user signed out')
-                        view.setActiveScreen('loginScreen')
                         listenRoomChange()
                         view.listenChat()
+                        view.setActiveScreen('loginScreen')
                     })
                 })
                 //------------------- Search Room --------------------------
@@ -338,9 +338,9 @@ view.setActiveScreen = async(screen, id) => {
                 view.listenOnUpdateImage()
                 const homPage = document.querySelector('.symbol')
                 homPage.addEventListener('click', () => {
-                    view.setActiveScreen('selectRoomScreen')
                     listenChat()
                     view.listenChat()
+                    view.setActiveScreen('selectRoomScreen')
                 })
                 console.log(homPage)
                 const response = await firebase.firestore().collection("users").get()
@@ -382,16 +382,16 @@ view.setActiveScreen = async(screen, id) => {
                 let listenChat = model.listenConversation()
                 const homPage = document.querySelector('.symbol')
                 homPage.addEventListener('click', () => {
-                    view.setActiveScreen('selectRoomScreen')
                     listenChat()
                     view.listenChat()
+                    view.setActiveScreen('selectRoomScreen')
                 })
                 view.onclickNotification()
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
-                    view.setActiveScreen('updatePageScreen')
                     listenChat()
                     view.listenChat()
+                    view.setActiveScreen('updatePageScreen')
                 })
                 const response = await firebase.firestore().collection("users").get()
                 roomSearch = getDataFromDocs(response.docs)
