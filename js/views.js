@@ -728,11 +728,11 @@ view.getConversation = (data) => {
     let listRooms = document.querySelector('.room-list')
     if (data !== undefined) {
         let html = `
-        <div class="room-bar" id="${data.id}">
-            <div class="room-id">ID: ${data.id}</div>
-            <div class="room-host">Host: ${data.host}</div>
-            <div class="room-title">Name: ${data.name}</div>
-            <div class="room-createAt">Created At: ${data.createdAt}</div>
+        <div class="room-bar sub-room" id="${data.id}">
+            <div class="room-id sub-room">ID: ${data.id}</div>
+            <div class="room-host sub-room">Host: ${data.host}</div>
+            <div class="room-title sub-room">Name: ${data.name}</div>
+            <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
         </div>
             `
         listRooms.insertAdjacentHTML('beforeend', html)
@@ -758,11 +758,11 @@ view.getYourRooms = (room) => {
     roomWrapper.className = 'room-bar'
     roomWrapper.id = room.id
     roomWrapper.innerHTML = `
-    <div class="room-id">ID: ${room.id}</div>
-    <div class="room-host">Host: ${room.host}</div>
+    <div class="room-id sub-room">ID: ${room.id}</div>
+    <div class="room-host sub-room">Host: ${room.host}</div>
     
-    <div class="room-title">Name: ${room.name}</div>
-    <div class="room-createAt">Created At: ${room.createdAt}</div>
+    <div class="room-title sub-room">Name: ${room.name}</div>
+    <div class="room-createAt sub-room">Created At: ${room.createdAt}</div>
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
 
