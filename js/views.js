@@ -14,6 +14,7 @@ var requestInit = {
     }),
 };
 let view = {}
+view.viewPage = 1;
 view.count = 0;
 view.setActiveScreen = async(screen, id) => {
     switch (screen) {
@@ -130,8 +131,8 @@ view.setActiveScreen = async(screen, id) => {
             {
                 // in ra man login
                 document.getElementById('app').innerHTML = components.selectRoomScreen
-                let listenChat = model.listenConversation()
-                let listenRoomChange = model.listenRoomChange(listenChat)
+                view.listenChat = model.listenConversation()
+                let listenRoomChange = model.listenRoomChange(view.listenChat)
                 view.onclickNotification()
                 model.rooms = []
                 document.querySelector('.new-room-bnt').addEventListener('click', () => {
@@ -158,7 +159,6 @@ view.setActiveScreen = async(screen, id) => {
                         listenChat()
                     })
                 })
-
                 //------------------- Search Room --------------------------
                 const response = await firebase.firestore().collection(model.collectionName).get()
                 roomSearch = getDataFromDocs(response.docs)
@@ -227,7 +227,9 @@ view.setActiveScreen = async(screen, id) => {
                         }
                     }
                     let checkNull = controller.checkNull(data2)
-                    let checkChannelName = controller.checkChannelName(createRoomForm.chanelName.value)
+                    let checkChannelName = controller.checkChannelName(
+                        controller.removeVietnameseTones(createRoomForm.chanelName.value)
+                    )
                     if (checkNull && checkChannelName) {
                         fetch(url, requestInit).then(function(response) {
                             return response.json();
@@ -235,7 +237,7 @@ view.setActiveScreen = async(screen, id) => {
                             teacher = true
                             console.log(json)
                             const data = {
-                                    channel: createRoomForm.chanelName.value,
+                                    channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
                                     host: model.currentUser.email,
                                     name: createRoomForm.roomName.value,
                                     roomToken: json.msg.roomToken,
@@ -365,6 +367,7 @@ view.setActiveScreen = async(screen, id) => {
 
                 view.onclickNotification()
                 view.chat()
+
                 break;
             }
         case 'viewYourFriendProfile':
@@ -562,46 +565,53 @@ view.showRooms = (r, f) => {
     }
 }
 
-view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
-    console.log(roomData);
-
-    let pageBnt = '';
-    count = 0;
-    console.log(numberOfRooms)
-    for (let i = 1; i < Math.floor(numberOfRooms.length / 2) + 2; i++) {
-        pageBnt += `<button onclick="nextBnt(${i})" class="nextButton">
-      ${i}
-      </button>`;
-    }
+view.addNewRoom = (roomID, roomData) => {
     const roomWrapper = document.createElement('div')
-    roomWrapper.className = 'room-bar cursor'
+    roomWrapper.className = 'room-bar-wrap'
     roomWrapper.id = roomID
-    for (let x = 0; x < 4; x++) {
-        if (count < numberOfRooms.length) {
-            roomWrapper.innerHTML = `
-            <div class="room-id">ID: ${roomID[count]}</div>
-            <div class="room-host">Host: ${roomData[count].host}</div>
-            
-            <div class="room-title">Name: ${roomData[count].name}</div>
-            <div class="room-createAt">Created At: ${roomData[count].createdAt}</div>
-        `
-            count++;
-        }
-        if (count > numberOfRooms.length) {
-            break;
-        }
+    roomWrapper.innerHTML = `
+    <div class="a" id="delete${roomID}">
+            <i class="fas fa-trash-alt"></i>
+            <div class="popup-form" id="popup-form${roomID}">
+                <div class="title-popup"></div>
+                <div class="button-popup">
+                   
+                </div>
+            </div>
+    </div>
+    <div class="room-bar cursor" id="join-room-${roomID}">
+        <div class="room-id sub-room">ID: ${roomID}</div>
+        <div class="room-host sub-room">Host: ${roomData.host}</div>
+        
+        <div class="room-title sub-room">Name: ${roomData.name}</div>
+        <div class="room-createAt sub-room">Created At: ${roomData.createdAt}</div>
+    </div>
+`
+    document.querySelector(".right-container .room-list").appendChild(roomWrapper);
+
+    if (roomData.password !== "") {
+        let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend', iconHTML)
+    } else {
+        let iconHTML = `<div class="lock-icon"></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend', iconHTML)
     }
-    document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-    document.querySelector('.right-container').lastElementChild = pageBnt
-    let joinRoom = document.getElementById(roomWrapper.id)
+    let deleteRoomBtn = document.getElementById(`delete${roomID}`)
+    let joinRoom = document.getElementById(`join-room-${roomID}`)
     joinRoom.addEventListener('click', async() => {
-        var person = prompt("Please enter password");
-        if (person === roomData.password) {
-            model.currentRoomID = roomID
-            listenChat()
-            view.setActiveScreen('classRoomScreen', roomID)
+        if (roomData.password !== "") {
+            var person = prompt("Please enter password");
+            if (person === roomData.password) {
+                model.currentRoomID = roomID
+                view.listenChat()
+                view.setActiveScreen('classRoomScreen', roomID)
+            } else {
+                alert('Join failed')
+            }
         } else {
-            alert('Join failed')
+            model.currentRoomID = roomID
+            view.listenChat()
+            view.setActiveScreen('classRoomScreen', roomID)
         }
     })
     joinRoom.addEventListener('mouseover', async() => {
@@ -609,7 +619,37 @@ view.addNewRoom = (roomID, roomData, listenChat, numberOfRooms) => {
             // let r = await model.getRoomInfo(roomID)
         view.getInFoRoom(roomID, r)
     })
+    deleteRoomBtn.addEventListener('click', () => {
+        let popup = document.querySelector(`#delete${roomID} .popup-form`)
+        if (firebase.auth().currentUser.email == roomData.host) {
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+                .innerHTML = "Do you really want to delete this room?"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+                .innerHTML =
+                `
+             <button class="popup-bnt" id="yes${roomID}">Yes</button>
+             <button class="popup-bnt" id="no${roomID}">No</button>
+            `
+            document.getElementById(`yes${roomID}`).addEventListener('click', () => {
+                model.deleteDataFireStore('rooms', roomID)
+                document.getElementById(`${roomID}`).remove()
+                console.log(`xoa room ID ${roomID}`);
+            })
+            document.getElementById(`no${roomID}`).addEventListener('click', () => {
 
+            })
+        } else {
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+                .innerHTML = "only owner can delete this room"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+                .innerHTML = ""
+        }
+        let arr = document.querySelectorAll('.popup-form')
+        arr.forEach((item) => {
+            if (item.id !== `popup-form${roomID}`) item.classList = "popup-form"
+        })
+        popup.classList.toggle('show-popup')
+    })
 }
 
 view.addMessage = (senderId, text) => {
@@ -698,17 +738,18 @@ view.getConversation = (data) => {
     }
 }
 view.getYourRooms = (room) => {
-    console.log(room)
     const roomWrapper = document.createElement('div')
     roomWrapper.className = 'room-bar'
     roomWrapper.id = room.id
     roomWrapper.innerHTML = `
     <div class="room-id">ID: ${room.id}</div>
     <div class="room-host">Host: ${room.host}</div>
+    
     <div class="room-title">Name: ${room.name}</div>
     <div class="room-createAt">Created At: ${room.createdAt}</div>
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
+
     let joinRoom = document.getElementById(roomWrapper.id)
     joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
@@ -719,7 +760,6 @@ view.getYourRooms = (room) => {
             alert('Join failed')
         }
     })
-
 }
 
 view.updateNumberUser = (docId, numberUser) => {
@@ -751,7 +791,6 @@ view.getInFoRoom = async(roomID, room) => {
             </div>
         </div>
     </div>
-
     <div class="title">
         <label for="">Title:</label>
         <p>
@@ -916,6 +955,7 @@ view.setEventListenEditProfile = () => {
             model.currentUser.isTeacher = data.isTeacher
         }
         model.updateDataToFireStore('users', data)
+        model.updateCurrentUser(data)
         alert('update profile successfully')
         updateForm.reset();
     })
@@ -1109,4 +1149,37 @@ view.addNotification = async(data, id, friendImg, friendEmail) => {
         chatTitle.innerHTML = `Chat With ${friendEmail}`
         messageBox.scrollTop = messageBox.scrollHeight
     })
+}
+
+async function nextBnt(x) {
+    if (view.viewPage == x) {
+        return
+    }
+
+    const list = document.querySelector('.room-list').innerHTML = ""
+    let end = 5 * x;
+    let start = end - 5;
+
+    // roomW.id = data.fireBaseID
+    for (let i = 0; i <= 4; i++) {
+        if (start >= end || start >= model.rooms.length) {
+            break;
+        } else {
+            view.addNewRoom(model.rooms[start].fireBaseID, model.rooms[start])
+        }
+        start++;
+    }
+    view.viewPage = x
+    if (start >= end || start >= model.rooms.length) {
+        return
+    }
+}
+view.adddDevidePageBtn = () => {
+    let pageBnt = '';
+    for (let i = 1; i <= Math.ceil(model.rooms.length / 5); i++) {
+        pageBnt += `<button onclick = "nextBnt(${i})" class="nextButton">
+        ${i}
+        </button>`;
+    }
+    document.querySelector(".paginate").innerHTML = pageBnt
 }

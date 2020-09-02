@@ -83,10 +83,13 @@ model.listenRoomChange = (listenChat) => {
                     createdAt: change.doc.data().createdAt,
                     password: change.doc.data().password
                 })
-                console.log(model.rooms)
                 console.log("room Add:", change.doc.data());
-                view.addNewRoom(change.doc.id, change.doc.data(), listenChat, model.rooms)
-                    // console.log("New city: ", change.doc.data());
+                if (model.rooms.length <= 5) {
+                    view.addNewRoom(change.doc.id, change.doc.data())
+                }
+                console.log(listenChat);
+                // console.log("New city: ", change.doc.data());
+                view.adddDevidePageBtn()
             }
             if (change.type === "modified") {
                 console.log("Modified city: ", change.doc.data());
@@ -196,6 +199,10 @@ model.updateDataToFireStore = async(collection, data) => {
     let doc = await db.collection(`${collection}`).where("email", "==", firebase.auth().currentUser.email).get()
     db.collection(`${collection}`).doc(`${doc.docs[0].id}`).update(data)
 }
+model.deleteDataFireStore = (collection, document) => {
+    let db = firebase.firestore()
+    db.collection(collection).doc(document).delete();
+}
 model.getFirebaseDocument = async(collection, document) => {
     let data = await model.initFirebaseStore().collection(collection).doc(`${document}`).get()
     return data.data()
@@ -301,10 +308,8 @@ model.forgotPassword = (data) => {
             view.errorMessage('email', error.message);
         });
 };
-model.deleteRoom = (roomId) => {
-    db.collection("cities").doc(roomId).delete().then(function() {
-        console.log("Document successfully deleted!");
-    }).catch(function(error) {
-        console.error("Error removing document: ", error);
-    });
+model.updateCurrentUser = (data) => {
+    firebase.auth().currentUser.updateProfile({
+        displayName: data.name
+    })
 }
