@@ -696,33 +696,118 @@ view.getUsers = (data,listenChat) => {
 }
 
 view.getRooms = (data) => {
-    let listRooms = document.querySelector('.room-list')
-    if (data !== undefined) {
-        let html = `
-        <div class="room-bar cursor" id="${data.id}">
-            <div class="room-id sub-room">ID: ${data.id}</div>
-            <div class="room-host sub-room">Host: ${data.host}</div>
-            <div class="room-title sub-room">Name: ${data.name}</div>
-            <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
-        </div>
-            `
-        listRooms.insertAdjacentHTML('beforeend', html)
-        let joinRoom = document.getElementById(data.id)
-        joinRoom.addEventListener('click', async() => {
-            var person = prompt("Please enter your name", "Harry Potter");
+    const roomWrapper = document.createElement('div')
+    roomWrapper.className = 'room-bar-wrap'
+    roomWrapper.id = data.id
+    roomWrapper.innerHTML = `
+    <div class="a" id="delete${data.id}">
+            <i class="fas fa-trash-alt"></i>
+            <div class="popup-form" id="popup-form${data.id}">
+                <div class="title-popup"></div>
+                <div class="button-popup">
+                   
+                </div>
+            </div>
+    </div>
+    <div class="room-bar cursor" id="join-room-${data.id}">
+        <div class="room-id sub-room">ID: ${data.id}</div>
+        <div class="room-host sub-room">Host: ${data.host}</div>
+        
+        <div class="room-title sub-room">Name: ${data.name}</div>
+        <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
+    </div>
+`
+    document.querySelector(".right-container .room-list").appendChild(roomWrapper);
+
+    if (data.password !== "") {
+        let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
+        document.getElementById(`${data.id}`).insertAdjacentHTML('beforeend', iconHTML)
+    } else {
+        let iconHTML = `<div class="lock-icon"></div>`
+        document.getElementById(`${data.id}`).insertAdjacentHTML('beforeend', iconHTML)
+    }
+    let deleteRoomBtn = document.getElementById(`delete${data.id}`)
+    let joinRoom = document.getElementById(`join-room-${data.id}`)
+    joinRoom.addEventListener('click', async() => {
+        if (data.password !== "") {
+            var person = prompt("Please enter password");
             if (person === data.password) {
                 model.currentRoomID = data.id
+                view.listenChat()
                 view.setActiveScreen('classRoomScreen', data.id)
             } else {
                 alert('Join failed')
             }
+        } else {
+            model.currentRoomID = data.id
+            view.listenChat()
+            view.setActiveScreen('classRoomScreen', data.id)
+        }
+    })
+    joinRoom.addEventListener('mouseover', async() => {
+        let r = model.rooms.find((item) => item.fireBaseID == data.id)
+            // let r = await model.getRoomInfo(roomID)
+        view.getInFoRoom(roomID, r)
+    })
+    deleteRoomBtn.addEventListener('click', () => {
+        let popup = document.querySelector(`#delete${data.id} .popup-form`)
+        if (firebase.auth().currentUser.email == data.host) {
+            document.querySelector(`#delete${data.id} .popup-form .title-popup`)
+                .innerHTML = "Do you really want to delete this room?"
+            document.querySelector(`#delete${data.id} .popup-form .button-popup`)
+                .innerHTML =
+                `
+             <button class="popup-bnt" id="yes${data.id}">Yes</button>
+             <button class="popup-bnt" id="no${data.id}">No</button>
+            `
+            document.getElementById(`yes${data.id}`).addEventListener('click', () => {
+                model.deleteDataFireStore('rooms', data.id)
+                document.getElementById(`${data.id}`).remove()
+                console.log(`xoa room ID ${data.id}`);
+            })
+            document.getElementById(`no${data.id}`).addEventListener('click', () => {
+
+            })
+        } else {
+            document.querySelector(`#delete${data.id} .popup-form .title-popup`)
+                .innerHTML = "only owner can delete this room"
+            document.querySelector(`#delete${data.id} .popup-form .button-popup`)
+                .innerHTML = ""
+        }
+        let arr = document.querySelectorAll('.popup-form')
+        arr.forEach((item) => {
+            if (item.id !== `popup-form${data.id}`) item.classList = "popup-form"
         })
-        joinRoom.addEventListener('mouseover', async() => {
-            let r = model.rooms.find((item) => item.fireBaseID == data.id)
-                // let r = await model.getRoomInfo(data.id)
-            view.getInFoRoom(data.id, r)
-        })
-    }
+        popup.classList.toggle('show-popup')
+    })
+    // -------------
+    // let listRooms = document.querySelector('.room-list')
+    // if (data !== undefined) {
+    //     let html = `
+    //     <div class="room-bar cursor" id="${data.id}">
+    //         <div class="room-id sub-room">ID: ${data.id}</div>
+    //         <div class="room-host sub-room">Host: ${data.host}</div>
+    //         <div class="room-title sub-room">Name: ${data.name}</div>
+    //         <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
+    //     </div>
+    //         `
+    //     listRooms.insertAdjacentHTML('beforeend', html)
+    //     let joinRoom = document.getElementById(data.id)
+    //     joinRoom.addEventListener('click', async() => {
+    //         var person = prompt("Please enter your name", "Harry Potter");
+    //         if (person === data.password) {
+    //             model.currentRoomID = data.id
+    //             view.setActiveScreen('classRoomScreen', data.id)
+    //         } else {
+    //             alert('Join failed')
+    //         }
+    //     })
+    //     joinRoom.addEventListener('mouseover', async() => {
+    //         let r = model.rooms.find((item) => item.fireBaseID == data.id)
+    //             // let r = await model.getRoomInfo(data.id)
+    //         view.getInFoRoom(data.id, r)
+    //     })
+    // }
 }
 view.getConversation = (data) => {
     let listRooms = document.querySelector('.room-list')
