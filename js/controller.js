@@ -1,99 +1,99 @@
 const controller = {}
 const icon = [
 	{
-		url:'../img/iconChat/1.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/1.gif',
 		syntax:':)'
 	},
 	{
-		url:'../img/iconChat/2.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/2.gif',
 		syntax:':('
 	},
 	{
-		url:'../img/iconChat/3.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/3.gif',
 		syntax:';;.)'
 	},
 	{
-		url:'../img/iconChat/4.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/4.gif',
 		syntax:'>:D<'
 	},
 	{
-		url:'../img/iconChat/5.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/5.gif',
 		syntax:';)'
 	},
 	{
-		url:'../img/iconChat/6.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/6.gif',
 		syntax:':D'
 	},
 	{
-		url:'../img/iconChat/7.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/7.gif',
 		syntax:':-/'
 	},
 	{
-		url:'../img/iconChat/8.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/8.gif',
 		syntax:':x'
 	},
 	{
-		url:'../img/iconChat/9.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/9.gif',
 		syntax:':">'
 	},
 	{
-		url:'../img/iconChat/10.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/10.gif',
 		syntax:':P'
 	},
 	{
-		url:'../img/iconChat/11.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/11.gif',
 		syntax:':-*'
 	},
 	{
-		url:'../img/iconChat/12.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/12.gif',
 		syntax:'=(('
 	},
 	{
-		url:'../img/iconChat/13.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/13.gif',
 		syntax:':-O'
 	},
 	{
-		url:'../img/iconChat/14.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/14.gif',
 		syntax:'X('
 	},
 	{
-		url:'../img/iconChat/15.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/15.gif',
 		syntax:':>'
 	},
 	{
-		url:'../img/iconChat/16.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/16.gif',
 		syntax:'B-)'
 	},
 	{
-		url:'../img/iconChat/17.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/17.gif',
 		syntax:'#:-S'
 	},
 	{
-		url:'../img/iconChat/18.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/18.gif',
 		syntax:':-S'
 	},
 	{
-		url:'../img/iconChat/19.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/19.gif',
 		syntax:'&gt;:.)'
 	},
 	{
-		url:'../img/iconChat/20.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/20.gif',
 		syntax:':.(('
 	},
 	{
-		url:'../img/iconChat/21.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/21.gif',
 		syntax:':.))'
 	},
 	{
-		url:'../img/iconChat/22.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/22.gif',
 		syntax:':|'
 	},
 	{
-		url:'../img/iconChat/23.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/23.gif',
 		syntax:'/:.)'
 	},
 	{
-		url:'../img/iconChat/24.gif',
+		url:'../Project-Class-Online-CiJS45/img/iconChat/24.gif',
 		syntax:'=))'
 	}
 ]
