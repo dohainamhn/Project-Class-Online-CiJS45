@@ -1,4 +1,4 @@
-const components = {}
+const components = {};
 components.selectRoomScreen = `
 <div class="container">
 <div class="nav-bar">
@@ -24,7 +24,7 @@ components.selectRoomScreen = `
                 <input id="search-conversations" type="text" placeholder="Search Conversations">
             </div>
             <div class="new-notification">
-                
+
             </div>
         </div>
         <div class="log-out-bnt">
@@ -51,12 +51,12 @@ components.selectRoomScreen = `
         <div class="wrap">
             <div class="box-chat">
                 <div class="message-box">
-                    
+
                 </div>
                 <div class="input-message">
                     <input placeholder="Enter your message">
                     <div class="icon">
-                       
+
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@ components.selectRoomScreen = `
     </div>
 </div>
 </div>
-`
+`;
 components.classRoomScreen = `
 <div class="class-room">
   <div class="video-bar">
@@ -96,14 +96,14 @@ components.classRoomScreen = `
         <div class="tool" id="eraser"><i class="fas fa-eraser"></i></div>
         <div class="tool" id="text"><i class="fas fa-text-height"></i></div>
         <div class="tool" id="colorPicker" >
-            <label for="pickColor"> 
+            <label for="pickColor">
                 <i class="fas fa-palette"></i>
             </label>
             <input type="color" id="pickColor">
         </div>
         <div class="tool" id="newPage"><i class="far fa-file"></i></div>
         <div class="tool" id="uploadTool" >
-            <label for="fileInput"> 
+            <label for="fileInput">
               <i class="fas fa-file-upload"></i>
             </label>
             <input type="file" accept="image/png, image/jpeg" id="fileInput"></div>
@@ -113,7 +113,7 @@ components.classRoomScreen = `
     </div>
     <button id="offScreenShare">X</button>
     <div id="screenShare">
-        
+
     </div>
     <div class="chat-box ">
       <div class="message-container" id="message-container">
@@ -123,7 +123,7 @@ components.classRoomScreen = `
     </div>
   </div>
 </div>
-`
+`;
 
 components.createRoomScreen = `
 <div class="create-room-container">
@@ -152,7 +152,7 @@ components.createRoomScreen = `
     </form>
     <button class='btn-light' type="button" id="back-to-chat">X</button>
 </div>
-</div>`
+</div>`;
 components.updateProfileScreen = `
 <div class="container1">
 <div class="nav-bar">
@@ -180,7 +180,7 @@ components.updateProfileScreen = `
                 <input id="search-conversations" type="text" placeholder="Search Conversations">
             </div>
             <div class="new-notification">
-                
+
             </div>
         </div>
         <div class="log-out-bnt">
@@ -199,7 +199,7 @@ components.updateProfileScreen = `
             </div>
         </div>
         <div class="menu-div">
-            <h1 class="title"> Profile</h1>
+
             <div class="menu-bnt">
                 <div>
                     <button id="profile-bnt" class="active-bnt">Profile</button>
@@ -210,7 +210,7 @@ components.updateProfileScreen = `
             </div>
         </div>
         <div class="profile-box">
-            
+
         </div>
         <div class="chat-button cursor" id="icon-chat-container"></div>
         <div class="chat-one-to-one-container display-none">
@@ -221,7 +221,7 @@ components.updateProfileScreen = `
             <div class="wrap">
                 <div class="box-chat">
                     <div class="message-box">
-                        
+
                     </div>
                     <div class="input-message">
                         <input placeholder="Enter your message">
@@ -232,7 +232,7 @@ components.updateProfileScreen = `
         </div>
     </div>
 </div>
-`
+`;
 components.profileBox = `
 <div class="profile-row pd-t-2">
 <div class="info-profile">
@@ -247,10 +247,10 @@ components.profileBox = `
 <div class="about-me-profile">
 <label>About Me:</label>
 <p id="about-me">
-    
+
 </p>
-</div>`
-components.editProfileBox = `  
+</div>`;
+components.editProfileBox = `
 <form id="edit-profile-form" >
 <div class="update-profile-bnt">
     <button type="submit" class="bnt" id="update-profile-bnt">Update</button>
@@ -297,7 +297,7 @@ components.editProfileBox = `
         <textarea name="aboutMe"  cols="30" rows="10"></textarea>
     </div>
 </div>
-</form>`
+</form>`;
 components.editPasswordBox = `
 <form id="reset-password-form">
     <div class="input-bar mr-t-2">
@@ -305,7 +305,7 @@ components.editPasswordBox = `
         <input type="password" name="currentPassword">
         <span class="error" id="currentPassword" ></span>
     </div>
-    
+
     <div class="input-bar mr-t-2">
         <span class="label">New Password</span>
         <input type="password" name="password">
@@ -318,7 +318,7 @@ components.editPasswordBox = `
     </div>
     <button type=submit" class="bnt">Confirm</button>
 </form>
-`
+`;
 components.viewYourRoom = `
 
 <div class="right-container">
@@ -328,7 +328,7 @@ components.viewYourRoom = `
     </div>
 </div>
 
-`
+`;
 components.viewYourFriendProfile = `
 <div class="container1">
     <div class="nav-bar">
@@ -399,7 +399,7 @@ components.viewYourFriendProfile = `
             <div class="wrap">
                 <div class="box-chat">
                     <div class="message-box">
-                        
+
                     </div>
                     <div class="input-message">
                         <input placeholder="Enter your message">
@@ -410,24 +410,24 @@ components.viewYourFriendProfile = `
         </div>
     </div>
 </div>
-`
+`;
 components.friendChatMessage = `
 <div class="friend-message">
     <img src="../img/teacher.png">
     <div class="message">hellosssssssssssssssssssssssssssssssssss</div>
 </div>
 
-`
+`;
 components.yourChatMessage = `
 <div class="your-message">
     <div class="message">aloooooooooooooooooooooooooooooooooooooo</div>
 </div>
-`
+`;
 components.forgotScreen = ` <div class="container container-flex">
 <div class="forgot-content">
   <div class="row">
     <div class="forgot-img">
-      <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" alt="" />
+      <img src="./img/signin-image.jpg" alt="" />
     </div>
     <div class="forgot-form">
       <div class="title-heading">
@@ -524,14 +524,14 @@ components.registerScreen = ` <div class="container container-flex" >
          Register
        </button>
        <div class="redirect-to-signin cursor-pointer">
-       I already have an account 
+       I already have an account
      </div>
          </div>
         </div>
       </form>
     </div>
     <div class="signup-img">
-      <img src="../Project-Class-Online-CiJS45/img/signup-image.jpg" />
+      <img src="./img/signup-image.jpg" />
 
     </div>
   </div>
@@ -541,7 +541,7 @@ components.loginScreen = `  <div class="container container-flex">
 <div class="signin-content">
   <div class="row">
     <div class="signin-img">
-      <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" />
+      <img src="./img/signin-image.jpg" />
     </div>
 
     <div class="signin-form">
