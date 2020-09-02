@@ -199,19 +199,11 @@ model.updateDataToFireStore = async(collection, data) => {
     let doc = await db.collection(`${collection}`).where("email", "==", firebase.auth().currentUser.email).get()
     db.collection(`${collection}`).doc(`${doc.docs[0].id}`).update(data)
 }
-<<<<<<< HEAD
 model.deleteDataFireStore = (collection, document) => {
     let db = firebase.firestore()
     db.collection(collection).doc(document).delete();
 }
 model.getFirebaseDocument = async(collection, document) => {
-=======
-model.deleteDataFireStore = (collection,document)=>{
-    let db = firebase.firestore()
-    db.collection(collection).doc(document).delete();
-}
-model.getFirebaseDocument = async (collection, document) => {
->>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
     let data = await model.initFirebaseStore().collection(collection).doc(`${document}`).get()
     return data.data()
 }
@@ -316,14 +308,8 @@ model.forgotPassword = (data) => {
             view.errorMessage('email', error.message);
         });
 };
-<<<<<<< HEAD
 model.updateCurrentUser = (data) => {
     firebase.auth().currentUser.updateProfile({
         displayName: data.name
-=======
-model.updateCurrentUser = (data)=>{
-    firebase.auth().currentUser.updateProfile({
-        displayName:data.name
->>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
     })
 }
