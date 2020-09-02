@@ -18,8 +18,7 @@ model.register = (data) => {
                 .auth()
                 .currentUser.updateProfile({
                     displayName: data.lastName.value + " " + data.firstName.value,
-                    photoURL:
-                        "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
+                    photoURL: "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
                 })
                 .then(() => {
                     model.addFireStore("users", {
@@ -27,15 +26,14 @@ model.register = (data) => {
                         email: res.user.email,
                         isTeacher: data.checkJob.value,
                         password: data.password.value,
-                        photoURL:
-                            "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
+                        photoURL: "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
                     });
                 });
             firebase.auth().currentUser.sendEmailVerification();
             alert("The email has been registered,please check your email");
             view.setActiveScreen("signInScreen", data);
         })
-        .catch(function (error) {
+        .catch(function(error) {
             view.errorMessage("signup-all-error", error.message);
         });
 }
@@ -46,7 +44,7 @@ model.login = (data) => {
                 alert('please verify your email')
             }
         })
-        .catch(function (error) {
+        .catch(function(error) {
             console.log(error);
             controller.authenticate(error)
         });
@@ -54,26 +52,25 @@ model.login = (data) => {
 model.initFirebaseStore = () => {
     return firebase.firestore()
 }
-model.getRoomInfo = async (id) => {
+model.getRoomInfo = async(id) => {
     let data = await model.initFirebaseStore().collection(model.collectionName).doc(`${id}`).get()
     return data.data()
 }
-model.getUserIntoRoom = async (idstream = null, currentRoomID) => {
+model.getUserIntoRoom = async(idstream = null, currentRoomID) => {
     if (idstream !== null) {
         let data = await firebase.database().ref(`${currentRoomID}/` + idstream).once('value')
         return data.val()
-    }
-    else {
+    } else {
         let data = await firebase.database().ref(`${currentRoomID}`).once('value')
         return data.val()
     }
 }
-model.createRoom = async (room) => {
+model.createRoom = async(room) => {
     await firebase.firestore().collection(model.collectionName).add(room)
 }
 model.listenRoomChange = (listenChat) => {
-    let db = model.initFirebaseStore().collection('rooms').onSnapshot(function (snapshot) {
-        snapshot.docChanges().forEach(function (change) {
+    let db = model.initFirebaseStore().collection('rooms').onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(function(change) {
             if (change.type === "added") {
                 model.rooms.push({
                     fireBaseID: change.doc.id,
@@ -87,8 +84,12 @@ model.listenRoomChange = (listenChat) => {
                     password: change.doc.data().password
                 })
                 console.log("room Add:", change.doc.data());
-                view.addNewRoom(change.doc.id, change.doc.data(), listenChat)
+                if (model.rooms.length <= 8) {
+                    view.addNewRoom(change.doc.id, change.doc.data())
+                }
+                console.log(listenChat);
                 // console.log("New city: ", change.doc.data());
+                view.adddDevidePageBtn()
             }
             if (change.type === "modified") {
                 console.log("Modified city: ", change.doc.data());
@@ -116,7 +117,7 @@ model.addUserToRoom = (id, currentRoomID) => {
 model.removeUserInRoom = (id, currentRoomID) => {
     firebase.database().ref(`${currentRoomID}/` + id).remove();
 }
-model.getDoc = async () => {
+model.getDoc = async() => {
     const snapshot = await firebase.firestore().collection(model.collectionName).get()
     return snapshot.docs.map(doc => doc.data());
 }
@@ -124,12 +125,12 @@ model.getDoc = async () => {
 model.addFireStore = (collection, data) => {
     var db = firebase.firestore();
     db.collection(collection).add(data)
-        .then(function (docRef) {
+        .then(function(docRef) {
             console.log("Document written with ID: ", docRef.id);
             model.key = docRef.id
             return docRef.id
         })
-        .catch(function (error) {
+        .catch(function(error) {
             console.error("Error adding document: ", error);
         });
 }
@@ -139,45 +140,47 @@ model.resetPassword = (data) => {
         user.email,
         data.currentPassword.value
     );
-    user.reauthenticateWithCredential(credentials).then(function () {
-        user.updatePassword(data.password.value).then(function () {
+    user.reauthenticateWithCredential(credentials).then(function() {
+        user.updatePassword(data.password.value).then(function() {
             model.updateDataToFireStore('users', { password: data.password.value })
             alert('update successfully');
             firebase.auth().signOut()
-        }).catch(function (error) {
+        }).catch(function(error) {
             controller.authenticate(error)
             console.log(error);
         });
-    }).catch(function (error) {
+    }).catch(function(error) {
         console.log(error);
     });
 
 }
-model.getDataFireStore = async (collection, find, check = null) => {
+model.getDataFireStore = async(collection, find, check = null) => {
     let db = firebase.firestore()
     if (check == null) {
         let data = await db.collection(`${collection}`)
             .where(`${find}`, "==", firebase.auth().currentUser.email)
             .get()
         return data.docs[0].data()
-    }
-    else {
+    } else {
         let data = await db.collection(`${collection}`)
             .where(`${find}`, `${check}`, firebase.auth().currentUser.email)
             .get()
         return data.docs
     }
 }
-model.findConversation = async (collection, find, email) => {
+model.findConversation = async(collection, find, email) => {
     let db = firebase.firestore()
     let data = await db.collection(`${collection}`)
-        .where(`${find}`, "in", [[`${email}`, `${firebase.auth().currentUser.email}`], [`${firebase.auth().currentUser.email}`, `${email}`]])
+        .where(`${find}`, "in", [
+            [`${email}`, `${firebase.auth().currentUser.email}`],
+            [`${firebase.auth().currentUser.email}`, `${email}`]
+        ])
         .get()
     if (data.docs[0] == undefined) return undefined
     return data.docs[0]
 }
 
-model.getInfoUser = async (email) => {
+model.getInfoUser = async(email) => {
     let db = firebase.firestore()
     let data = await db.collection('users').where("email", "==", email).get()
     if (data.docs[0] !== undefined)
@@ -185,22 +188,22 @@ model.getInfoUser = async (email) => {
     else return null
 }
 
-model.getTest = async (user) => {
+model.getTest = async(user) => {
     const yourRooms = await firebase.firestore().collection('rooms').where("host", "==", user).get()
     model.yourRoom = getDataFromDocs(yourRooms.docs)
     view.showRooms(model.yourRoom, view.getYourRooms)
 }
 
-model.updateDataToFireStore = async (collection, data) => {
+model.updateDataToFireStore = async(collection, data) => {
     let db = firebase.firestore()
     let doc = await db.collection(`${collection}`).where("email", "==", firebase.auth().currentUser.email).get()
     db.collection(`${collection}`).doc(`${doc.docs[0].id}`).update(data)
 }
-model.deleteDataFireStore = (collection,document)=>{
+model.deleteDataFireStore = (collection, document) => {
     let db = firebase.firestore()
     db.collection(collection).doc(document).delete();
 }
-model.getFirebaseDocument = async (collection, document) => {
+model.getFirebaseDocument = async(collection, document) => {
     let data = await model.initFirebaseStore().collection(collection).doc(`${document}`).get()
     return data.data()
 }
@@ -216,8 +219,8 @@ model.firestoreArryUnion = (collection, document, data) => {
     })
 }
 model.listenConversation = () => {
-    let db = model.initFirebaseStore().collection('conversations').onSnapshot(function (snapshot) {
-        snapshot.docChanges().forEach(async function (change) {
+    let db = model.initFirebaseStore().collection('conversations').onSnapshot(function(snapshot) {
+        snapshot.docChanges().forEach(async function(change) {
             if (change.type === "added") {
                 let friendImg = await model.getInfoUser(change.doc.data().users.find(
                     (user) => user !== firebase.auth().currentUser.email))
@@ -268,7 +271,7 @@ model.updateCheckConversation = (collection, document, data) => {
         check: data
     })
 }
-model.updateModelConversation = async (imgLink) => {
+model.updateModelConversation = async(imgLink) => {
     let allconversation = await model.getDataFireStore('conversations', 'users', 'array-contains')
     model.allConversation = []
     let conversations = []
@@ -288,7 +291,7 @@ model.updateModelConversation = async (imgLink) => {
         model.allConversation = controller.sortByTimeStamp(conversations)
     }
 }
-model.addRoomScreenShare = async (collection, document, data) => {
+model.addRoomScreenShare = async(collection, document, data) => {
     let db = firebase.firestore()
     let doc = await db.collection(collection).doc(document).update({
         screenShareId: data.screenId,
@@ -309,8 +312,8 @@ model.forgotPassword = (data) => {
             view.errorMessage('email', error.message);
         });
 };
-model.updateCurrentUser = (data)=>{
+model.updateCurrentUser = (data) => {
     firebase.auth().currentUser.updateProfile({
-        displayName:data.name
+        displayName: data.name
     })
 }

@@ -34,12 +34,12 @@ components.selectRoomScreen = `
 </div>
 <div class="main-container">
     <div class="left-container">
-
     </div>
     <div class="right-container">
         <button class="new-room-bnt">Create New Room</button>
         <div class="room-list">
-
+        </div>
+        <div class = "paginate">
         </div>
     </div>
     <div class="chat-button cursor" id="icon-chat-container"></div>
@@ -78,7 +78,6 @@ components.classRoomScreen = `
           <div class="info" id="infoTeacher"> Teacher</div>
       </div>
       <div class="video-student-box" id="video-student-box">
-
       </div>
   </div>
   <div id="onScreenShare"><i class="fas fa-desktop"></i></div>
@@ -117,7 +116,6 @@ components.classRoomScreen = `
     </div>
     <div class="chat-box ">
       <div class="message-container" id="message-container">
-
       </div>
       <input id="input-chat" placeholder="Enter your message" type="text">
     </div>
@@ -320,14 +318,10 @@ components.editPasswordBox = `
 </form>
 `
 components.viewYourRoom = `
-
 <div class="right-container">
-    <button class="new-room-bnt">Create New Room</button>
     <div class="room-list">
-
     </div>
 </div>
-
 `
 components.viewYourFriendProfile = `
 <div class="container1">
@@ -386,7 +380,6 @@ components.viewYourFriendProfile = `
             <div class="about-me-profile">
                 <label>About Me:</label>
                 <p id="about-me">
-
                 </p>
             </div>
         </div>
@@ -416,7 +409,6 @@ components.friendChatMessage = `
     <img src="../img/teacher.png">
     <div class="message">hellosssssssssssssssssssssssssssssssssss</div>
 </div>
-
 `
 components.yourChatMessage = `
 <div class="your-message">
@@ -473,14 +465,12 @@ components.registerScreen = ` <div class="container container-flex" >
             <input type="text" name="firstName" placeholder="First Name" id="input-first-name" />
             <div class="error" id="firstName"></div>
           </div>
-
           <div class="input-wrapper">
             <label for="input-last-name"><i class="fas fa-user"></i></label>
             <input type="text" name="lastName" placeholder="last Name" id="input-last-name" />
             <div class="error" id="lastName"></div>
           </div>
          </div>
-
           <div class="input-wrapper">
             <label for="input-email"> <i class="fas fa-envelope"></i></label>
             <input type="email" name="email" id="input-email" placeholder="Email" />
@@ -532,7 +522,6 @@ components.registerScreen = ` <div class="container container-flex" >
     </div>
     <div class="signup-img">
       <img src="../Project-Class-Online-CiJS45/img/signup-image.jpg" />
-
     </div>
   </div>
 </div>`;
@@ -543,12 +532,10 @@ components.loginScreen = `  <div class="container container-flex">
     <div class="signin-img">
       <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" />
     </div>
-
     <div class="signin-form">
       <div class="signin-heading">
         <h2>Sign In</h2>
       </div>
-
       <form id="login-form">
         <div class="input-name-wrapper">
           <div class="input-wrapper">
@@ -593,7 +580,6 @@ components.loginScreen = `  <div class="container container-flex">
           <button class="btn btn-login" type="submit">Log in</button>
         </div>
       </form>
-
       <div class="bottom">
         <div class="redirect-to-resgister cursor-pointer">
           Create an account

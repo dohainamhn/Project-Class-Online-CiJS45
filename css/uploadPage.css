@@ -1,7 +1,7 @@
 /* --------------------------------------------------------------container---------------- */
 
 .container1 {
-    background: #EEF1F3;
+    background: #eef1f3;
     width: 100%;
     height: 100vh;
     position: relative;
@@ -22,7 +22,7 @@
     align-items: center;
     width: 100%;
     height: 30%;
-    background-image: url('https://img.thuthuattinhoc.vn/uploads/2019/01/13/anh-dep-vung-nui-viet-nam_105620901.jpeg');
+    background-image: url("https://img.thuthuattinhoc.vn/uploads/2019/01/13/anh-dep-vung-nui-viet-nam_105620901.jpeg");
     background-repeat: no-repeat;
     background-size: cover;
     object-fit: cover;
@@ -68,20 +68,22 @@
 .main-container1 .menu-div {
     display: flex;
     flex-direction: column;
-    height: 15%;
-    background: #bdf0ff;
+    /* background: #bdf0ff; */
 }
 
-.main-container1 .menu-div h1 {
+
+/* .main-container1 .menu-div h1 {
     font-weight: 400;
-    font-family: 'Open Sans', sans-serif;
-    align-self: center;
-    height: 40%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
     text-align: center;
-}
+  } */
 
 .main-container1 .menu-div .menu-bnt {
-    flex-grow: 1;
+    /* flex-grow: 1; */
     display: flex;
     align-items: flex-end;
 }
@@ -90,30 +92,32 @@
     display: flex;
     width: 35%;
     justify-content: space-around;
+    flex-grow: 1;
 }
 
 .menu-bnt div button {
-    padding-bottom: 10px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 15px;
-    margin-bottom: 5px;
+    width: 100%;
     outline: none;
     border: none;
-    background: #bdf0ff;
-    background-image: linear-gradient(dodgerblue, dodgerblue);
+    padding: 15px 40px;
+    color: #fff;
+    background: rgb(42, 134, 219);
+    background-image: linear-gradient(rgb(129, 192, 255), rgb(117, 186, 255));
     background-size: 0 4px, auto;
     background-repeat: no-repeat;
     background-position: center bottom;
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
     cursor: pointer;
 }
 
 .active-bnt {
-    background-size: 100% 4px, auto !important;
+    background-size: 90% 4px, auto !important;
 }
 
 .menu-bnt div button:hover {
-    background-size: 100% 4px, auto;
+    background-size: 90% 4px, auto;
 }
 
 
@@ -123,11 +127,21 @@
     background: #fff;
     flex-grow: 1;
     height: 70%;
-    overflow:auto;
+    overflow: auto;
 }
-.profile-box::-webkit-scrollbar{
+
+.profile-box::-webkit-scrollbar {
+    display: none;
+    background: #fff;
+    flex-grow: 1;
+    height: 70%;
+    overflow: auto;
+}
+
+.profile-box::-webkit-scrollbar {
     display: none;
 }
+
 .profile-box .profile-row {
     padding-bottom: 10px;
     display: flex;
@@ -185,7 +199,7 @@
 }
 
 .profile-column .mrt-2 {
-    margin-top: 20px
+    margin-top: 20px;
 }
 
 .about-me {
@@ -204,16 +218,16 @@
 .email-profile,
 .password-profile {
     line-height: 35px;
-    background: #C4C4C4;
+    background: #c4c4c4;
 }
 
 .info-profile div {
-    font-family: 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     margin-bottom: 20px;
 }
 
 .about-me-profile {
-    margin-top: 30px;
+    margin: 30px 0;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -222,10 +236,54 @@
 }
 
 .about-me-profile p {
-    padding: 10px;
-    width: 60%;
+    /* padding: 10px;
+  width: 60%;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.45);
+  background: #c4c4c4; */
     height: 200px;
-    border: 1px solid rgba(0, 0, 0, 0.45);
+    width: 60%;
+    word-wrap: break-word;
+    border-radius: 10px;
+    padding: 10px;
+    /* padding: 100px 50px 120px; */
+    border: 1px solid #e4e4e4;
+    background-color: rgba(180, 180, 180, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#profile-name {
+    background-color: rgba(180, 180, 180, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+#profile-email {
+    background-color: rgba(180, 180, 180, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    width: 300px;
+}
+
+.info-profile #is-teacher {
+    background-color: rgba(180, 180, 180, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.info-profile #work-at {
+    background-color: rgba(180, 180, 180, 0.1);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+    width: 300px;
 }
 
 .update-profile-bnt {
@@ -273,6 +331,15 @@
 }
 
 .result-search a {
+    text-decoration: none;
+    color: black;
+}
+
+.nextButton {
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+    margin: 0 2px;
     text-decoration: none;
     color: black;
 }

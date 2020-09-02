@@ -14,9 +14,9 @@ var requestInit = {
     }),
 };
 let view = {}
+view.viewPage = 1;
 view.count = 0;
-view.listenChat = null;
-view.setActiveScreen = async (screen, id) => {
+view.setActiveScreen = async(screen, id) => {
     switch (screen) {
         case "registerScreen":
             {
@@ -54,10 +54,10 @@ view.setActiveScreen = async (screen, id) => {
                     controller.logup(data)
                 })
                 document
-                    .querySelector(".redirect-to-signin")
-                    .addEventListener("click", () => {
-                        view.setActiveScreen("loginScreen");
-                    });
+                .querySelector(".redirect-to-signin")
+                .addEventListener("click", () => {
+                    view.setActiveScreen("loginScreen");
+                });
                 break;
             }
         case 'loginScreen':
@@ -82,9 +82,9 @@ view.setActiveScreen = async (screen, id) => {
                             name: "email",
                         },
                     };
-                    loginForm.remember.checked
-                        ? (controller.checkRemember = true)
-                        : (controller.checkRemember = false);
+                    loginForm.remember.checked ?
+                        (controller.checkRemember = true) :
+                        (controller.checkRemember = false);
                     controller.checkNull(data)
                     controller.login(data)
                     const dataRemember = {
@@ -110,15 +110,15 @@ view.setActiveScreen = async (screen, id) => {
                     loginForm.password.value = "";
                 }
                 document
-                    .querySelector(".redirect-to-resgister")
-                    .addEventListener("click", () => {
-                        view.setActiveScreen("registerScreen");
-                    });
+                .querySelector(".redirect-to-resgister")
+                .addEventListener("click", () => {
+                    view.setActiveScreen("registerScreen");
+                });
                 document
-                    .getElementById("forgot-password")
-                    .addEventListener("click", () => {
-                        view.setActiveScreen("forgetScreen");
-                    });
+                .getElementById("forgot-password")
+                .addEventListener("click", () => {
+                    view.setActiveScreen("forgetScreen");
+                });
                 document.getElementById("facebook").addEventListener("click", (e) => {
                     model.signinFacebook();
                 });
@@ -140,8 +140,7 @@ view.setActiveScreen = async (screen, id) => {
                         view.setActiveScreen('createRoomScreen')
                         listenRoomChange()
                         view.listenChat()
-                    }
-                    else alert(`Only teacher can create room`)
+                    } else alert(`Only teacher can create room`)
                 })
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
@@ -160,7 +159,6 @@ view.setActiveScreen = async (screen, id) => {
                         view.listenChat()
                     })
                 })
-
                 //------------------- Search Room --------------------------
                 const response = await firebase.firestore().collection(model.collectionName).get()
                 roomSearch = getDataFromDocs(response.docs)
@@ -233,27 +231,27 @@ view.setActiveScreen = async (screen, id) => {
                         controller.removeVietnameseTones(createRoomForm.chanelName.value)
                     )
                     if (checkNull && checkChannelName) {
-                        fetch(url, requestInit).then(function (response) {
+                        fetch(url, requestInit).then(function(response) {
                             return response.json();
-                        }).then(function (json) {
+                        }).then(function(json) {
                             teacher = true
                             console.log(json)
                             const data = {
-                                channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
-                                host: model.currentUser.email,
-                                name: createRoomForm.roomName.value,
-                                roomToken: json.msg.roomToken,
-                                roomUUID: json.msg.room.uuid,
-                                title: createRoomForm.roomTtitle.value,
-                                createdAt: new Date().toLocaleString(),
-                                password: createRoomForm.passwordRoom.value,
-                                currentMembers: []
-                            }
-                            // model.loadRooms()
+                                    channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
+                                    host: model.currentUser.email,
+                                    name: createRoomForm.roomName.value,
+                                    roomToken: json.msg.roomToken,
+                                    roomUUID: json.msg.room.uuid,
+                                    title: createRoomForm.roomTtitle.value,
+                                    createdAt: new Date().toLocaleString(),
+                                    password: createRoomForm.passwordRoom.value,
+                                    currentMembers: []
+                                }
+                                // model.loadRooms()
                             console.log((data));
                             model.createRoom(data)
                             view.setActiveScreen('selectRoomScreen')
-                        }).catch(function (err) {
+                        }).catch(function(err) {
                             console.error(err);
                         });
                     }
@@ -273,7 +271,7 @@ view.setActiveScreen = async (screen, id) => {
                 agora.addEventListenerToolBoard(room, roomInfo)
 
                 roomInfo.host == firebase.auth().currentUser.email ?
-                    agora.joinChannel(roomInfo.channel, true) : agora.joinChannel(roomInfo.channel, false)
+                agora.joinChannel(roomInfo.channel, true) : agora.joinChannel(roomInfo.channel, false)
                 agora.RtmLogin(firebase.auth().currentUser.email, roomInfo.channel)
                 let buttonScreenShare = document.getElementById('onScreenShare')
                 buttonScreenShare.addEventListener('click', () => {
@@ -308,7 +306,7 @@ view.setActiveScreen = async (screen, id) => {
                     agora.client.leave()
                     agora.RtmLeaveChannel()
                     agora.remoteStreams = []
-                    room.disconnect().then(function () {
+                    room.disconnect().then(function() {
                         console.log("Leave room success");
                         // model.loadRooms()
                     });
@@ -385,7 +383,6 @@ view.setActiveScreen = async (screen, id) => {
                 const homPage = document.querySelector('.symbol')
                 homPage.addEventListener('click', () => {
                     view.setActiveScreen('selectRoomScreen')
-                    // model.loadRooms()
                     listenChat()
                     view.listenChat()
                 })
@@ -393,7 +390,7 @@ view.setActiveScreen = async (screen, id) => {
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
                     view.setActiveScreen('updatePageScreen')
-                    listenRoomChange()
+                    listenChat()
                     view.listenChat()
                 })
                 const response = await firebase.firestore().collection("users").get()
@@ -414,7 +411,6 @@ view.setActiveScreen = async (screen, id) => {
                         document.querySelector('.result-search').innerText = ''
                     }
                 });
-                
                 document.querySelector('.log-out-bnt').addEventListener('click', () => {
                     firebase.auth().signOut()
                     listenChat()
@@ -451,7 +447,7 @@ view.setActiveScreen = async (screen, id) => {
     }
 }
 
-view.chat = async () => {
+view.chat = async() => {
     let topChatButton = document.querySelector('.top-message-box')
     let chatContainer = document.querySelector('.chat-one-to-one-container')
     let iconChat = document.getElementById('icon-chat-container')
@@ -471,7 +467,7 @@ view.chat = async () => {
         popup.classList.toggle('show-popup')
     })
     let inputChatEmail = document.getElementById('input-chat-email')
-    inputChatEmail.addEventListener('keyup', async (e) => {
+    inputChatEmail.addEventListener('keyup', async(e) => {
         if (e.keyCode == '13') {
             let friend = await model.getInfoUser(inputChatEmail.value)
             if (inputChatEmail.value == firebase.auth().currentUser.email || friend == null) {
@@ -523,7 +519,7 @@ view.chat = async () => {
                     }
                     console.log(conversations);
                     model.allConversation = controller.sortByTimeStamp(conversations)
-                    // model.currentConversation = model.allConversation[0] 
+                        // model.currentConversation = model.allConversation[0] 
                 }
                 // view.loadNotification()
             } else {
@@ -563,16 +559,14 @@ view.chat = async () => {
         const filteredConversations = model.allConversation.filter((conversation) => {
             return (
                 conversation.users.find((item) => item !== firebase.auth().currentUser.email)
-                    .toLowerCase().includes(searchString)
+                .toLowerCase().includes(searchString)
             );
         });
         console.log(filteredConversations);
         for (let index = 0; index < model.allConversation.length; index++) {
             console.log(model.allConversation[index].friendImg)
             if (filteredConversations[index] !== undefined) {
-                view.addNotification(filteredConversations[index]
-                    , filteredConversations[index].id
-                    , filteredConversations[index].friendImg, filteredConversations[index].friendEmail)
+                view.addNotification(filteredConversations[index], filteredConversations[index].id, filteredConversations[index].friendImg, filteredConversations[index].friendEmail)
             }
         }
     });
@@ -586,8 +580,7 @@ view.showRooms = (r, f) => {
     }
 }
 
-view.addNewRoom = (roomID, roomData, listenChat) => {
-    console.log(roomData);
+view.addNewRoom = (roomID, roomData) => {
     const roomWrapper = document.createElement('div')
     roomWrapper.className = 'room-bar-wrap'
     roomWrapper.id = roomID
@@ -608,21 +601,20 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
         <div class="room-title sub-room">Name: ${roomData.name}</div>
         <div class="room-createAt sub-room">Created At: ${roomData.createdAt}</div>
     </div>
-`   
+`
     document.querySelector(".right-container .room-list").appendChild(roomWrapper);
-    
-    if(roomData.password !== ""){
+
+    if (roomData.password !== "") {
         let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
-        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend',iconHTML)
-    }
-    else{
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend', iconHTML)
+    } else {
         let iconHTML = `<div class="lock-icon"></div>`
-        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend',iconHTML)
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend', iconHTML)
     }
     let deleteRoomBtn = document.getElementById(`delete${roomID}`)
     let joinRoom = document.getElementById(`join-room-${roomID}`)
-    joinRoom.addEventListener('click', async () => {
-        if(roomData.password !== ""){
+    joinRoom.addEventListener('click', async() => {
+        if (roomData.password !== "") {
             var person = prompt("Please enter password");
             if (person === roomData.password) {
                 model.currentRoomID = roomID
@@ -631,47 +623,45 @@ view.addNewRoom = (roomID, roomData, listenChat) => {
             } else {
                 alert('Join failed')
             }
-        }
-        else{
+        } else {
             model.currentRoomID = roomID
             view.listenChat()
             view.setActiveScreen('classRoomScreen', roomID)
         }
     })
-    joinRoom.addEventListener('mouseover', async () => {
+    joinRoom.addEventListener('mouseover', async() => {
         let r = model.rooms.find((item) => item.fireBaseID == roomID)
-        // let r = await model.getRoomInfo(roomID)
+            // let r = await model.getRoomInfo(roomID)
         view.getInFoRoom(roomID, r)
     })
-    deleteRoomBtn.addEventListener('click',()=>{
+    deleteRoomBtn.addEventListener('click', () => {
         let popup = document.querySelector(`#delete${roomID} .popup-form`)
-        if(firebase.auth().currentUser.email == roomData.host){
+        if (firebase.auth().currentUser.email == roomData.host) {
             document.querySelector(`#delete${roomID} .popup-form .title-popup`)
-            .innerHTML = "Do you really want to delete this room?"
+                .innerHTML = "Do you really want to delete this room?"
             document.querySelector(`#delete${roomID} .popup-form .button-popup`)
-            .innerHTML =
-            `
+                .innerHTML =
+                `
              <button class="popup-bnt" id="yes${roomID}">Yes</button>
              <button class="popup-bnt" id="no${roomID}">No</button>
             `
-            document.getElementById(`yes${roomID}`).addEventListener('click',()=>{
-                 model.deleteDataFireStore('rooms',roomID)
+            document.getElementById(`yes${roomID}`).addEventListener('click', () => {
+                model.deleteDataFireStore('rooms', roomID)
                 document.getElementById(`${roomID}`).remove()
                 console.log(`xoa room ID ${roomID}`);
             })
-            document.getElementById(`no${roomID}`).addEventListener('click',()=>{
-               
+            document.getElementById(`no${roomID}`).addEventListener('click', () => {
+
             })
-        }
-        else{
+        } else {
             document.querySelector(`#delete${roomID} .popup-form .title-popup`)
-            .innerHTML = "only owner can delete this room"
+                .innerHTML = "only owner can delete this room"
             document.querySelector(`#delete${roomID} .popup-form .button-popup`)
-            .innerHTML = ""
+                .innerHTML = ""
         }
         let arr = document.querySelectorAll('.popup-form')
-        arr.forEach((item)=>{
-            if(item.id !== `popup-form${roomID}`)item.classList = "popup-form"
+        arr.forEach((item) => {
+            if (item.id !== `popup-form${roomID}`) item.classList = "popup-form"
         })
         popup.classList.toggle('show-popup')
     })
@@ -694,7 +684,7 @@ view.getUsers = (data,listenChat) => {
             listRooms.insertAdjacentHTML('beforeend', html)
         }
         let getUser = document.getElementById(data.id)
-        getUser.addEventListener('click', async () => {
+        getUser.addEventListener('click', async() => {
             let userDetail = await model.getInfoUser(data.email)
             console.log('click');
             view.setActiveScreen('viewYourFriendProfile')
@@ -709,16 +699,16 @@ view.getRooms = (data) => {
     let listRooms = document.querySelector('.room-list')
     if (data !== undefined) {
         let html = `
-        <div class="room-bar" id="${data.id}">
-            <div class="room-id">ID: ${data.id}</div>
-            <div class="room-host">Host: ${data.host}</div>
-            <div class="room-title">Name: ${data.name}</div>
-            <div class="room-createAt">Created At: ${data.createdAt}</div>
+        <div class="room-bar cursor" id="${data.id}">
+            <div class="room-id sub-room">ID: ${data.id}</div>
+            <div class="room-host sub-room">Host: ${data.host}</div>
+            <div class="room-title sub-room">Name: ${data.name}</div>
+            <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
         </div>
             `
         listRooms.insertAdjacentHTML('beforeend', html)
         let joinRoom = document.getElementById(data.id)
-        joinRoom.addEventListener('click', async () => {
+        joinRoom.addEventListener('click', async() => {
             var person = prompt("Please enter your name", "Harry Potter");
             if (person === data.password) {
                 model.currentRoomID = data.id
@@ -727,9 +717,9 @@ view.getRooms = (data) => {
                 alert('Join failed')
             }
         })
-        joinRoom.addEventListener('mouseover', async () => {
+        joinRoom.addEventListener('mouseover', async() => {
             let r = model.rooms.find((item) => item.fireBaseID == data.id)
-            // let r = await model.getRoomInfo(data.id)
+                // let r = await model.getRoomInfo(data.id)
             view.getInFoRoom(data.id, r)
         })
     }
@@ -747,7 +737,7 @@ view.getConversation = (data) => {
             `
         listRooms.insertAdjacentHTML('beforeend', html)
         let joinRoom = document.getElementById(data.id)
-        joinRoom.addEventListener('click', async () => {
+        joinRoom.addEventListener('click', async() => {
             var person = prompt("Please enter your name", "Harry Potter");
             if (person === data.password) {
                 model.currentRoomID = data.id
@@ -756,9 +746,9 @@ view.getConversation = (data) => {
                 alert('Join failed')
             }
         })
-        joinRoom.addEventListener('mouseover', async () => {
+        joinRoom.addEventListener('mouseover', async() => {
             let r = model.rooms.find((item) => item.fireBaseID == data.id)
-            // let r = await model.getRoomInfo(data.id)
+                // let r = await model.getRoomInfo(data.id)
             view.getInFoRoom(data.id, r)
         })
     }
@@ -777,7 +767,7 @@ view.getYourRooms = (room) => {
     document.querySelector(".right-container .room-list").appendChild(roomWrapper)
 
     let joinRoom = document.getElementById(roomWrapper.id)
-    joinRoom.addEventListener('click', async () => {
+    joinRoom.addEventListener('click', async() => {
         var person = prompt("Please enter password");
         if (person === room.password) {
             model.currentRoomID = room.id
@@ -794,7 +784,7 @@ view.updateNumberUser = (docId, numberUser) => {
     secondChild.innerText = numberUser + ' members'
 }
 
-view.getInFoRoom = async (roomID, room) => {
+view.getInFoRoom = async(roomID, room) => {
     let realTimeUserInfo = await model.getUserIntoRoom(null, roomID)
     let infoHost = await model.getInfoUser(room.host)
     let count = 0;
@@ -817,7 +807,6 @@ view.getInFoRoom = async (roomID, room) => {
             </div>
         </div>
     </div>
-
     <div class="title">
         <label for="">Title:</label>
         <p>
@@ -840,7 +829,7 @@ view.getInFoRoom = async (roomID, room) => {
         members.insertAdjacentHTML('beforeend', userHtml)
         for (let x of key) {
             let userBar = document.getElementById(`${x}`)
-            userBar.addEventListener('click', async () => {
+            userBar.addEventListener('click', async() => {
                 let userDetail = await model.getInfoUser(realTimeUserInfo[x].email)
                 console.log('click');
                 view.setActiveScreen('viewYourFriendProfile')
@@ -849,7 +838,7 @@ view.getInFoRoom = async (roomID, room) => {
         }
     }
     let getUser = document.querySelector('.email-user')
-    getUser.addEventListener('click', async () => {
+    getUser.addEventListener('click', async() => {
         let userDetail = await model.getInfoUser(room.host)
         console.log('click');
         view.setActiveScreen('viewYourFriendProfile')
@@ -862,7 +851,7 @@ view.setNavbarInfoUser = () => {
     userName.innerHTML = `${firebase.auth().currentUser.displayName}`
     imgUser.src = `${firebase.auth().currentUser.photoURL}`
 }
-view.setProfileDefault = async () => {
+view.setProfileDefault = async() => {
     document.getElementById('profile-name').innerHTML = `Name: ${firebase.auth().currentUser.displayName}`
     document.getElementById('profile-email').innerHTML = `Email: ${firebase.auth().currentUser.email}`
     let isTeacher = document.getElementById('is-teacher');
@@ -885,7 +874,7 @@ view.listenChangeToEditProfile = () => {
     let editProfileBnt = document.getElementById('edit-profile-bnt')
     let editPasswordBnt = document.getElementById('edit-password-bnt')
     let viewRoomOfUser = document.getElementById('view-room-of-current-user')
-    viewRoomOfUser.addEventListener('click', async () => {
+    viewRoomOfUser.addEventListener('click', async() => {
         profileBnt.classList = ''
         editProfileBnt.classList = ''
         editPasswordBnt.classList = ''
@@ -936,7 +925,7 @@ view.listenChangeToEditProfile = () => {
         title.innerHTML = 'Edit Password'
         let resetPasswordForm = document.getElementById('reset-password-form')
         let currentPasswordError = document.getElementById('currentPassword')
-        resetPasswordForm.addEventListener('submit', async (e) => {
+        resetPasswordForm.addEventListener('submit', async(e) => {
             e.preventDefault()
             let data = {
                 currentPassword: {
@@ -989,7 +978,7 @@ view.setEventListenEditProfile = () => {
 }
 view.listenOnUpdateImage = () => {
     let uploadImg = document.getElementById('upload')
-    uploadImg.addEventListener('change', async (e) => {
+    uploadImg.addEventListener('change', async(e) => {
         let img = document.querySelector('.upload-img img')
         let navImg = document.querySelector('.nav-bar-info-User img')
         let storageRef = firebase.storage().ref();
@@ -1130,7 +1119,7 @@ view.onclickNotification = () => {
 }
 
 
-view.addNotification = async (data, id, friendImg, friendEmail) => {
+view.addNotification = async(data, id, friendImg, friendEmail) => {
     // console.log(data);
     lassMessageOwner = data.messages[data.messages.length - 1].owner
     let notificationBox = document.querySelector('.new-notification')
@@ -1154,8 +1143,7 @@ view.addNotification = async (data, id, friendImg, friendEmail) => {
     `
     if (data.check == true) {
         notificationBox.insertAdjacentHTML('beforeend', html)
-    }
-    else notificationBox.insertAdjacentHTML('afterbegin', html)
+    } else notificationBox.insertAdjacentHTML('afterbegin', html)
     if (lassMessageOwner !== firebase.auth().currentUser.email) {
         if (model.currentConversation !== null) {
             if (id !== model.currentConversation.id && data.check == false) {
@@ -1179,7 +1167,7 @@ view.addNotification = async (data, id, friendImg, friendEmail) => {
         }
     }
     let a = document.getElementById(`${id}`)
-    a.addEventListener('click', async () => {
+    a.addEventListener('click', async() => {
         a.style.fontWeight = '300'
         model.currentConversation = {
             id: id,
@@ -1210,4 +1198,37 @@ view.addNotification = async (data, id, friendImg, friendEmail) => {
         chatTitle.innerHTML = `Chat With ${friendEmail}`
         messageBox.scrollTop = messageBox.scrollHeight
     })
+}
+
+async function nextBnt(x) {
+    if (view.viewPage == x) {
+        return
+    }
+
+    const list = document.querySelector('.room-list').innerHTML = ""
+    let end = 8 * x;
+    let start = end - 8;
+
+    // roomW.id = data.fireBaseID
+    for (let i = 0; i <= 7; i++) {
+        if (start >= end || start >= model.rooms.length) {
+            break;
+        } else {
+            view.addNewRoom(model.rooms[start].fireBaseID, model.rooms[start])
+        }
+        start++;
+    }
+    view.viewPage = x
+    if (start >= end || start >= model.rooms.length) {
+        return
+    }
+}
+view.adddDevidePageBtn = () => {
+    let pageBnt = '';
+    for (let i = 1; i <= Math.ceil(model.rooms.length / 8); i++) {
+        pageBnt += `<button onclick = "nextBnt(${i})" class="nextButton">
+        ${i}
+        </button>`;
+    }
+    document.querySelector(".paginate").innerHTML = pageBnt
 }
