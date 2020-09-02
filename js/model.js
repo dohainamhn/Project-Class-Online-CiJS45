@@ -249,6 +249,7 @@ model.listenConversation = () => {
                         else html += view.addFriendMessage(messages[messages.length - 1].content, friendImg.photoURL)
                         messageBox.innerHTML += html
                         box.scrollTop = box.scrollHeight
+                        
                     }
                 }
                 model.allConversation.find((item,index) => {
@@ -257,9 +258,11 @@ model.listenConversation = () => {
                         return item
                     }
                 })
+               if(modelConversation !== undefined){
                 let font = document.getElementById(`${change.doc.id}`)
                 font.remove()
                 view.addNotification(change.doc.data(), change.doc.id, friendImg.photoURL, friendImg.email)
+               }
             }
         })
     })
