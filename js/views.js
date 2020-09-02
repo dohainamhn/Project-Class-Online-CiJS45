@@ -334,7 +334,7 @@ view.setActiveScreen = async(screen, id) => {
                 })
                 document.querySelector('.upload-img img').src = firebase.auth().currentUser.photoURL;
                 view.setNavbarInfoUser()
-                view.setUpProfilePage()
+                view.setUpProfilePage(listenChat)
                 view.listenOnUpdateImage()
                 const homPage = document.querySelector('.symbol')
                 homPage.addEventListener('click', () => {
@@ -574,9 +574,9 @@ view.chat = async() => {
 view.errorMessage = (id, message) => {
     document.getElementById(id).innerText = message;
 };
-view.showRooms = (r, f) => {
+view.showRooms = (r, f,listenChat) => {
     for (oneRoom of r) {
-        f(oneRoom)
+        f(oneRoom,listenChat)
     }
 }
 
@@ -780,86 +780,117 @@ view.getRooms = (data) => {
         })
         popup.classList.toggle('show-popup')
     })
-    // -------------
-    // let listRooms = document.querySelector('.room-list')
-    // if (data !== undefined) {
-    //     let html = `
-    //     <div class="room-bar cursor" id="${data.id}">
-    //         <div class="room-id sub-room">ID: ${data.id}</div>
-    //         <div class="room-host sub-room">Host: ${data.host}</div>
-    //         <div class="room-title sub-room">Name: ${data.name}</div>
-    //         <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
-    //     </div>
-    //         `
-    //     listRooms.insertAdjacentHTML('beforeend', html)
-    //     let joinRoom = document.getElementById(data.id)
-    //     joinRoom.addEventListener('click', async() => {
-    //         var person = prompt("Please enter your name", "Harry Potter");
-    //         if (person === data.password) {
-    //             model.currentRoomID = data.id
-    //             view.setActiveScreen('classRoomScreen', data.id)
-    //         } else {
-    //             alert('Join failed')
-    //         }
-    //     })
-    //     joinRoom.addEventListener('mouseover', async() => {
-    //         let r = model.rooms.find((item) => item.fireBaseID == data.id)
-    //             // let r = await model.getRoomInfo(data.id)
-    //         view.getInFoRoom(data.id, r)
-    //     })
-    // }
+    
 }
-view.getConversation = (data) => {
-    let listRooms = document.querySelector('.room-list')
-    if (data !== undefined) {
-        let html = `
-        <div class="room-bar sub-room" id="${data.id}">
-            <div class="room-id sub-room">ID: ${data.id}</div>
-            <div class="room-host sub-room">Host: ${data.host}</div>
-            <div class="room-title sub-room">Name: ${data.name}</div>
-            <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
-        </div>
-            `
-        listRooms.insertAdjacentHTML('beforeend', html)
-        let joinRoom = document.getElementById(data.id)
-        joinRoom.addEventListener('click', async() => {
-            var person = prompt("Please enter your name", "Harry Potter");
-            if (person === data.password) {
-                model.currentRoomID = data.id
-                view.setActiveScreen('classRoomScreen', data.id)
+// view.getConversation = (data) => {
+//     let listRooms = document.querySelector('.room-list')
+//     if (data !== undefined) {
+//         let html = `
+//         <div class="room-bar sub-room" id="${data.id}">
+//             <div class="room-id sub-room">ID: ${data.id}</div>
+//             <div class="room-host sub-room">Host: ${data.host}</div>
+//             <div class="room-title sub-room">Name: ${data.name}</div>
+//             <div class="room-createAt sub-room">Created At: ${data.createdAt}</div>
+//         </div>
+//             `
+//         listRooms.insertAdjacentHTML('beforeend', html)
+//         let joinRoom = document.getElementById(data.id)
+//         joinRoom.addEventListener('click', async() => {
+//             var person = prompt("Please enter your name", "Harry Potter");
+//             if (person === data.password) {
+//                 model.currentRoomID = data.id
+//                 view.setActiveScreen('classRoomScreen', data.id)
+//             } else {
+//                 alert('Join failed')
+//             }
+//         })
+//         joinRoom.addEventListener('mouseover', async() => {
+//             let r = model.rooms.find((item) => item.fireBaseID == data.id)
+//                 // let r = await model.getRoomInfo(data.id)
+//             view.getInFoRoom(data.id, r)
+//         })
+//     }
+// }
+view.getYourRooms = (room,listenChat) => {
+    const roomWrapper = document.createElement('div')
+    roomWrapper.className = 'room-bar-wrap'
+    roomWrapper.id = room.id
+    roomWrapper.innerHTML = `
+    <div class="a" id="delete${room.id}">
+            <i class="fas fa-trash-alt"></i>
+            <div class="popup-form" id="popup-form${room.id}">
+                <div class="title-popup"></div>
+                <div class="button-popup">
+                   
+                </div>
+            </div>
+    </div>
+    <div class="room-bar cursor" id="join-room-${room.id}">
+        <div class="room-id sub-room">ID: ${room.id}</div>
+        <div class="room-host sub-room">Host: ${room.host}</div>
+        
+        <div class="room-title sub-room">Name: ${room.name}</div>
+        <div class="room-createAt sub-room">Created At: ${room.createdAt}</div>
+    </div>
+`
+    document.querySelector(".right-container .room-list").appendChild(roomWrapper)
+    if (room.password !== "") {
+        let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
+        document.getElementById(`${room.id}`).insertAdjacentHTML('beforeend', iconHTML)
+    } else {
+        let iconHTML = `<div class="lock-icon"></div>`
+        document.getElementById(`${room.id}`).insertAdjacentHTML('beforeend', iconHTML)
+    }
+    let deleteRoomBtn = document.getElementById(`delete${room.id}`)
+    let joinRoom = document.getElementById(`join-room-${room.id}`)
+    joinRoom.addEventListener('click', async() => {
+        if (room.password !== "") {
+            var person = prompt("Please enter password");
+            if (person === room.password) {
+                model.currentRoomID = room.id
+                view.listenChat()
+                listenChat()
+                view.setActiveScreen('classRoomScreen', room.id)
             } else {
                 alert('Join failed')
             }
-        })
-        joinRoom.addEventListener('mouseover', async() => {
-            let r = model.rooms.find((item) => item.fireBaseID == data.id)
-                // let r = await model.getRoomInfo(data.id)
-            view.getInFoRoom(data.id, r)
-        })
-    }
-}
-view.getYourRooms = (room) => {
-    const roomWrapper = document.createElement('div')
-    roomWrapper.className = 'room-bar'
-    roomWrapper.id = room.id
-    roomWrapper.innerHTML = `
-    <div class="room-id sub-room">ID: ${room.id}</div>
-    <div class="room-host sub-room">Host: ${room.host}</div>
-    
-    <div class="room-title sub-room">Name: ${room.name}</div>
-    <div class="room-createAt sub-room">Created At: ${room.createdAt}</div>
-`
-    document.querySelector(".right-container .room-list").appendChild(roomWrapper)
-
-    let joinRoom = document.getElementById(roomWrapper.id)
-    joinRoom.addEventListener('click', async() => {
-        var person = prompt("Please enter password");
-        if (person === room.password) {
-            model.currentRoomID = room.id
-            view.setActiveScreen('classRoomScreen', room.id)
         } else {
-            alert('Join failed')
+            model.currentRoomID = room.id
+            view.listenChat()
+            listenChat()
+            view.setActiveScreen('classRoomScreen', room.id)
         }
+    })
+    deleteRoomBtn.addEventListener('click', () => {
+        let popup = document.querySelector(`#delete${room.id} .popup-form`)
+        if (firebase.auth().currentUser.email == room.host) {
+            document.querySelector(`#delete${room.id} .popup-form .title-popup`)
+                .innerHTML = "Do you really want to delete this room?"
+            document.querySelector(`#delete${room.id} .popup-form .button-popup`)
+                .innerHTML =
+                `
+             <button class="popup-bnt" id="yes${room.id}">Yes</button>
+             <button class="popup-bnt" id="no${room.id}">No</button>
+            `
+            document.getElementById(`yes${room.id}`).addEventListener('click', () => {
+                model.deleteDataFireStore('rooms', room.id)
+                document.getElementById(`${room.id}`).remove()
+                console.log(`xoa room ID ${room.id}`);
+            })
+            document.getElementById(`no${room.id}`).addEventListener('click', () => {
+
+            })
+        } else {
+            document.querySelector(`#delete${room.id} .popup-form .title-popup`)
+                .innerHTML = "only owner can delete this room"
+            document.querySelector(`#delete${room.id} .popup-form .button-popup`)
+                .innerHTML = ""
+        }
+        let arr = document.querySelectorAll('.popup-form')
+        arr.forEach((item) => {
+            if (item.id !== `popup-form${room.id}`) item.classList = "popup-form"
+        })
+        popup.classList.toggle('show-popup')
     })
 }
 
@@ -947,13 +978,13 @@ view.setProfileDefault = async() => {
     data.workAt == undefined ? workAt.innerHTML = `Work at: ` : workAt.innerHTML = `Work at:  ${data.workAt}`
     data.aboutMe == undefined ? aboutMe.innerHTML = `` : aboutMe.innerHTML = data.aboutMe
 }
-view.setUpProfilePage = () => {
+view.setUpProfilePage = (listenChat) => {
     document.querySelector('.profile-box').innerHTML = components.profileBox
     view.setProfileDefault()
-    view.listenChangeToEditProfile()
+    view.listenChangeToEditProfile(listenChat)
 }
 
-view.listenChangeToEditProfile = () => {
+view.listenChangeToEditProfile = (listenChat) => {
     let profileBox = document.querySelector('.profile-box')
     let profileBnt = document.getElementById('profile-bnt')
     let editProfileBnt = document.getElementById('edit-profile-bnt')
@@ -967,7 +998,7 @@ view.listenChangeToEditProfile = () => {
         let title = document.querySelector('.menu-div .title')
         title.innerHTML = 'View your rooms'
         profileBox.innerHTML = components.viewYourRoom
-        let yourRoom = await model.getTest(model.currentUser.email)
+        let yourRoom = await model.getTest(model.currentUser.email,listenChat)
     })
     profileBnt.addEventListener('click', () => {
         profileBnt.classList = 'active-bnt'

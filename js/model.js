@@ -188,10 +188,10 @@ model.getInfoUser = async(email) => {
     else return null
 }
 
-model.getTest = async(user) => {
+model.getTest = async(user,listenChat) => {
     const yourRooms = await firebase.firestore().collection('rooms').where("host", "==", user).get()
     model.yourRoom = getDataFromDocs(yourRooms.docs)
-    view.showRooms(model.yourRoom, view.getYourRooms)
+    view.showRooms(model.yourRoom, view.getYourRooms,listenChat)
 }
 
 model.updateDataToFireStore = async(collection, data) => {
