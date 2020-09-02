@@ -55,7 +55,9 @@ components.selectRoomScreen = `
                 </div>
                 <div class="input-message">
                     <input placeholder="Enter your message">
-                    <div class="icon"></div>
+                    <div class="icon">
+                       
+                    </div>
                 </div>
             </div>
         </div>

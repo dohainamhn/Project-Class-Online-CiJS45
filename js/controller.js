@@ -210,3 +210,129 @@ controller.sortByTimeStamp = (data) => {
 	})
 	return arrAfterSort
 }
+controller.removeVietnameseTones = (str)=>{
+	str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a"); 
+    str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e"); 
+    str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i"); 
+    str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o"); 
+    str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u"); 
+    str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y"); 
+    str = str.replace(/đ/g,"d");
+    str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+    str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|Ễ/g, "E");
+    str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+    str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+    str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+    str = str.replace(/Ỳ|Ý|Ỵ|Ỷ|Ỹ/g, "Y");
+	str = str.replace(/Đ/g, "D");
+	str = str.replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "");
+	str = str.replace(/\u02C6|\u0306|\u031B/g, "");
+	str = str.replace(/ + /g," ");
+	str = str.trim();
+	str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+	return str
+}
+controller.checkIconChat = (data)=>{
+	const icon = [
+		{
+			url:'../img/iconChat/1.gif',
+			syntax:':)'
+		},
+		{
+			url:'../img/iconChat/2.gif',
+			syntax:':('
+		},
+		{
+			url:'../img/iconChat/3.gif',
+			syntax:';)'
+		},
+		{
+			url:'../img/iconChat/4.gif',
+			syntax:':D'
+		},
+		{
+			url:'../img/iconChat/5.gif',
+			syntax:';;)'
+		},
+		{
+			url:'../img/iconChat/6.gif',
+			syntax:'>:D<'
+		},
+		{
+			url:'../img/iconChat/7.gif',
+			syntax:':-/'
+		},
+		{
+			url:'../img/iconChat/8.gif',
+			syntax:':x'
+		},
+		{
+			url:'../img/iconChat/9.gif',
+			syntax:':">'
+		},
+		{
+			url:'../img/iconChat/10.gif',
+			syntax:':P'
+		},
+		{
+			url:'../img/iconChat/11.gif',
+			syntax:':-*'
+		},
+		{
+			url:'../img/iconChat/12.gif',
+			syntax:'=(('
+		},
+		{
+			url:'../img/iconChat/13.gif',
+			syntax:':-O'
+		},
+		{
+			url:'../img/iconChat/14.gif',
+			syntax:'X('
+		},
+		{
+			url:'../img/iconChat/15.gif',
+			syntax:':>'
+		},
+		{
+			url:'../img/iconChat/16.gif',
+			syntax:'B-)'
+		},
+		{
+			url:'../img/iconChat/17.gif',
+			syntax:':-S'
+		},
+		{
+			url:'../img/iconChat/18.gif',
+			syntax:'#:-S'
+		},
+		{
+			url:'../img/iconChat/19.gif',
+			syntax:'&gt;:)'
+		},
+		{
+			url:'../img/iconChat/20.gif',
+			syntax:':(('
+		},
+		{
+			url:'../img/iconChat/21.gif',
+			syntax:':))'
+		},
+		{
+			url:'../img/iconChat/22.gif',
+			syntax:':|'
+		},
+		{
+			url:'../img/iconChat/23.gif',
+			syntax:'/:)'
+		},
+		{
+			url:'../img/iconChat/24.gif',
+			syntax:'=))'
+		}
+	]
+	let find = icon.find((item)=>data.includes(item.syntax))
+	console.log(find);
+	if(find !== undefined) return find
+	else return null
+}

@@ -133,6 +133,10 @@
 .room-bar{
     cursor: pointer;
 }
-/* .width-200{
-    width:350px
-} */
+.popup-bnt{
+    border:none;
+    outline: none;
+    background: #fff;
+    width: 25px;
+    height: 20px;
+}

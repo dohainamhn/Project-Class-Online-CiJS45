@@ -22,9 +22,9 @@ agora.RtmIsLogin = false
 agora.client.init(agora.appID, function () {
     console.log("AgoraRTC client initialized")
 }
-, function (err) {
-    console.log("[ERROR] : AgoraRTC client init failed", err)
-})
+    , function (err) {
+        console.log("[ERROR] : AgoraRTC client init failed", err)
+    })
 
 agora.remoteStreams = [];
 agora.localStreams = {
@@ -91,25 +91,26 @@ agora.createCameraStream = (uid, isTeacher) => {
         },
         (err) => {
             console.log("[ERROR] : getUserMedia failed", err);
-            // agora.client.unpublish(agora.localStreams.camera.stream)
-            //         agora.client.off("stream-published")
-            //         agora.client.off("stream-added")
-            //         agora.client.off('stream-subscribed')
-            //         agora.client.leave()
-            //         agora.RtmLeaveChannel()
-            //         agora.remoteStreams = []
-            //         room.disconnect().then(function() {
-            //             console.log("Leave room success");
-            //             // model.loadRooms()
-            //         });
-            //         model.removeUserInRoom(agora.localStreams.camera.id, model.currentRoomID)
-            //         if(agora.localStreams.screen.id !== ""){
-            //             agora.localStreams.screen.stream.close()
-            //             agora.screenClient.unpublish(agora.localStreams.screen.stream)
-            //             console.log('screen close');
-            //         }
-            //         agora.screenClient.leave()
-            //         view.setActiveScreen('selectRoomScreen')
+            alert(`[ERROR] : getUserMedia failed ${err}`)
+            agora.client.unpublish(agora.localStreams.camera.stream)
+            agora.client.off("stream-published")
+            agora.client.off("stream-added")
+            agora.client.off('stream-subscribed')
+            agora.client.leave()
+            agora.RtmLeaveChannel()
+            agora.remoteStreams = []
+            room.disconnect().then(function () {
+                console.log("Leave room success");
+                // model.loadRooms()
+            });
+            model.removeUserInRoom(agora.localStreams.camera.id, model.currentRoomID)
+            if (agora.localStreams.screen.id !== "") {
+                agora.localStreams.screen.stream.close()
+                agora.screenClient.unpublish(agora.localStreams.screen.stream)
+                console.log('screen close');
+            }
+            agora.screenClient.leave()
+            view.setActiveScreen('selectRoomScreen')
         }
     );
 }
@@ -319,10 +320,12 @@ agora.RtmSendMessageToChannel = (text) => {
 }
 agora.RtmReceiveMessage = () => {
 
-    agora.RtmChannel.on('ChannelMessage', ({ text }, senderId) => {
-        view.addMessage(senderId, text)
+    agora.RtmChannel.on('ChannelMessage',async ({ text }, senderId) => {
         console.log('sender:' + senderId);
         console.log('text:' + text);
+        let user = await model.getInfoUser(senderId)
+        view.addMessage(user.name, text)
+       
     });
     console.log('on listen');
 }

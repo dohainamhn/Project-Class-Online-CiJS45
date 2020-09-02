@@ -16,7 +16,12 @@ var requestInit = {
 let view = {}
 view.viewPage = 1;
 view.count = 0;
+<<<<<<< HEAD
 view.setActiveScreen = async(screen, id) => {
+=======
+view.listenChat = null;
+view.setActiveScreen = async (screen, id) => {
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
     switch (screen) {
         case "registerScreen":
             {
@@ -139,14 +144,20 @@ view.setActiveScreen = async(screen, id) => {
                     if (model.currentUser.isTeacher) {
                         view.setActiveScreen('createRoomScreen')
                         listenRoomChange()
+<<<<<<< HEAD
                         listenChat()
                     } else alert(`Only teacher can create room`)
+=======
+                        view.listenChat()
+                    }
+                    else alert(`Only teacher can create room`)
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
                 })
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
                     view.setActiveScreen('updatePageScreen')
                     listenRoomChange()
-                    listenChat()
+                    view.listenChat()
                 })
                 view.setNavbarInfoUser()
                 const logOut = document.querySelector('.log-out-bnt')
@@ -156,7 +167,7 @@ view.setActiveScreen = async(screen, id) => {
                         console.log('user signed out')
                         view.setActiveScreen('loginScreen')
                         listenRoomChange()
-                        listenChat()
+                        view.listenChat()
                     })
                 })
                 //------------------- Search Room --------------------------
@@ -237,6 +248,7 @@ view.setActiveScreen = async(screen, id) => {
                             teacher = true
                             console.log(json)
                             const data = {
+<<<<<<< HEAD
                                     channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
                                     host: model.currentUser.email,
                                     name: createRoomForm.roomName.value,
@@ -248,6 +260,19 @@ view.setActiveScreen = async(screen, id) => {
                                     currentMembers: []
                                 }
                                 // model.loadRooms()
+=======
+                                channel: controller.removeVietnameseTones(createRoomForm.chanelName.value),
+                                host: model.currentUser.email,
+                                name: createRoomForm.roomName.value,
+                                roomToken: json.msg.roomToken,
+                                roomUUID: json.msg.room.uuid,
+                                title: createRoomForm.roomTtitle.value,
+                                createdAt: new Date().toLocaleString(),
+                                password: createRoomForm.passwordRoom.value,
+                                currentMembers: []
+                            }
+                            // model.loadRooms()
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
                             console.log((data));
                             model.createRoom(data)
                             view.setActiveScreen('selectRoomScreen')
@@ -327,6 +352,7 @@ view.setActiveScreen = async(screen, id) => {
                 document.querySelector('.log-out-bnt').addEventListener('click', () => {
                     firebase.auth().signOut()
                     listenChat()
+                    view.listenChat()
                 })
                 document.querySelector('.upload-img img').src = firebase.auth().currentUser.photoURL;
                 view.setNavbarInfoUser()
@@ -336,6 +362,7 @@ view.setActiveScreen = async(screen, id) => {
                 homPage.addEventListener('click', () => {
                     view.setActiveScreen('selectRoomScreen')
                     listenChat()
+                    view.listenChat()
                 })
                 console.log(homPage)
                 const response = await firebase.firestore().collection("users").get()
@@ -352,7 +379,7 @@ view.setActiveScreen = async(screen, id) => {
                         );
                     });
                     for (let index = 0; index < roomSearch.length; index++) {
-                        if (filteredCharacters[index] !== undefined) view.getUsers(filteredCharacters[index])
+                        if (filteredCharacters[index] !== undefined) view.getUsers(filteredCharacters[index],listenChat)
                     }
                     if (searchBar.value == '') {
                         document.querySelector('.result-search').innerText = ''
@@ -374,17 +401,24 @@ view.setActiveScreen = async(screen, id) => {
             {
                 document.getElementById("app").innerHTML = components.viewYourFriendProfile;
                 view.setNavbarInfoUser()
+                let listenChat = model.listenConversation()
                 const homPage = document.querySelector('.symbol')
                 homPage.addEventListener('click', () => {
                     view.setActiveScreen('selectRoomScreen')
+<<<<<<< HEAD
                         // model.loadRooms()
+=======
+                    // model.loadRooms()
+                    listenChat()
+                    view.listenChat()
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
                 })
                 view.onclickNotification()
                 let userName = document.querySelector('.nav-bar-info-User .user-name')
                 userName.addEventListener('click', () => {
                     view.setActiveScreen('updatePageScreen')
                     listenRoomChange()
-                    listenChat()
+                    view.listenChat()
                 })
                 const response = await firebase.firestore().collection("users").get()
                 roomSearch = getDataFromDocs(response.docs)
@@ -398,16 +432,17 @@ view.setActiveScreen = async(screen, id) => {
                         );
                     });
                     for (let index = 0; index < roomSearch.length; index++) {
-                        view.getUsers(filteredCharacters[index])
+                        view.getUsers(filteredCharacters[index],listenChat)
                     }
                     if (searchBar.value == '') {
                         document.querySelector('.result-search').innerText = ''
                     }
                 });
-                let listenChat = model.listenConversation()
+                
                 document.querySelector('.log-out-bnt').addEventListener('click', () => {
                     firebase.auth().signOut()
                     listenChat()
+                    view.listenChat()
                 })
                 let maincontainer1 = document.querySelector('.main-container1')
                 let notificationBox = document.querySelector('.new-notification-box')
@@ -586,6 +621,7 @@ view.addNewRoom = (roomID, roomData) => {
         <div class="room-title sub-room">Name: ${roomData.name}</div>
         <div class="room-createAt sub-room">Created At: ${roomData.createdAt}</div>
     </div>
+<<<<<<< HEAD
 `
     document.querySelector(".right-container .room-list").appendChild(roomWrapper);
 
@@ -600,6 +636,23 @@ view.addNewRoom = (roomID, roomData) => {
     let joinRoom = document.getElementById(`join-room-${roomID}`)
     joinRoom.addEventListener('click', async() => {
         if (roomData.password !== "") {
+=======
+`   
+    document.querySelector(".right-container .room-list").appendChild(roomWrapper);
+    
+    if(roomData.password !== ""){
+        let iconHTML = `<div class="lock-icon"><i class="fas fa-lock"></i></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend',iconHTML)
+    }
+    else{
+        let iconHTML = `<div class="lock-icon"></div>`
+        document.getElementById(`${roomID}`).insertAdjacentHTML('beforeend',iconHTML)
+    }
+    let deleteRoomBtn = document.getElementById(`delete${roomID}`)
+    let joinRoom = document.getElementById(`join-room-${roomID}`)
+    joinRoom.addEventListener('click', async () => {
+        if(roomData.password !== ""){
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
             var person = prompt("Please enter password");
             if (person === roomData.password) {
                 model.currentRoomID = roomID
@@ -608,7 +661,12 @@ view.addNewRoom = (roomID, roomData) => {
             } else {
                 alert('Join failed')
             }
+<<<<<<< HEAD
         } else {
+=======
+        }
+        else{
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
             model.currentRoomID = roomID
             view.listenChat()
             view.setActiveScreen('classRoomScreen', roomID)
@@ -619,6 +677,7 @@ view.addNewRoom = (roomID, roomData) => {
             // let r = await model.getRoomInfo(roomID)
         view.getInFoRoom(roomID, r)
     })
+<<<<<<< HEAD
     deleteRoomBtn.addEventListener('click', () => {
         let popup = document.querySelector(`#delete${roomID} .popup-form`)
         if (firebase.auth().currentUser.email == roomData.host) {
@@ -647,6 +706,37 @@ view.addNewRoom = (roomID, roomData) => {
         let arr = document.querySelectorAll('.popup-form')
         arr.forEach((item) => {
             if (item.id !== `popup-form${roomID}`) item.classList = "popup-form"
+=======
+    deleteRoomBtn.addEventListener('click',()=>{
+        let popup = document.querySelector(`#delete${roomID} .popup-form`)
+        if(firebase.auth().currentUser.email == roomData.host){
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+            .innerHTML = "Do you really want to delete this room?"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+            .innerHTML =
+            `
+             <button class="popup-bnt" id="yes${roomID}">Yes</button>
+             <button class="popup-bnt" id="no${roomID}">No</button>
+            `
+            document.getElementById(`yes${roomID}`).addEventListener('click',()=>{
+                 model.deleteDataFireStore('rooms',roomID)
+                document.getElementById(`${roomID}`).remove()
+                console.log(`xoa room ID ${roomID}`);
+            })
+            document.getElementById(`no${roomID}`).addEventListener('click',()=>{
+               
+            })
+        }
+        else{
+            document.querySelector(`#delete${roomID} .popup-form .title-popup`)
+            .innerHTML = "only owner can delete this room"
+            document.querySelector(`#delete${roomID} .popup-form .button-popup`)
+            .innerHTML = ""
+        }
+        let arr = document.querySelectorAll('.popup-form')
+        arr.forEach((item)=>{
+            if(item.id !== `popup-form${roomID}`)item.classList = "popup-form"
+>>>>>>> 8ad4dd3d21e166f02ed2f4092701379291a00693
         })
         popup.classList.toggle('show-popup')
     })
@@ -659,7 +749,7 @@ view.addMessage = (senderId, text) => {
     `
     messageContainer.insertAdjacentHTML('beforeend', html)
 }
-view.getUsers = (data) => {
+view.getUsers = (data,listenChat) => {
     if (data !== undefined) {
         let listRooms = document.querySelector('.result-search')
         if (data !== undefined) {
@@ -674,7 +764,8 @@ view.getUsers = (data) => {
             console.log('click');
             view.setActiveScreen('viewYourFriendProfile')
             view.getUser(userDetail)
-
+            view.listenChat()
+            listenChat()
         })
     }
 }
@@ -1016,20 +1107,47 @@ view.getUser = (user) => {
 }
 
 view.addFriendMessage = (content, photoURL) => {
-    let html = `
-   <div class="friend-message">
-       <img src="${photoURL}">
-       <div class="message">${content}</div>
-   </div>
-   `
+    let iconUrl = controller.checkIconChat(content)
+    let html = ""
+    if(iconUrl !== null){
+        var n = content.replace(iconUrl.syntax,`<img src="${iconUrl.url}">`)
+        html = ` 
+        <div class="friend-message">
+        <img src="${photoURL}">
+            <div class="message">
+                ${n}
+            </div>
+        </div>
+        `
+    }
+      else html = `
+        <div class="friend-message">
+            <img src="${photoURL}">
+            <div class="message">${content}</div>
+        </div>
+        `
     return html
 }
 view.addYourMessage = (content) => {
-    let html = `
-    <div class="your-message">
-        <div class="message">${content}</div>
-    </div>
-    `
+    let iconUrl = controller.checkIconChat(content)
+    let html =""
+    if(iconUrl !== null){
+        var n = content.replace(iconUrl.syntax,`<img src="${iconUrl.url}">`)
+        html = ` 
+        <div class="your-message">
+            <div class="message">
+                ${n}
+            </div>
+        </div>
+        `
+    }
+    else{
+        html = `
+        <div class="your-message">
+            <div class="message">${content}</div>
+        </div>
+        `
+    }
     return html
 }
 view.addListConversation = (data, isActive = false) => {
