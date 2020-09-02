@@ -291,9 +291,12 @@ view.setActiveScreen = async (screen, id) => {
                 inputChat.addEventListener('keyup', (e) => {
                     if (e.keyCode == "13") {
                         agora.RtmSendMessageToChannel(inputChat.value)
+                        if(inputChat.value.trim() !== "")
                         view.addMessage(firebase.auth().currentUser.displayName, inputChat.value)
                         console.log('send');
                         inputChat.value = ""
+                        let messageBox = document.getElementById('message-container')
+                        messageBox.scrollTop = messageBox.scrollHeight
                     }
                 })
                 signOutBnt.addEventListener('click', () => {
@@ -460,6 +463,13 @@ view.chat = async () => {
         chatContainer.classList.toggle('display-none')
         iconChat.classList.toggle('display-none')
     })
+    let addIconChatbnt = document.querySelector('.input-message .icon')
+    addIconChatbnt.innerHTML = components.popupIconChat
+    addIconChatbnt.addEventListener('click',()=>{
+        console.log('click');
+        let popup = document.querySelector('.icon .popupIconChat')
+        popup.classList.toggle('show-popup')
+    })
     let inputChatEmail = document.getElementById('input-chat-email')
     inputChatEmail.addEventListener('keyup', async (e) => {
         if (e.keyCode == '13') {
@@ -541,6 +551,7 @@ view.chat = async () => {
     let messageInput = document.querySelector('.input-message input')
     messageInput.addEventListener('keyup', (e) => {
         if (e.keyCode == '13') {
+            if(messageInput.value.trim() !== "")
             model.firestoreArryUnion('conversations', model.currentConversation.id, messageInput.value)
             messageInput.value = ""
         }
@@ -1035,14 +1046,17 @@ view.addFriendMessage = (content, photoURL) => {
     let iconUrl = controller.checkIconChat(content)
     let html = ""
     if(iconUrl !== null){
-        var n = content.replace(iconUrl.syntax,`<img src="${iconUrl.url}">`)
-        html = ` 
-        <div class="friend-message">
-        <img src="${photoURL}">
-            <div class="message">
-                ${n}
+        let str = content
+        for(let x of iconUrl){
+            str = str.split(x.syntax).join(`<span><img src=${x.url}></span>`)
+        }
+        html = `
+            <div class="friend-message">
+                <img src="${photoURL}">
+                <div class="message">
+                    ${str}
+                </div>
             </div>
-        </div>
         `
     }
       else html = `
@@ -1055,15 +1069,18 @@ view.addFriendMessage = (content, photoURL) => {
 }
 view.addYourMessage = (content) => {
     let iconUrl = controller.checkIconChat(content)
-    let html =""
+    let html =''
     if(iconUrl !== null){
-        var n = content.replace(iconUrl.syntax,`<img src="${iconUrl.url}">`)
-        html = ` 
-        <div class="your-message">
-            <div class="message">
-                ${n}
+        let str = content
+        for(let x of iconUrl){
+            str = str.split(x.syntax).join(`<span><img src=${x.url}></span>`)
+        }
+        html = `
+            <div class="your-message">
+                <div class="message">
+                    ${str}
+                </div>
             </div>
-        </div>
         `
     }
     else{

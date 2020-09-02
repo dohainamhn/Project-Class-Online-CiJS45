@@ -315,6 +315,30 @@
     justify-content: center;
     align-items: center;
 }
+.input-message .icon .popupIconChat{
+    visibility: hidden;
+    width:220px;
+    position: absolute;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: -180px;
+}
+.input-message .icon .popupIconChat::after{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 86%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
 .room-bar-wrap .popup-form{
     visibility: hidden;
     width: 160px;
@@ -329,8 +353,8 @@
     left: 50%;
     margin-left: -80px;
 }
-.room-bar-wrap .show-popup{
-    visibility: visible;
+.room-bar-wrap .show-popup ,.icon .show-popup{
+    visibility: visible!important;
     animation: fadeIn 1s
 }
 @keyframes fadeIn {
@@ -438,7 +462,9 @@
     height: 20px;
     width: 20px;
     background: url('../img/iconChat/1.gif');
+    position: relative;
 }
+
 .input-message input{
     border: none;
     height: 30px;
@@ -453,21 +479,26 @@
     background: #d8d8d8;
 }
 .message{
-    max-width: 150px;
+    font-size: 15px;
+    max-width: 42%;
     width:max-content;
     padding:0 10px;
     margin:0 5px;
-    height: 30px;
-    word-break: break-all;
+    word-break: break-word;
     border-radius: 10px;
-    display: flex;
+    display: inline;
     justify-content: center;
     align-items: center;
 }
+.message span{
+     display: inline-block;
+     vertical-align:sub;
+}
+
 .message img{
     height:1rem;
-    width:1rem;
     margin: 0 5px;
+    /* margin-top:8px; */
 }
 .your-message {
     display: flex;

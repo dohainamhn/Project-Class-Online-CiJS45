@@ -234,9 +234,8 @@ model.listenConversation = () => {
                 let box = document.querySelector('.message-box')
                 let friendImg = await model.getInfoUser(change.doc.data().users.find(
                     (user) => user !== firebase.auth().currentUser.email))
-                model.updateModelConversation()
+                    let modelConversation = model.allConversation.find((item)=>item.id == change.doc.id)
                 let messageData = change.doc.data().messages
-                let modelConversation = model.allConversation.find((item) => item.id == change.doc.id)
                 if (model.currentConversation !== null) {
                     if (change.doc.id == model.currentConversation.id && messageData.length !== modelConversation.messages.length) {
                         let messages = change.doc.data().messages
@@ -248,8 +247,13 @@ model.listenConversation = () => {
                         messageBox.innerHTML += html
                         box.scrollTop = box.scrollHeight
                     }
-
                 }
+                model.allConversation.find((item,index) => {
+                    if(item.id == change.doc.id){
+                        model.allConversation[index].messages = change.doc.data().messages
+                        return item
+                    }
+                })
                 let font = document.getElementById(`${change.doc.id}`)
                 font.remove()
                 view.addNotification(change.doc.data(), change.doc.id, friendImg.photoURL, friendImg.email)

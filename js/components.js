@@ -614,3 +614,39 @@ components.loginScreen = `  <div class="container container-flex">
   </div>
 </div>
 </div>`;
+components.popupIconChat = `
+<div class="popupIconChat">
+  <table>
+    <tr>
+      <td><img onclick="controller.returnSyntaxIconChat(0)" src="../img/iconChat/1.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(1)" src="../img/iconChat/2.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(2)" src="../img/iconChat/3.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(3)" src="../img/iconChat/4.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(4)" src="../img/iconChat/5.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(5)" src="../img/iconChat/6.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(6)" src="../img/iconChat/7.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(7)" src="../img/iconChat/8.gif"></td>
+    </tr>
+    <tr>
+      <td><img onclick="controller.returnSyntaxIconChat(8)" src="../img/iconChat/9.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(9)" src="../img/iconChat/10.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(10)" src="../img/iconChat/11.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(11)" src="../img/iconChat/12.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(12)" src="../img/iconChat/13.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(13)" src="../img/iconChat/14.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(14)" src="../img/iconChat/15.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(15)" src="../img/iconChat/16.gif"></td>
+    </tr>
+    <tr>
+      <td><img onclick="controller.returnSyntaxIconChat(16)" src="../img/iconChat/17.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(17)" src="../img/iconChat/18.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(18)" src="../img/iconChat/19.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(19)" src="../img/iconChat/20.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(20)" src="../img/iconChat/21.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(21)" src="../img/iconChat/22.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(22)" src="../img/iconChat/23.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(23)" src="../img/iconChat/24.gif"></td>
+    </tr>
+  </table>
+</div>
+`
