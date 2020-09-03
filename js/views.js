@@ -165,15 +165,27 @@ view.setActiveScreen = async(screen, id) => {
 
                 const searchBar = document.getElementById('myInput')
                 searchBar.addEventListener('keyup', (e) => {
+                    if(e.keyCode == '13'){
+                        searchBar.value = ''
+                    }
                     const searchString = e.target.value.toLowerCase();
                     document.querySelector('.room-list').innerText = ''
-                    const filteredCharacters = roomSearch.filter((character) => {
-                        return (
-                            character.name.toLowerCase().includes(searchString)
-                        );
-                    });
-                    for (let index = 0; index < roomSearch.length; index++) {
-                        view.getRooms(filteredCharacters[index])
+                    if(searchBar.value.trim() !== ""){
+                        let pagniate = document.querySelector('.paginate').style.display = 'none'
+                        const filteredCharacters = roomSearch.filter((character) => {
+                            return (
+                                character.name.toLowerCase().includes(searchString)
+                            );
+                        });
+                        for (let index = 0; index < roomSearch.length; index++) {
+                            view.getRooms(filteredCharacters[index])
+                        }
+                    }
+                    else{
+                        for(let i = 0;i<=7;i++){
+                            view.addNewRoom(model.rooms[i].fireBaseID, model.rooms[i])
+                            let pagniate = document.querySelector('.paginate').style.display = 'block'
+                        }
                     }
                 });
                 // ----------------------- Chat-box -----------------------
