@@ -587,13 +587,19 @@ view.chat = async () => {
     let messageInput = document.querySelector(".input-message input");
     messageInput.addEventListener("keyup", (e) => {
         if (e.keyCode == "13") {
-            if (messageInput.value.trim() !== "")
-                model.firestoreArryUnion(
-                    "conversations",
-                    model.currentConversation.id,
-                    messageInput.value
-                );
-            messageInput.value = "";
+            if (model.currentConversation !== null) {
+                if (messageInput.value.trim() !== "")
+                    model.firestoreArryUnion(
+                        "conversations",
+                        model.currentConversation.id,
+                        messageInput.value
+                    );
+                messageInput.value = "";
+            }
+            else {
+                alert('Please input your friend email to chat')
+                messageInput.value = "";
+            }
         }
     });
     messageInput.addEventListener('click',()=>{
