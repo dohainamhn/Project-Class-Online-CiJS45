@@ -1,192 +1,193 @@
-*{
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-.class-room{
-    background: #EEF1F3;
-    width: 100%;
-    height: 100vh;
+.class-room {
+  background: #eef1f3;
+  width: 100%;
+  height: 100vh;
 }
-.video-bar{
-    background: #ffff;
-    padding: 0 20px 0 20px;
-    display: flex;
-    width: 100%;
-    height: 170px;
-    align-items: center;
-    box-shadow:  0px 0px 15px rgba(0, 0, 0, 0.25);;
+.video-bar {
+  background: #ffff;
+  padding: 0 20px 0 20px;
+  display: flex;
+  width: 100%;
+  height: 170px;
+  align-items: center;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
 }
-.student-box{
-    margin: 0 20px;
+.student-box {
+  margin: 0 20px;
 }
-.teacher-box ,.student-box{
-   position: relative;
-   border-radius: 5px;
-   background: #b5edee;
-   background-size: 150px 120px;
-   width: 150px;
-   height: 120px;
+.teacher-box,
+.student-box {
+  position: relative;
+  border-radius: 5px;
+  background: #b5edee;
+  background-size: 150px 120px;
+  width: 150px;
+  height: 120px;
 }
-.mic{ 
-   bottom: 0px;
-   left: 3px;
-   position: absolute;
+.mic {
+  bottom: 0px;
+  left: 3px;
+  position: absolute;
 }
-.mic i{
-    color: #ff1734;
+.mic i {
+  color: #ff1734;
 }
-.video{
-    width: 100%;
-    height: 100%;
+.video {
+  width: 100%;
+  height: 100%;
 }
-.video-student-box{
-    display: flex;
+.video-student-box {
+  display: flex;
 }
-.teacher-box .video .icon{
-   width: 150px;
-   height: 120px;
-   background: url('../img/teacher.png');
-   background-size: 150px 120px;
+.teacher-box .video .icon {
+  width: 150px;
+  height: 120px;
+  background: url("../img/teacher.png");
+  background-size: 150px 120px;
 }
-.info{
-    text-align: center ;
+.info {
+  text-align: center;
 }
-.student-box .icon{
-    width: 150px;
-    height: 120px;
+.student-box .icon {
+  width: 150px;
+  height: 120px;
 }
-.displayNone{
-    display: none;
+.displayNone {
+  display: none;
 }
-.sign-out{
-    border: 1px solid #36ffb4;
-    color: #0068b7;
-    display: flex;
-    background: #dcf9fd;
-    position: absolute;
-    right: 20px;
-    top: 60px;
-    width: 50px;
-    height: 50px;
+.sign-out {
+  border: 1px solid #36ffb4;
+  color: #0068b7;
+  display: flex;
+  background: #dcf9fd;
+  position: absolute;
+  right: 20px;
+  top: 60px;
+  width: 50px;
+  height: 50px;
 }
-.sign-out i{
-    margin: auto;
-    font-size: 20px;
+.sign-out i {
+  margin: auto;
+  font-size: 20px;
 }
-.bottom-app{
-    height: calc(100% - 220px);
-    width: 100%;
-    flex-grow: 1;
-    display: flex;
-    position: relative;
+.bottom-app {
+  height: calc(100% - 220px);
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  position: relative;
 }
-.message-container .RTM-message{
-    word-break: break-word;
+.message-container .RTM-message {
+  word-break: break-word;
 }
-.tool-board{
-    width: 3%;
-    background: #F3F3F3;
+.tool-board {
+  width: 3%;
+  background: #f3f3f3;
 }
-#whiteboard{
-    width:77%;
-    background:#ffffff;
+#whiteboard {
+  width: 77%;
+  background: #ffffff;
 }
-#screenShare{
-    position: relative;
-    width: 77%;
-    display: none;
-    background: #ffffff8c;
+#screenShare {
+  position: relative;
+  width: 77%;
+  display: none;
+  background: #ffffff8c;
 }
-#onScreenShare{
-    height: 30px;
-    width: 30px;
-    margin: 10px auto;
-    outline: none;
-    border: none;
-    color: #3851d9;
-    background: #c2c2c2;
-    border-radius: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#onScreenShare {
+  height: 30px;
+  width: 30px;
+  margin: 10px auto;
+  outline: none;
+  border: none;
+  color: #3851d9;
+  background: #c2c2c2;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#offScreenShare{
-    display: none;
-    outline: none;
-    border: none;
-    background: #bbb;
-    border-radius: 5px;
-    height: 30px;
-    width: 30px;
-    top: 0;
-    position: absolute;
-    left: 0;
-    color: #fff;
-    z-index: 100;
+#offScreenShare {
+  display: none;
+  outline: none;
+  border: none;
+  background: #bbb;
+  border-radius: 5px;
+  height: 30px;
+  width: 30px;
+  top: 0;
+  position: absolute;
+  left: 0;
+  color: #fff;
+  z-index: 100;
 }
-#nameUserScreenShare{
-    font-size: 20px;
-    margin-top: 10px;
-    display: none;
-    height: 40px;
-    line-height: 40px;
-    width: 100%;
-    text-align: center;
+#nameUserScreenShare {
+  font-size: 20px;
+  margin-top: 10px;
+  display: none;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
 }
-.chat-box{
-    flex-grow: 1;
-    padding: 10px;
-    width: 20%;
-    background: #dcf6f9;
+.chat-box {
+  flex-grow: 1;
+  padding: 10px;
+  width: 20%;
+  background: #dcf6f9;
 }
-.message-container{
-    width: 100%;
-    height: 94%;
-    overflow: auto;
+.message-container {
+  width: 100%;
+  height: 94%;
+  overflow: auto;
 }
-.message-container::-webkit-scrollbar{
-    display: none;
+.message-container::-webkit-scrollbar {
+  display: none;
 }
-#input-chat{
-    border-radius: 5px;
-    background: #ffffff;
-    border: none;
-    width: 100%;
-    outline: none;
-    height: 30px;
-    padding: 10px;
+#input-chat {
+  border-radius: 5px;
+  background: #ffffff;
+  border: none;
+  width: 100%;
+  outline: none;
+  height: 30px;
+  padding: 10px;
 }
 
-.tool{
-    margin-bottom: 5px;
-    width: 100%;
-    display: flex;
-    height: 30px;
+.tool {
+  margin-bottom: 5px;
+  width: 100%;
+  display: flex;
+  height: 30px;
 }
-.tool i{
-    color: #3e3e3e;
-    margin: auto;
-    font-size: 20px;
-    cursor: pointer;
+.tool i {
+  color: #3e3e3e;
+  margin: auto;
+  font-size: 20px;
+  cursor: pointer;
 }
-.tool label{
-    margin:auto;
+.tool label {
+  margin: auto;
 }
-#uploadTool >input{
-    display: none;
+#uploadTool > input {
+  display: none;
 }
-#colorPicker>input{
-    display: none;
+#colorPicker > input {
+  display: none;
 }
-.load-icon{
-    position: absolute;
-    top: 200px;
-    left: 500px;
-    display: none;
-    z-index: 1000;
+.load-icon {
+  position: absolute;
+  top: 200px;
+  left: 500px;
+  display: none;
+  z-index: 1000;
 }
-.load-icon i{
-    font-size: 50px;
-    color: #266d7a
+.load-icon i {
+  font-size: 50px;
+  color: #266d7a;
 }
