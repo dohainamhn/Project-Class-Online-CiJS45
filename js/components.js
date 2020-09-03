@@ -426,7 +426,7 @@ components.forgotScreen = ` <div class="container container-flex">
 <div class="forgot-content">
   <div class="row">
     <div class="forgot-img">
-      <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" alt="" />
+      <img src="./img/signin-image.jpg" alt="" />
     </div>
     <div class="forgot-form">
       <div class="title-heading">
@@ -528,7 +528,7 @@ components.registerScreen = ` <div class="container container-flex" >
       </form>
     </div>
     <div class="signup-img">
-      <img src="../Project-Class-Online-CiJS45/img/signup-image.jpg" />
+      <img src="./img/signup-image.jpg" />
     </div>
   </div>
 </div>`;
@@ -537,7 +537,7 @@ components.loginScreen = `  <div class="container container-flex">
 <div class="signin-content">
   <div class="row">
     <div class="signin-img">
-      <img src="../Project-Class-Online-CiJS45/img/signin-image.jpg" />
+      <img src="./img/signin-image.jpg" />
     </div>
     <div class="signin-form">
       <div class="signin-heading">
