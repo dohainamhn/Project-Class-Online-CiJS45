@@ -1,4 +1,4 @@
-const components = {}
+const components = {};
 components.selectRoomScreen = `
 <div class="container">
 <div class="nav-bar">
@@ -24,7 +24,7 @@ components.selectRoomScreen = `
                 <input id="search-conversations" type="text" placeholder="Search Conversations">
             </div>
             <div class="new-notification">
-                
+
             </div>
         </div>
         <div class="log-out-bnt">
@@ -40,6 +40,10 @@ components.selectRoomScreen = `
         <div class="room-list">
         </div>
         <div class = "paginate">
+        <button id="move-down" onclick = "moveDown()"> < </button>
+        <div class="Pagination"></div>
+        <button id="move-up" onclick = "moveUp()"> > </button>
+
         </div>
     </div>
     <div class="chat-button cursor" id="icon-chat-container"></div>
@@ -51,12 +55,12 @@ components.selectRoomScreen = `
         <div class="wrap">
             <div class="box-chat">
                 <div class="message-box">
-                    
+
                 </div>
                 <div class="input-message">
                     <input placeholder="Enter your message">
                     <div class="icon">
-                       
+
                     </div>
                 </div>
             </div>
@@ -64,7 +68,7 @@ components.selectRoomScreen = `
     </div>
 </div>
 </div>
-`
+`;
 components.classRoomScreen = `
 <div class="class-room">
   <div class="video-bar">
@@ -95,14 +99,14 @@ components.classRoomScreen = `
         <div class="tool" id="eraser"><i class="fas fa-eraser"></i></div>
         <div class="tool" id="text"><i class="fas fa-text-height"></i></div>
         <div class="tool" id="colorPicker" >
-            <label for="pickColor"> 
+            <label for="pickColor">
                 <i class="fas fa-palette"></i>
             </label>
             <input type="color" id="pickColor">
         </div>
         <div class="tool" id="newPage"><i class="far fa-file"></i></div>
         <div class="tool" id="uploadTool" >
-            <label for="fileInput"> 
+            <label for="fileInput">
               <i class="fas fa-file-upload"></i>
             </label>
             <input type="file" accept="image/png, image/jpeg" id="fileInput"></div>
@@ -112,7 +116,7 @@ components.classRoomScreen = `
     </div>
     <button id="offScreenShare">X</button>
     <div id="screenShare">
-        
+
     </div>
     <div class="chat-box ">
       <div class="message-container" id="message-container">
@@ -121,7 +125,7 @@ components.classRoomScreen = `
     </div>
   </div>
 </div>
-`
+`;
 
 components.createRoomScreen = `
 <div class="create-room-container">
@@ -150,7 +154,7 @@ components.createRoomScreen = `
     </form>
     <button class='btn-light' type="button" id="back-to-chat">X</button>
 </div>
-</div>`
+</div>`;
 components.updateProfileScreen = `
 <div class="container1">
 <div class="nav-bar">
@@ -178,7 +182,7 @@ components.updateProfileScreen = `
                 <input id="search-conversations" type="text" placeholder="Search Conversations">
             </div>
             <div class="new-notification">
-                
+
             </div>
         </div>
         <div class="log-out-bnt">
@@ -197,7 +201,7 @@ components.updateProfileScreen = `
             </div>
         </div>
         <div class="menu-div">
-            <h1 class="title"> Profile</h1>
+
             <div class="menu-bnt">
                 <div>
                     <button id="profile-bnt" class="active-bnt">Profile</button>
@@ -208,7 +212,7 @@ components.updateProfileScreen = `
             </div>
         </div>
         <div class="profile-box">
-            
+
         </div>
         <div class="chat-button cursor" id="icon-chat-container"></div>
         <div class="chat-one-to-one-container display-none">
@@ -219,7 +223,7 @@ components.updateProfileScreen = `
             <div class="wrap">
                 <div class="box-chat">
                     <div class="message-box">
-                        
+
                     </div>
                     <div class="input-message">
                         <input placeholder="Enter your message">
@@ -230,7 +234,7 @@ components.updateProfileScreen = `
         </div>
     </div>
 </div>
-`
+`;
 components.profileBox = `
 <div class="profile-row pd-t-2">
 <div class="info-profile">
@@ -245,10 +249,10 @@ components.profileBox = `
 <div class="about-me-profile">
 <label>About Me:</label>
 <p id="about-me">
-    
+
 </p>
-</div>`
-components.editProfileBox = `  
+</div>`;
+components.editProfileBox = `
 <form id="edit-profile-form" >
 <div class="update-profile-bnt">
     <button type="submit" class="bnt" id="update-profile-bnt">Update</button>
@@ -295,7 +299,7 @@ components.editProfileBox = `
         <textarea name="aboutMe"  cols="30" rows="10"></textarea>
     </div>
 </div>
-</form>`
+</form>`;
 components.editPasswordBox = `
 <form id="reset-password-form">
     <div class="input-bar mr-t-2">
@@ -303,7 +307,7 @@ components.editPasswordBox = `
         <input type="password" name="currentPassword">
         <span class="error" id="currentPassword" ></span>
     </div>
-    
+
     <div class="input-bar mr-t-2">
         <span class="label">New Password</span>
         <input type="password" name="password">
@@ -316,13 +320,13 @@ components.editPasswordBox = `
     </div>
     <button type=submit" class="bnt">Confirm</button>
 </form>
-`
+`;
 components.viewYourRoom = `
 <div class="right-container">
     <div class="room-list">
     </div>
 </div>
-`
+`;
 components.viewYourFriendProfile = `
 <div class="container1">
     <div class="nav-bar">
@@ -392,7 +396,7 @@ components.viewYourFriendProfile = `
             <div class="wrap">
                 <div class="box-chat">
                     <div class="message-box">
-                        
+
                     </div>
                     <div class="input-message">
                         <input placeholder="Enter your message">
@@ -403,18 +407,18 @@ components.viewYourFriendProfile = `
         </div>
     </div>
 </div>
-`
+`;
 components.friendChatMessage = `
 <div class="friend-message">
     <img src="../img/teacher.png">
     <div class="message">hellosssssssssssssssssssssssssssssssssss</div>
 </div>
-`
+`;
 components.yourChatMessage = `
 <div class="your-message">
     <div class="message">aloooooooooooooooooooooooooooooooooooooo</div>
 </div>
-`
+`;
 components.forgotScreen = ` <div class="container container-flex">
 <div class="forgot-content">
   <div class="row">
@@ -514,7 +518,7 @@ components.registerScreen = ` <div class="container container-flex" >
          Register
        </button>
        <div class="redirect-to-signin cursor-pointer">
-       I already have an account 
+       I already have an account
      </div>
          </div>
         </div>
@@ -604,35 +608,35 @@ components.popupIconChat = `
 <div class="popupIconChat">
   <table>
     <tr>
-      <td><img onclick="controller.returnSyntaxIconChat(0)" src="../Project-Class-Online-CiJS45/img/iconChat/1.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(1)" src="../Project-Class-Online-CiJS45/img/iconChat/2.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(2)" src="../Project-Class-Online-CiJS45/img/iconChat/3.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(3)" src="../Project-Class-Online-CiJS45/img/iconChat/4.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(4)" src="../Project-Class-Online-CiJS45/img/iconChat/5.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(5)" src="../Project-Class-Online-CiJS45/img/iconChat/6.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(6)" src="../Project-Class-Online-CiJS45/img/iconChat/7.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(7)" src="../Project-Class-Online-CiJS45/img/iconChat/8.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(0)" src=" ./img/iconChat/1.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(1)" src=" ./img/iconChat/2.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(2)" src=" ./img/iconChat/3.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(3)" src=" ./img/iconChat/4.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(4)" src=" ./img/iconChat/5.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(5)" src=" ./img/iconChat/6.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(6)" src=" ./img/iconChat/7.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(7)" src=" ./img/iconChat/8.gif"></td>
     </tr>
     <tr>
-      <td><img onclick="controller.returnSyntaxIconChat(8)" src="../Project-Class-Online-CiJS45/img/iconChat/9.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(9)" src="../Project-Class-Online-CiJS45/img/iconChat/10.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(10)" src="../Project-Class-Online-CiJS45/img/iconChat/11.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(11)" src="../Project-Class-Online-CiJS45/img/iconChat/12.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(12)" src="../Project-Class-Online-CiJS45/img/iconChat/13.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(13)" src="../Project-Class-Online-CiJS45/img/iconChat/14.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(14)" src="../Project-Class-Online-CiJS45/img/iconChat/15.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(15)" src="../Project-Class-Online-CiJS45/img/iconChat/16.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(8)" src=" ./img/iconChat/9.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(9)" src=" ./img/iconChat/10.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(10)" src=" ./img/iconChat/11.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(11)" src=" ./img/iconChat/12.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(12)" src=" ./img/iconChat/13.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(13)" src=" ./img/iconChat/14.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(14)" src=" ./img/iconChat/15.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(15)" src=" ./img/iconChat/16.gif"></td>
     </tr>
     <tr>
-      <td><img onclick="controller.returnSyntaxIconChat(16)" src="../Project-Class-Online-CiJS45/img/iconChat/17.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(17)" src="../Project-Class-Online-CiJS45/img/iconChat/18.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(18)" src="../Project-Class-Online-CiJS45/img/iconChat/19.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(19)" src="../Project-Class-Online-CiJS45/img/iconChat/20.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(20)" src="../Project-Class-Online-CiJS45/img/iconChat/21.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(21)" src="../Project-Class-Online-CiJS45/img/iconChat/22.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(22)" src="../Project-Class-Online-CiJS45/img/iconChat/23.gif"></td>
-      <td><img onclick="controller.returnSyntaxIconChat(23)" src="../Project-Class-Online-CiJS45/img/iconChat/24.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(16)" src=" ./img/iconChat/17.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(17)" src=" ./img/iconChat/18.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(18)" src=" ./img/iconChat/19.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(19)" src=" ./img/iconChat/20.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(20)" src=" ./img/iconChat/21.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(21)" src=" ./img/iconChat/22.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(22)" src=" ./img/iconChat/23.gif"></td>
+      <td><img onclick="controller.returnSyntaxIconChat(23)" src=" ./img/iconChat/24.gif"></td>
     </tr>
   </table>
 </div>
-`
+`;
