@@ -596,6 +596,15 @@ view.chat = async () => {
             messageInput.value = "";
         }
     });
+    messageInput.addEventListener('click',()=>{
+        if (model.currentConversation !== null) {
+            let a = document.getElementById(`${model.currentConversation.id}`)
+            a.style.fontWeight = "300";
+            let iconMessage = document.querySelector(".icon-notification");
+            iconMessage.style.display = "none";
+            model.updateCheckConversation('conversations', model.currentConversation.id, true)
+        }
+    })
     const searchBar = document.getElementById("search-conversations");
     searchBar.addEventListener("keyup", (e) => {
         const searchString = e.target.value.toLowerCase();
