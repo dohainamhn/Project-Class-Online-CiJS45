@@ -63,18 +63,18 @@
   outline: none;
   width: 150px;
   padding: 10px 30px;
-  border: 2px solid #007bff;
+  border: 2px solid #08aeea;
   background: none;
   border-radius: 5px;
   font-size: 16px;
   font-weight: 500;
   transition: 0.7s;
-  color: #007bff;
+  color: #08aeea;
   margin-top: 10px;
   cursor: pointer;
 }
 .bnt:hover {
-  background: #007bff;
+  background: #08aeea;
   color: #fff;
 }
 
