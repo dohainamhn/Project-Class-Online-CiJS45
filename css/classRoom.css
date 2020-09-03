@@ -29,12 +29,18 @@
    height: 120px;
 }
 .mic{ 
-   bottom: 0px;
-   left: 3px;
+   bottom: -6px;
+   left: 0px;
    position: absolute;
 }
 .mic i{
     color: #ff1734;
+}
+.teacher-video{
+    color: #f62741;
+    bottom: -8px;
+    left: 16px;
+    position: absolute;
 }
 .video{
     width: 100%;

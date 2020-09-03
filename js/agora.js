@@ -51,6 +51,14 @@ agora.joinChannel = (channelName, isTeacher) => {
         },
         (err) => {
             console.log("[ERROR] : join channel failed", err);
+            view.setActiveScreen('selectRoomScreen')
+            agora.client.unpublish(agora.localStreams.camera.stream)
+            agora.client.off("stream-published")
+            agora.client.off("stream-added")
+            agora.client.off('stream-subscribed')
+            agora.client.leave()
+            model.removeUserInRoom(agora.localStreams.camera.id, model.currentRoomID)
+            view.setActiveScreen('selectRoomScreen')
         }
     );
 }
@@ -72,8 +80,12 @@ agora.createCameraStream = (uid, isTeacher) => {
                 teacherCamera.firstElementChild.className = 'icon displayNone'
                 teacherbox.lastElementChild.innerHTML = `${firebase.auth().currentUser.displayName}`
                 let teacherMic = document.getElementById('teacher-mic')
+                let teacherVideoIcon = document.getElementById('teacher-video-icon')
                 teacherMic.addEventListener('click', () => {
                     controller.onOfMic(localStream.getId())
+                })
+                teacherVideoIcon.addEventListener('click',()=>{
+                    controller.onOffVideo(localStream.getId())
                 })
                 console.log('camera0 mo');
             }
@@ -128,6 +140,9 @@ agora.addRemoteStream = async (remoteStream, isTeacher, mic) => {
                 <div class="mic">
                     <i class="fas fa-microphone" onclick="controller.onOfMic(${streamId})"></i>
                 </div>
+                <div class="teacher-video" onclick="controller.onOffVideo(${streamId})">
+                    <i class="fas fa-video"></i>
+                </div>
                 <div class="info">${data.name}</div>
             </div>
             `
@@ -139,8 +154,12 @@ agora.addRemoteStream = async (remoteStream, isTeacher, mic) => {
             remoteStream.play(`video-teacher`);
             let teacherbox = document.getElementById('video-bar')
             let teacherMic = document.getElementById('teacher-mic')
+            let teacherVideo = document.getElementById('teacher-video-icon')
             teacherMic.addEventListener('click', () => {
                 controller.onOfMic(streamId)
+            })
+            teacherVideo.addEventListener('click',()=>{
+                controller.onOffVideo(streamId)
             })
             teacherbox.lastElementChild.innerHTML = `${data.name}`
         }
@@ -153,6 +172,9 @@ agora.addRemoteStream = async (remoteStream, isTeacher, mic) => {
                 </div>
                 <div class="mic">
                     <i class="fas fa-microphone"></i>
+                </div>
+                <div class="teacher-video">
+                    <i class="fas fa-video"></i>
                 </div>
                 <div class="info">${data.name}</div>
             </div>
@@ -273,6 +295,36 @@ agora.onListenUnMuteAudio = () => {
         console.log('unmute audio:' + uid);
     })
 }
+agora.onListenMuteVideo = () => {
+    agora.client.on("mute-video", (evt) => {
+        let uid = evt.uid
+        if (uid == 12345) {
+            let videoBox = document.getElementById('video-bar')
+            videoBox.querySelector('.teacher-video i').className = 'fas fa-video-slash'
+        }
+        else {
+            let videoBox = document.getElementById(`${uid}1`)
+            videoBox.querySelector('.teacher-video i').className = 'fas fa-video-slash'
+            console.log(videoBox);
+        }
+        console.log('mute video:' + uid);
+    })
+}
+agora.onListenUnMuteVideo = () => {
+    agora.client.on("unmute-video", (evt) => {
+        let uid = evt.uid
+        if (uid == 12345) {
+            let videoBox = document.getElementById('video-bar')
+            videoBox.querySelector('.teacher-video i').className = 'fas fa-video'
+        }
+        else {
+            let videoBox = document.getElementById(`${uid}1`)
+            videoBox.querySelector('.teacher-video i').className = 'fas fa-video'
+            console.log(videoBox);
+        }
+        console.log('unmute video:' + uid);
+    })
+}
 agora.generateToken = () => {
     return null;
 }
@@ -281,7 +333,8 @@ agora.onListenSubcribleRemoteStream()
 agora.onListenLeave()
 agora.onListenMuteAudio()
 agora.onListenUnMuteAudio()
-
+agora.onListenMuteVideo()
+agora.onListenUnMuteVideo()
 // ----------------------------------agoraRTM-----------------------------
 agora.ListenRtmConnect = () => {
     agora.RTMclient.on('ConnectionStateChange', (newState, reason) => {

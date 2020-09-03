@@ -77,7 +77,10 @@ components.classRoomScreen = `
               <div class="icon" id="icon"></div>
           </div>
           <div class="mic" id="teacher-mic">
-              <i class="fas fa-microphone"></i>
+            <i class="fas fa-microphone"></i>
+          </div>
+          <div class="teacher-video" id="teacher-video-icon">
+            <i class="fas fa-video"></i>
           </div>
           <div class="info" id="infoTeacher"> Teacher</div>
       </div>
