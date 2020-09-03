@@ -109,6 +109,7 @@ model.addUserToRoom = (id, currentRoomID) => {
         name: firebase.auth().currentUser.displayName,
         email: model.currentUser.email,
         onMic: true,
+        onVideo:true,
         photoURL: firebase.auth().currentUser.photoURL
     });
     ref.onDisconnect().remove();

@@ -188,6 +188,56 @@ controller.onOfMic = async (id) => {
     }
   }
 };
+controller.onOffVideo = async(id)=>{
+  let data = await model.getUserIntoRoom(id, model.currentRoomID);
+  let ref = firebase.database().ref(`${model.currentRoomID}/` + id);
+  if (data.onVideo) {
+    if (id == agora.localStreams.camera.id) {
+      agora.localStreams.camera.stream.muteVideo();
+      ref.update({
+        onVideo: false,
+      });
+      if (id == 12345) {
+        let videoBox = document.getElementById("video-bar");
+        videoBox.querySelector(".teacher-video i").className = "fas fa-video-slash";
+      } else {
+        let videoBox = document.getElementById(`${id}1`);
+        videoBox.querySelector(".teacher-video i").className = "fas fa-video-slash";
+      }
+      console.log("video mute self");
+    } else {
+      let find = agora.remoteStreams.find((item) => item.id == id);
+      find.stream.muteVideo();
+      console.log("video mute :" + find.id);
+      ref.update({
+        onVideo: false,
+      });
+    }
+  } else {
+    if (id == agora.localStreams.camera.id) {
+      agora.localStreams.camera.stream.unmuteVideo();
+      ref.update({
+        onVideo: true,
+      });
+      if (id == 12345) {
+        let videoBox = document.getElementById("video-bar");
+        videoBox.querySelector(".teacher-video i").className = "fas fa-video";
+      } else {
+        let videoBox = document.getElementById(`${id}1`);
+        videoBox.querySelector(".teacher-video i").className = "fas fa-video";
+      }
+      console.log("unmute video self");
+    } else {
+      let find = agora.remoteStreams.find((item) => item.id == id);
+      find.stream.unmuteVideo();
+      console.log("unmute video :" + find.id);
+      ref.update({
+        onVideo: true,
+      });
+    }
+  }
+  console.log('off video');
+}
 controller.checkChannelName = (data) => {
   let find = model.rooms.find((item) => item.channel == data);
   let error = document.getElementById("channelError");
