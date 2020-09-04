@@ -132,6 +132,7 @@ view.setActiveScreen = async (screen, id) => {
             {
                 // in ra man login
                 document.getElementById('app').innerHTML = components.selectRoomScreen
+                view.viewPage = 1
                 view.listenChat = model.listenConversation()
                 let listenRoomChange = model.listenRoomChange(view.listenChat)
                 view.onclickNotification()
