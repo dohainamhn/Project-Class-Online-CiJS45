@@ -695,6 +695,13 @@ view.addNewRoom = (roomID, roomData) => {
     let deleteRoomBtn = document.getElementById(`delete${roomID}`);
     let joinRoom = document.getElementById(`join-room-${roomID}`);
     joinRoom.addEventListener("click", async () => {
+        let membersInRoom = await model.getUserIntoRoom(null,roomID)
+        if(membersInRoom !== null){
+            if(Object.keys(membersInRoom).length >= 6){
+                alert('this rooms is full')
+                return
+            }
+        }
         if (roomData.password !== "") {
             var person = prompt("Please enter password");
             if (person === roomData.password) {
