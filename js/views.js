@@ -184,10 +184,18 @@ view.setActiveScreen = async (screen, id) => {
                         }
                     }
                     else {
+                       if(model.rooms.length < 7){
+                        for (let i = 0; i < model.rooms.length; i++) {
+                            view.addNewRoom(model.rooms[i].fireBaseID, model.rooms[i])
+                            let pagniate = document.querySelector('.paginate').style.display = 'flex'
+                        }
+                       }
+                       else{
                         for (let i = 0; i <= 7; i++) {
                             view.addNewRoom(model.rooms[i].fireBaseID, model.rooms[i])
                             let pagniate = document.querySelector('.paginate').style.display = 'flex'
                         }
+                       }
                     }
                 });
                 // ----------------------- Chat-box -----------------------
