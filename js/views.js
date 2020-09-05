@@ -186,7 +186,7 @@ view.setActiveScreen = async (screen, id) => {
                     else {
                         for (let i = 0; i <= 7; i++) {
                             view.addNewRoom(model.rooms[i].fireBaseID, model.rooms[i])
-                            let pagniate = document.querySelector('.paginate').style.display = 'block'
+                            let pagniate = document.querySelector('.paginate').style.display = 'flex'
                         }
                     }
                 });
@@ -772,6 +772,7 @@ view.getUsers = (data, listenChat) => {
 };
 
 view.getRooms = (data) => {
+    if(data == undefined ) return
     const roomWrapper = document.createElement("div");
     roomWrapper.className = "room-bar-wrap";
     roomWrapper.id = data.id;
@@ -829,7 +830,7 @@ view.getRooms = (data) => {
     joinRoom.addEventListener("mouseover", async () => {
         let r = model.rooms.find((item) => item.fireBaseID == data.id);
         // let r = await model.getRoomInfo(roomID)
-        view.getInFoRoom(roomID, r);
+        view.getInFoRoom(data.id, r);
     });
     deleteRoomBtn.addEventListener("click", () => {
         let popup = document.querySelector(`#delete${data.id} .popup-form`);
