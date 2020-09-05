@@ -27,7 +27,7 @@ body {
 
 .container .signup-content .input-wrapper label {
   position: absolute;
-  bottom: 7px;
+  bottom: 5px;
 }
 .container-flex {
   height: 100vh;
