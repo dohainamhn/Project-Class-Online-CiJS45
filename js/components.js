@@ -219,7 +219,7 @@ components.updateProfileScreen = `
         </div>
         <div class="chat-button cursor" id="icon-chat-container"></div>
         <div class="chat-one-to-one-container display-none">
-            <button class="top-message-box">chat with dohainamhn3@gmail.com</button>
+            <button class="top-message-box">Please enter your friend email to chat</button>
             <div class="top-input">
                 <input type="tex" id="input-chat-email" placeholder="Enter your friend email">
             </div>
@@ -392,7 +392,7 @@ components.viewYourFriendProfile = `
         </div>
         <div class="chat-button cursor" id="icon-chat-container"></div>
         <div class="chat-one-to-one-container display-none">
-            <button class="top-message-box">chat with dohainamhn3@gmail.com</button>
+            <button class="top-message-box">Please enter your friend email to chat</button>
             <div class="top-input">
                 <input type="tex" id="input-chat-email" placeholder="Enter your friend email">
             </div>

@@ -290,11 +290,15 @@ view.setActiveScreen = async (screen, id) => {
             document.getElementById("app").innerHTML = components.classRoomScreen;
             let signOutBnt = document.getElementById("sign-out");
             signOutBnt.style.display = "none";
-            let inputChat = document.getElementById("input-chat");
+            let inputChat = document.getElementById("input-chat"); 
+            let room = null
             let roomInfo = await model.getRoomInfo(id);
-
-            let room = await agora.initWhiteBoardAndJoinRoom(roomInfo);
-
+            try {
+                room = await agora.initWhiteBoardAndJoinRoom(roomInfo);
+            } catch (error) {
+                alert('some error occurred')
+                view.setActiveScreen("selectRoomScreen")
+            }
             agora.addEventListenerToolBoard(room, roomInfo);
 
             roomInfo.host == firebase.auth().currentUser.email
