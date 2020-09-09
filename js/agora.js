@@ -391,8 +391,8 @@ agora.RtmReceiveMessage = () => {
     console.log("sender:" + senderId);
     console.log("text:" + text);
     let user = await model.getInfoUser(senderId);
-    if (text.value.trim() !== "")
-      view.addMessage(firebase.auth().currentUser.displayName, inputChat.value);
+    if (text.trim() !== "")
+      view.addMessage(user.name,text);
     let messageBox = document.getElementById("message-container");
     messageBox.scrollTop = messageBox.scrollHeight;
   });
