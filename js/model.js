@@ -18,7 +18,7 @@ model.register = (data) => {
                 .auth()
                 .currentUser.updateProfile({
                     displayName: data.lastName.value + " " + data.firstName.value,
-                    photoURL: "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
+                    photoURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png",
                 })
                 .then(() => {
                     model.addFireStore("users", {
@@ -26,7 +26,7 @@ model.register = (data) => {
                         email: res.user.email,
                         isTeacher: data.checkJob.value,
                         password: data.password.value,
-                        photoURL: "https://firebasestorage.googleapis.com/v0/b/chat-app-bc2a8.appspot.com/o/user.png?alt=media&token=28e24cc2-86bd-43f8-aa54-2a62ef76650a",
+                        photoURL: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/220px-User_icon_2.svg.png",
                     });
                 });
             firebase.auth().currentUser.sendEmailVerification();

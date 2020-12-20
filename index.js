@@ -1,20 +1,22 @@
 let init = () => {
     // Your web app's Firebase configuration
     var firebaseConfig = {
-        apiKey: "AIzaSyCHwB8S2pGDecPzik0xB1JNyluCVohyTlk",
-        authDomain: "chat-app-bc2a8.firebaseapp.com",
-        databaseURL: "https://chat-app-bc2a8.firebaseio.com",
-        projectId: "chat-app-bc2a8",
-        storageBucket: "chat-app-bc2a8.appspot.com",
-        messagingSenderId: "922317285890",
-        appId: "1:922317285890:web:fbac59705c66cf64a7551b"
-    };
+        apiKey: "AIzaSyBeZW2CzlJOzwC3Szr3kZnmtCprBsCR7MY",
+        authDomain: "react-chat-81535.firebaseapp.com",
+        databaseURL: "https://react-chat-81535.firebaseio.com",
+        projectId: "react-chat-81535",
+        storageBucket: "react-chat-81535.appspot.com",
+        messagingSenderId: "91507817734",
+        appId: "1:91507817734:web:fbe07fdd172e7684357287"
+      };
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged(async(user) => {
         if (user) {
+            console.log(user);
             if (user.emailVerified) {
                 let currentUser = await model.getInfoUser(user.email)
+                console.log(currentUser);
                 model.currentUser = {
                     displayName: user.displayName,
                     email: user.email,
